@@ -1,48 +1,5 @@
-# Baby Yoda's bot
-
-## Description
-
-A personal Baby Yoda's bot that helps you manage your contacts and notes.
-
-## Table of Contents
-
--   [Installation](#installation)
--   [Basic functionality](#basic-functionality)
--   [Commands](#commands)
-
-## Installation
-
-### By GitHub
-
-1. [Download ZIP](https://github.com/orm81zp/project-BabyYodaBot) from GitHub.
-2. Extract the archive.
-3. Install all dependencies `pip install -r requirements.txt`.
-4. Go to the project folder and run `python3 test_baby_yoda.py`.
-
-### By pip
-
-Not availble yet
-
-## Basic functionality
-
--   Save contacts with names, addresses, phone numbers, email and birthdays to the contact book.
--   Display a list of contacts whose birthday is a specified number of days from the current date.
--   Check the correctness of the entered phone number and email when creating or editing a record and notify the user in case of incorrect entry.
--   Search by contacts.
--   Edit and delete entries from the contact book.
--   Keep notes with text information.
--   Edit and delete notes.
--   Add and delete tags.
--   Search by notes or tags.
-
-Can be restarted without losing data. All data (contacts, notes) are stored on the hard disk.
-
-### Commands
-
-Type `help` to see all commands. The example of the output is below:
-
-```
-add-contact               - used to add a new contact with all fields at once (wizard form): add-contact
+HELP_MENU = """
+add-contact               - used to add a new contact all fields at once (wizard form): add-contact
 search-contact            - used to search contacts by name, birthday, email, phone, address (case-insensitive): search-contact <search value>
 show-contact              - used to display a contact: show-contact <name>
 all-contacts              - used to display all contacts: all-contacts
@@ -93,18 +50,8 @@ Validation rules:
 <birthday>                - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
 <search value>            - case-insensitive world characters. Example: hello world
 [days range]              - (optional) a number of days (7 by default). Example: 14
-```
+"""
 
-### help
+TEXT = {"WELCOME": 'Welcome to Baby Yoda\'s Bot!\nType "help" to see all commands!\n'}
 
-Used to display all commands: `help`.
-
-### close or exit
-
-use `close` or `exit` to close the program. The current data will be saved.
-
-```
-Enter a command: exit
-Good bye!
-✓ Contact book saved!
-```
+__all__ = ["HELP_MENU", "TEXT"]

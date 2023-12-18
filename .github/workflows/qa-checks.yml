@@ -1,0 +1,41 @@
+name: qa-checks
+
+on:
+    push:
+        branches:
+            - "master"
+    pull_request:
+        branches:
+            - "master"
+            - "develop"
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                # Run in all Python versions
+                python-version: [3.10.12]
+
+        steps:
+            # Checkout the latest code from the repo
+            - name: Checkout repo
+              uses: actions/checkout@v4
+            # Set up Python
+            - name: Set Up Python ${{ matrix.python-version }}
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ matrix.python-version }}
+                  cache: "pip"
+            # Display used the Python version
+            - name: Display Python version
+              run: python -c "import sys; print(sys.version)"
+            # Install setuptools
+            - name: Install setuptools
+              run: python3 -m pip install setuptools
+            # Install the package using the setup.py
+            - name: Install package
+              run: python setup.py install
+            - name: Run tests
+              run: python -m unittest discover -s tests
