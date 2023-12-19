@@ -57,7 +57,7 @@ class AddressBook(UserDict):
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
-            pickle.dump(self, file)
+            pickle.dump(self.data, file)
 
     def read_from_file(self):
         try:

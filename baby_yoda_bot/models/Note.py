@@ -5,72 +5,74 @@ from .Field import Field
 
 
 class Content(Field):
-    def __init__(self, value=""):
-        super().__init__(value)
-        self.value = value
-
     @property
     def value(self):
-        return self._value
+        return self.__value
 
     @value.setter
     def value(self, new_value):
         if new_value and len(new_value) > 10 and len(new_value) <= 500:
-            self._value = new_value
+            self.__value = new_value
         else:
             raise ValidationValueException("Content failed validation.")
 
     def __str__(self):
-        return str(self.value)
+        return str(self.__value)
 
     def __repr__(self):
-        return str(self._value)
+        return str(f"Content: {self.__value}")
 
 
 class Title(Field):
-    def __init__(self, value=""):
-        super().__init__(value)
-        self.value = value
+    @property
+    def value(self):
+        return self.__value
 
     @value.setter
     def value(self, new_value):
         if new_value and len(new_value) > 4 and len(new_value) <= 20:
-            self._value = new_value
+            self.__value = new_value
         else:
             raise ValidationValueException("Title failed validation.")
 
     def __str__(self):
-        return str(self._value)
+        return str(self.__value)
 
     def __repr__(self):
-        return str(self._value)
+        return str(f"Title: {self.__value}")
+
 
 class Tag(Field):
-    def __init__(self, value=None):
-        super().__init__(value)
-        self.value = []
-
     @property
     def value(self):
-        return self._value
+        return self.__value
 
     @value.setter
     def value(self, new_value):
         if new_value and re.search(r"^\w{1,15}$", new_value):
-            self._value = new_value
+            self.__value = new_value
         else:
             raise ValidationValueException("Tag failed validation.")
 
     def __str__(self):
-        return str(self._value)
+        return str(self.__value)
 
     def __repr__(self):
-        return str(self._value)
+        return str(f"Tag: {self.__value}")
 
-class Note():
+
+class Note:
     def __init__(self, title, content, tags):
         self.title = Title(title)
-        self.__content = Content(content)
+        self.content = Content(content)
         self.tags = []
         self.DateCreation = time.strftime("%Y-%m-%d %H:%M:%S")
         self.DateModified = None
+        self.add_tags(tags)
+
+    def add_tags(self, tags):
+        if tags and isinstance(tags, list):
+            for tag in tags:
+                for i in self.tags:
+                    if str(i) != tag:
+                        self.tags.append(Tag(tag))
