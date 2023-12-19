@@ -7,7 +7,7 @@ from ..utils import generate_uuid
 
 class AddressBook(UserDict):
     def __init__(self):
-        self.filename = "AddressBookData.bob"
+        self.filename = "AddressBookData.dat"
         super().__init__({"contacts": {}})
 
     def find_record(self, name, birthday, email):
