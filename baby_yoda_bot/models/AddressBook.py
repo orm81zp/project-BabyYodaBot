@@ -28,15 +28,18 @@ class AddressBook(UserDict):
         res = list()
         if name != None:
             if name in self.data:
-                return res.append(self.data[name])
+                res.append(self.data[name])
         if email != None:
-            return filter(lambda record: record.email.value == email, self.data)
+            res.extend(
+                list(
+                    filter(
+                        lambda record: record.email.value == email, self.data.values()
+                    )
+                )
+            )
 
         # //todo birthday search
-        # //todo email search
-
-        else:
-            print(f"User with  name  {name} not exist")
+        return res
 
     # @input_error
     def save(self, record):

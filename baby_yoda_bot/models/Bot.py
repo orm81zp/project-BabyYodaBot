@@ -26,9 +26,10 @@ class Bot:
         self.address_book.save(record)
         self.address_book.show()
 
-        data123 = self.address_book.find(email="antonina@gmail.com")
-        for i, d in data123:
-            print(d)
+        # list_baby_record = self.address_book.find(email="antonina@gmail.com")   # вернет list baby_yoda_bot.models.Record.Record
+        # for record in list_baby_record:
+        #     print(record)
+
         # print(self.address_book)
         # print(self.address_book.show())
         # record = Record('Anton')  # required name
