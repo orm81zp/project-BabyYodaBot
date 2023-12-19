@@ -1,7 +1,7 @@
-from ..models.Phone import Phone
-from ..models.Name import Name
-from ..models.Email import Email
-from ..models.Birthday import Birthday
+from .Phone import Phone
+from .Name import Name
+from .Email import Email
+from .Birthday import Birthday
 
 
 class Record:
@@ -11,6 +11,9 @@ class Record:
         self.birthday = None
         self.email = None
         self.address = None
+
+    def add_email(self, email):
+        self.email = Email(email)
 
     def add_phone(self, number):
         self.phones.append(Phone(number))

@@ -1,5 +1,5 @@
 from ..exceptions import ValidationValueException
-from ..models.Field import Field
+from .Field import Field
 
 
 class Phone(Field):
