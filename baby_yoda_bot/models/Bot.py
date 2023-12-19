@@ -14,9 +14,10 @@ class Bot:
     def command1(self):
         # example how to add Record
         record = Record("Alex")  # required name
-        record.add_birthday("23.02.1985")  # not required
-        record.add_phone("+380503611576")  # not required
-        record.add_address("alex@gmail.com")  # not required
+        # record.add_birthday("23.02.1985")  # not required
+        # record.add_phone("+380503611576")  # not required
+        # record.add_address("alex@gmail.com")  # not required
+        print(record)
         self.address_book.saveRecord(record)
         # print(self.address_book.show())
         # record = Record('Anton')  # required name
