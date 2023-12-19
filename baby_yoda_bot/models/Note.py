@@ -1,6 +1,7 @@
+import re
 import time
-import Field
 from ..exceptions import ValidationValueException
+from .Field import Field
 
 
 class Content(Field):

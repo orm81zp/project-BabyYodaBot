@@ -5,3 +5,5 @@ from .Name import *
 from .Email import *
 from .Birthday import *
 from .Record import *
+from .Bot import *
+from .Notes import *
