@@ -10,19 +10,19 @@ class AddressBook(UserDict):
         self.filename = "AddressBookData.dat"
         super().__init__({"contacts": {}})
 
-    def find_record(self, name, birthday, email):
+    def find(self, name, birthday, email):
         pass
         # return record
 
-    def save_record(self, record):
+    def save(self, record):
         pass
         # void
 
-    def remove_record(self, record):
+    def remove(self, record):
         pass
         # void
 
-    def add_record(self, record):
+    def add(self, record):
         pass
         # void
 
