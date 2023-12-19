@@ -1,6 +1,6 @@
 # adds .vscode folder to ignored files
 .vscode/**/*
-
+.idea/*
 # exclude these files from being ignored
 # !.vscode/settings.json
 # !.vscode/extensions.json
