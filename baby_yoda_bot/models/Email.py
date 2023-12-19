@@ -17,4 +17,4 @@ class Email(Field):
             raise ValidationValueException("Email failed validation.")
 
     def __str__(self):
-        return f"Email: {self.__value}"
+        return self.__value

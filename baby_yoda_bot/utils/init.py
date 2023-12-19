@@ -1,5 +1,8 @@
 from ..models import AddressBook
 
+#  TODO move to logic
+#  AddressBook method read_from_file and save_to_file
+
 
 def start_work() -> AddressBook:
     """TODO logic to load contact book if a file exists"""
