@@ -30,7 +30,7 @@ class AddressBook(UserDict):
             if name in self.data:
                 return res.append(self.data[name])
         if email != None:
-            return filter(lambda record: str(record.email.value) == email, self.data)
+            return filter(lambda record: record.email.value == email, self.data)
 
         # //todo birthday search
         # //todo email search

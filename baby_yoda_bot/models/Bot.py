@@ -25,10 +25,10 @@ class Bot:
         record.add_address("antonina@gmail.com")  # not required
         self.address_book.save(record)
         self.address_book.show()
-        print(record.email)
-        # data123  =  self.address_book.find(email="antonina@gmail.com")
-        # for i,d in data123:
-        #     print(d)
+
+        data123 = self.address_book.find(email="antonina@gmail.com")
+        for i, d in data123:
+            print(d)
         # print(self.address_book)
         # print(self.address_book.show())
         # record = Record('Anton')  # required name
