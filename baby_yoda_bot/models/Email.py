@@ -1,8 +1,6 @@
 import re
-
 from ..exceptions import ValidationValueException
 from ..models.Field import Field
-import re
 
 
 class Email(Field):

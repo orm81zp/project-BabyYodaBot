@@ -1,6 +1,6 @@
+from datetime import datetime
 from ..exceptions import ValidationValueException
 from ..models.Field import Field
-from datetime import datetime
 
 
 class Birthday(Field):
