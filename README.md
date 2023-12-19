@@ -43,6 +43,7 @@ Type `help` to see all commands. The example of the output is below:
 
 ```
 add-contact               - used to add a new contact with all fields at once (wizard form): add-contact
+change-contact            - used to change all conact's fields at once (wizard form): change-contact
 search-contact            - used to search contacts by name, birthday, email, phone, address (case-insensitive): search-contact <search value>
 show-contact              - used to display a contact: show-contact <name>
 all-contacts              - used to display all contacts: all-contacts
