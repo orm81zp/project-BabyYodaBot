@@ -2,6 +2,7 @@ CMD_ADD_ADDRESS = "add-address"
 CMD_SHOW_ADDRESS = "show-address"
 CMD_REMOVE_ADDRESS = "remove-address"
 CMD_ADD_CONTACT = "add-contact"
+CMD_CHANGE_CONTACT = "change-contact"
 CMD_SEARCH_CONTACT = "search-contact"
 CMD_SHOW_CONTACT = "show-contact"
 CMD_ALL_CONTACTS = "all-contacts"
@@ -72,6 +73,11 @@ COMMANDS = [
         "commands": [CMD_ADD_CONTACT],
         "arguments": [],
         "description": "used to add a new contact with all fields at once (wizard form)",
+    },
+    {
+        "commands": [CMD_CHANGE_CONTACT],
+        "arguments": [],
+        "description": "used to change all conact's fields at once (wizard form)",
     },
     {
         "commands": [CMD_SEARCH_CONTACT],
