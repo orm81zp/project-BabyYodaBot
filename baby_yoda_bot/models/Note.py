@@ -44,7 +44,6 @@ class Title(Field):
     def __repr__(self):
         return str(self._value)
 
-
 class Tag(Field):
     def __init__(self, value=None):
         super().__init__(value)
@@ -67,11 +66,10 @@ class Tag(Field):
     def __repr__(self):
         return str(self._value)
 
-
-class Note:
-    def __init__(self, title, content, tag):
+class Note():
+    def __init__(self, title, content, tags):
         self.title = Title(title)
         self.__content = Content(content)
-        self.tags = Tag(tag)
+        self.tags = []
         self.DateCreation = time.strftime("%Y-%m-%d %H:%M:%S")
         self.DateModified = None
