@@ -38,7 +38,7 @@ class Record:
         for phone in self.phones:
             if str(phone) == search_phone:
                 return phone
-        raise ValueError("Phone not found")
+        print("Phone not found")
 
     def remove_phone(self, search_phone):
         try:
