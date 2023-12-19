@@ -16,4 +16,4 @@ class Phone(Field):
             raise ValidationValueException("Phone failed validation.")
 
     def __str__(self):
-        return f"Phone: {self.__value}"
+        return self.__value

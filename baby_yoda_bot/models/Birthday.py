@@ -16,13 +16,14 @@ class Birthday(Field):
         except ValueError:
             raise ValidationValueException("Birthday failed validation.")
 
-        # check that the birthday is not in the future
         if birthday > datetime.today():
             raise ValidationValueException(
                 "Birthday failed validation. The future's date of birth is not accepted."
             )
 
-        self._value = birthday
+        self.__value = birthday
 
     def __str__(self):
-        return f"Birthday: {self.__value}"
+        return (
+            self.__value.strftime("%d.%m.%Y") if self.__value != None else "Not defined"
+        )

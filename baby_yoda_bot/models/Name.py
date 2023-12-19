@@ -15,4 +15,4 @@ class Name(Field):
             raise ValidationValueException("Name failed validation.")
 
     def __str__(self):
-        return f"Name: {self.__value}"
+        return self.__value
