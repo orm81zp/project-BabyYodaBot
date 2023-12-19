@@ -31,7 +31,7 @@ class Record:
 
     def change_phone(self, old_phone, new_phone):
         for i in range(len(self.phones)):
-            if str(self.phones[i]) == str(old_phone):
+            if str(self.phones[i]) == old_phone.strip(""):
                 self.phones[i] = Phone(new_phone)
 
     def find_phone(self, search_phone):
@@ -44,8 +44,8 @@ class Record:
         try:
             phone = self.find_phone(search_phone)
             self.phones.remove(phone)
-        except Exception:
-            raise KeyError("Phone not found")
+        except KeyError:
+            print("Phone not found")
 
     # ----------- BIRTHDAY----------------------------------------------
 

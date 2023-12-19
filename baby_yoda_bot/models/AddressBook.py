@@ -1,3 +1,4 @@
+import pickle
 from collections import UserDict
 from ..utils import generate_uuid
 
@@ -6,6 +7,7 @@ from ..utils import generate_uuid
 
 class AddressBook(UserDict):
     def __init__(self):
+        self.filename = "AddressBookData.bob"
         super().__init__({"contacts": {}, "notes": []})
 
     def find(self, name):
@@ -56,6 +58,9 @@ class AddressBook(UserDict):
     def add_birthday(self):
         pass
 
+    def find_birthday(self, birthday):
+        pass
+
     def show_birthday(self):
         pass
 
@@ -104,6 +109,18 @@ class AddressBook(UserDict):
 
     def remove_note(self):
         pass
+
+    def save_to_file(self):
+        with open(self.filename, "wb") as file:
+            pickle.dump(self, file)
+
+    def read_from_file(self):
+        try:
+            with open(self.filename, "rb") as file:
+                self.data = pickle.load(file)
+            return self.data
+        except (OSError, IOError) as e:
+            pass
 
 
 __all__ = ["AddressBook"]
