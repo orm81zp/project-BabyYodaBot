@@ -1,30 +1,56 @@
 import pickle
 from collections import UserDict
-from ..utils import generate_uuid
+from .Record import Record
 
-# TODO ADD ..utils/prin_message to AddressBook such as Deleted, Updated etc.
+
+def input_error(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ValueError as e:
+            print(str(e))
+        except KeyError as e:
+            print("User not found. Please provide valid data.")
+        except IndexError:
+            print("Please  check your input.")
+
+    return inner
 
 
 class AddressBook(UserDict):
     def __init__(self):
+        self.data = dict()
         self.filename = "AddressBookData.dat"
-        super().__init__({"contacts": {}})
 
-    def find(self, name, birthday, email):
-        pass
-        # return record
+    def find(self, name=None, birthday=None, email=None):
+        if name is None and birthday is None and email is None:
+            return self.data
+        if name in self.data:
+            return self.data[name]
+        else:
+            print(f"User with  name  {name} not exist")
 
-    def save(self, record):
-        pass
-        # void
+    # @input_error
+    def saveRecord(self, record: Record):
+        nameRecord = str(record.name)
+        self.data[nameRecord] = record
 
-    def remove(self, record):
-        pass
-        # void
+    def find(self, name):
+        if name in self.data:
+            return self.data[name]
+        else:
+            raise KeyError(f"User with  name  {name} not exist")
 
-    def add(self, record):
-        pass
-        # void
+    # @input_error
+    def delete(self, name):
+        if name in self.data:
+            del self.data[name]
+
+    def show(self):
+        if len(self.data) == 0:
+            print("Address Book is empty")
+        for record in self.data.values():
+            print(record)
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
@@ -37,6 +63,3 @@ class AddressBook(UserDict):
             return self.data
         except (OSError, IOError) as e:
             pass
-
-
-__all__ = ["AddressBook"]
