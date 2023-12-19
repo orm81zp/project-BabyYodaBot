@@ -27,7 +27,7 @@ class Birthday(Field):
         # check that the birthday is not in the future
         if birthday_date > datetime.date.today():
             raise ValidationValueException(
-                "Birthday failed validation. The future's date of birth is not accepted"
+                "Birthday failed validation. The future's date of birth is not accepted."
             )
 
         self._value = new_value
