@@ -3,20 +3,6 @@ from collections import UserDict
 from .Record import Record
 
 
-def input_error(func):
-    def inner(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except ValueError as e:
-            print(str(e))
-        except KeyError as e:
-            print("User not found. Please provide valid data.")
-        except IndexError:
-            print("Please  check your input.")
-
-    return inner
-
-
 class AddressBook(UserDict):
     def __init__(self):
         self.data = dict()
@@ -37,16 +23,23 @@ class AddressBook(UserDict):
                     )
                 )
             )
+        if birthday != None:
+            res.extend(
+                list(
+                    filter(
+                        lambda record: str(record.birthday) == birthday,
+                        self.data.values(),
+                    )
+                )
+            )
 
-        # //todo birthday search
         return res
 
-    # @input_error
-    def save(self, record):
+    def save(self, record: Record):
         name = str(record.name)
         self.data[name] = record
 
-    def delete(self, name):
+    def delete(self, name: str):
         if name in self.data:
             del self.data[name]
 
