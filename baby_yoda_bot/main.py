@@ -2,6 +2,7 @@ from .exceptions import UnexpectedException, ValidationValueException
 from .commands import EXIT_COMMANDS
 from .commands import commands_handler
 from .constants import TEXT
+from .utils import start_work, stop_work
 
 
 def yoda_say():
@@ -10,7 +11,7 @@ def yoda_say():
     print(TEXT["WELCOME"])
 
     # init addressBook
-    book = {}
+    book = start_work()
 
     while True:
         try:
@@ -27,13 +28,13 @@ def yoda_say():
                 print('Invalid command. Type "help".')
         except KeyboardInterrupt:
             pass
-            # stop working and save book after forced exit, for example by Ctrl + C, Contrl + Z etc.
+            # stop working and save book after forced exit.
         except ValidationValueException as err:
             print(err)
         except UnexpectedException as err:
             print(err)
 
-    # stop working and save book after exit
+    stop_work(book=book)
 
 
 __all__ = ["yoda_say"]
