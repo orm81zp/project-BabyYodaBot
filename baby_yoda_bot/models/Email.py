@@ -10,7 +10,7 @@ class Email(Field):
 
     @value.setter
     def value(self, new_value):
-        pattern = r"\S+@\S+\.\S+"
+        pattern = r"^[a-zA-Z]{1}[a-zA-Z0-9_\.-]{1,}@[a-zA-Z]+\.[a-zA-Z]{2,}$"
         if new_value and re.match(pattern, new_value):
             self.__value = new_value
         else:

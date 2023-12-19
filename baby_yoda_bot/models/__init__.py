@@ -1,3 +1,4 @@
+from .AddressBook import *
 from .Field import *
 from .Phone import *
 from .Name import *
