@@ -11,8 +11,7 @@ class Email(Field):
     @value.setter
     def value(self, new_value):
         pattern = r"\S+@\S+\.\S+"
-        if re.match(pattern, new_value):
-            print(new_value)
+        if new_value and re.match(pattern, new_value):
             self.__value = new_value
         else:
             raise ValidationValueException("Email failed validation.")
