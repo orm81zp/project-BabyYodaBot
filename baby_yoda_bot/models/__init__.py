@@ -7,3 +7,7 @@ from .Birthday import *
 from .Record import *
 from .Bot import *
 from .Notes import *
+from .BotLogic import BotLogic
+from .Commands.AddContact import AddContact
+from .Commands.BaseCommand import BaseCommand
+from .Commands.RequestInput import RequestInput
