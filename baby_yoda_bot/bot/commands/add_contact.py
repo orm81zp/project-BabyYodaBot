@@ -30,11 +30,15 @@ def add_contact(ctx: Context, args):
     name, phone, birthday, email = args
 
     record = Record(name)
-    record.add_birthday(birthday)
-    record.add_address(email)
+
+    if birthday is not None:
+        record.add_birthday(birthday)
+    
+    if email is not None:
+        record.add_address(email)
 
     if phone is not None:
-        record.add_phone(phone)
+        record.add_phone(phone.value)
 
     ctx.address_book.save(record)
 
