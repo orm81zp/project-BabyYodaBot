@@ -17,7 +17,7 @@ from ..utils import (
 
 class Record:
     def __init__(self, name, silent=False):
-        self.name = Name(name)
+        self.name = name
         self.phones = []
         self.birthday = None
         self.email = None
