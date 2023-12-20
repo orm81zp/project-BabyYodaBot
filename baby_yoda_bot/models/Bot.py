@@ -49,10 +49,12 @@ class Bot:
     def command2(self):
         note = Note("First Note")
         print(note)
-        # note.add_content()
-        # note.add_tags()
+        # note.add_content('bla-bla-bla)
+        # note.add_tags('tag1','tag2', 'tag2')
+        # self.notes.save(note)
 
-        # note = self.notes.find({'name'='Alex','description'....})
-        # note = note.show()
+        # note = self.notes.find({'id'='1','content'="bla-bla", tag = tag2})
+        # self.notes.show()
         # note = note.find('tag'='plant')
-        # self.notes.save(record)
+        # self.notes.delete(note)
+        # self.notes.save(note)
