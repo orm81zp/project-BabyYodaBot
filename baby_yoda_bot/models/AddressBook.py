@@ -15,7 +15,7 @@ class AddressBook(UserDict):
         self.data = dict()
         self.filename = "AddressBookData.dat"
 
-    def find_one(self, name) -> Record | None:
+    def find_one(self, name):
         if name in self.data:
             return self.data[name]
         return None

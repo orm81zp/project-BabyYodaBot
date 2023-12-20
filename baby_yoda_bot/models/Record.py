@@ -6,6 +6,7 @@ from .address import Address
 from ..utils import (
     StyledPrint,
     is_yes,
+    print_diff,
     print_updated,
     print_not_found,
     print_added,
@@ -23,7 +24,7 @@ class Record:
         self.address = None
         self.silent = silent
 
-    def find_phone(self, search_phone) -> Phone | None:
+    def find_phone(self, search_phone):
         for phone in self.phones:
             if str(phone) == search_phone:
                 return phone
@@ -38,10 +39,11 @@ class Record:
 
     # ----------- EMAIL------------------------------------------------
     def add_email(self, email):
-        email_exists = self.email is not None
+        old_email = self.email
         self.email = Email(email)
-        if email_exists:
+        if old_email:
             if not self.silent:
+                print_diff(str(old_email), email)
                 print_updated("Email")
         else:
             if not self.silent:
@@ -58,11 +60,12 @@ class Record:
 
     # ----------- ADDRESS------------------------------------------------
 
-    def add_address(self, email):
-        address_exists = self.address is not None
-        self.address = Address(email)
-        if address_exists:
+    def add_address(self, address):
+        old_address = self.address
+        self.address = Address(address)
+        if old_address:
             if not self.silent:
+                print_diff(str(old_address), address)
                 print_updated("Address")
         else:
             if not self.silent:
@@ -97,6 +100,7 @@ class Record:
                 if str(self.phones[index]) == old_phone:
                     self.phones[index] = Phone(new_phone)
                     if not self.silent:
+                        print_diff(old_phone, new_phone)
                         print_updated("Phone number")
                     break
 
@@ -119,10 +123,11 @@ class Record:
     # ----------- BIRTHDAY----------------------------------------------
 
     def add_birthday(self, birthday):
-        birthday_exists = self.email is not None
+        old_birthday = self.birthday
         self.birthday = Birthday(birthday)
-        if birthday_exists:
+        if old_birthday:
             if not self.silent:
+                print_diff(str(old_birthday), birthday)
                 print_updated("Birthday")
         else:
             if not self.silent:
