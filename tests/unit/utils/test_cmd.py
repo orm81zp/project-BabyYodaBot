@@ -24,7 +24,7 @@ class TestMyModule(unittest.TestCase):
 
         for user_input, expected_command, expected_args in test_cases:
             with self.subTest(user_input=user_input):
-                cmd, *args = parse_input(user_input)
+                cmd, args = parse_input(user_input)
                 self.assertEqual(cmd, expected_command)
                 self.assertEqual(args, expected_args)
 
