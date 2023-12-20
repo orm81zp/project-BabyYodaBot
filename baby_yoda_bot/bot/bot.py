@@ -106,11 +106,11 @@ class Bot:
 
             for i, rule in enumerate(metadata['arguments']):
                 name = rule['name']
-                type = rule['type']
+                validation_type = rule['type']
                 value = args[i]
 
                 try:
-                    validated_args.append(type(value))
+                    validated_args.append(type(validation_type))
                 except ValidationValueException as e:
                     return f"Argument {name}='{value}' is invalid: {e}"
                 
