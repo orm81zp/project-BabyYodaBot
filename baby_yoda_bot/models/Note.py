@@ -9,8 +9,8 @@ class Note:
         self.title = Title(title)
         self.content = None
         self.tags = []
-        self.DateCreation = time.strftime("%Y-%m-%d %H:%M:%S")
-        self.DateModified = None
+        self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
+        self.date_modification = None
 
     def add_tags(self, tags):
         if tags and isinstance(tags, list):
@@ -21,3 +21,9 @@ class Note:
 
     def add_content(self, content):
         self.content = Content(content)
+
+    def __str__(self):
+        pass
+
+
+#         TODO реалізувати як у Record  __str__
