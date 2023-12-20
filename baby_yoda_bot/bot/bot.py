@@ -1,3 +1,4 @@
+import inspect
 from collections import defaultdict
 
 from baby_yoda_bot.models.context import Context
@@ -67,7 +68,9 @@ class Bot:
         if command not in Bot.__COMMANDS_HANDLERS:
             return f"Unknown '{command}', use help to see commands list"
 
+        executor_args = [self.context]
         executor = Bot.__COMMANDS_HANDLERS[command]
+
         metadata_key = executor.__bot_cmd__
         metadata = Bot.__COMMANDS_METADATA__[metadata_key]
 
@@ -95,8 +98,7 @@ class Bot:
                 
                       
                 validated_args.append(value)
-
-            args = validated_args
+            executor_args.append(validated_args)
 
         if 'arguments' in metadata:
             if (len(metadata['arguments']) != len(args)):
@@ -116,9 +118,14 @@ class Bot:
                 except ValidationValueException as e:
                     return f"Argument {name}='{value}' is invalid: {e}"
                 
-            args = validated_args
+            executor_args.append(validated_args)
 
-        return executor(self.context, args)
+        required_args = inspect.getfullargspec(executor).args
+
+        if len(required_args) == 2 and len(executor_args) == 1:
+            executor_args.append([])
+
+        return executor(*executor_args)
 
     def help(self):
         print('Commands list:')
