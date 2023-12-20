@@ -1,4 +1,3 @@
-import pickle
 from collections import UserDict
 from .Record import Record
 from .BasicModel import BasicModel
