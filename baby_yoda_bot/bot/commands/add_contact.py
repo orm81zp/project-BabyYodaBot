@@ -4,7 +4,7 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 
 @Bot.command('add-contact')
 @Bot.description('used to add a contact')
-@Bot.arguments([
+@Bot.questions([
     {
         'name': 'name',
         'required': True,

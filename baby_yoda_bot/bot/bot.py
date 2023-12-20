@@ -17,10 +17,10 @@ class Bot:
         return decorator
 
     @staticmethod
-    def arguments(args):
+    def questions(args):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]['args'] = args
+            Bot.__COMMANDS_METADATA__[key]['questions'] = args
 
             return inner
 
@@ -59,37 +59,32 @@ class Bot:
         metadata_key = executor.__bot_cmd__
         metadata = Bot.__COMMANDS_METADATA__[metadata_key]
 
-        if metadata['args']:
-            if isinstance(metadata['args'], list):
-                validated_args = []
+        if 'questions' in metadata:
+            validated_args = []
 
-                for rule in metadata['args']:
-                    is_optional = not rule['required'] if 'required' in rule else False
+            for rule in metadata['questions']:
+                is_optional = not rule['required'] if 'required' in rule else False
 
-                    while True:
-                        optional = '(optional)' if is_optional else ''
-                        value = input(f"Enter {rule['name']}{optional}: ")
+                while True:
+                    optional = '(optional)' if is_optional else ''
+                    value = input(f"Enter {rule['name']}{optional}: ")
 
-                        if not value and is_optional:
-                            value = None
+                    if not value and is_optional:
+                        value = None
+                        break
+
+                    if 'type' in rule:
+                        try:
+                            value = rule['type'](value)
                             break
-
-                        if 'type' in rule:
-                            try:
-                                value = rule['type'](value)
-                                break
-                            except ValidationValueException as e:
-                                print(e)
-                                continue
+                        except ValidationValueException as e:
+                            print(e)
+                            continue
                 
                       
-                    validated_args.append(value)
+                validated_args.append(value)
 
-                args = validated_args
-
-            if isinstance(metadata['args'], str):
-                pass
-                # TODO: add args validation just by template like '<name> <phone> <birthday>
+            args = validated_args
 
         return executor(self.context, args)
 
