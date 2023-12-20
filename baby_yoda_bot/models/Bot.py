@@ -52,7 +52,7 @@ class Bot:
         # note.add_content()
         # note.add_tags()
 
-        # note = self.notes.find_note({'name'='Alex','description'....})
-        # note = note.show('teest@gmail.com')
+        # note = self.notes.find({'name'='Alex','description'....})
+        # note = note.show()
         # note = note.find('tag'='plant')
         # self.notes.save(record)
