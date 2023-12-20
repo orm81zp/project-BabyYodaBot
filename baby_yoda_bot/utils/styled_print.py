@@ -67,9 +67,9 @@ class StyledPrint:
         self.options = options
         self.model = model
         self.entity = entity
-        self.init()
+        self.setup()
 
-    def init(self):
+    def setup(self):
         if self.entity == "contact":
             self.printer = PrintRecord(self.model, self.options)
         elif self.entity == "contacts":
