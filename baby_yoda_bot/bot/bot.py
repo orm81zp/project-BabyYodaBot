@@ -26,6 +26,16 @@ class Bot:
 
         return decorator
 
+    @staticmethod
+    def arguments(args):
+        def decorator(func):
+            inner, key = Bot.__make_inner(func)
+            Bot.__COMMANDS_METADATA__[key]['arguments'] = args
+
+            return inner
+
+        return decorator
+
 
     @staticmethod
     def description(description):
@@ -84,6 +94,26 @@ class Bot:
                       
                 validated_args.append(value)
 
+            args = validated_args
+
+        if 'arguments' in metadata:
+            if (len(metadata['arguments']) != len(args)):
+                expected_args = ', '.join([f"<{arg['name']}>" for arg in metadata['arguments']])
+                
+                return f"Invalid number of arguments, expected: {expected_args}"
+
+            validated_args = []
+
+            for i, rule in enumerate(metadata['arguments']):
+                name = rule['name']
+                type = rule['type']
+                value = args[i]
+
+                try:
+                    validated_args.append(type(value))
+                except ValidationValueException as e:
+                    return f"Argument {name}='{value}' is invalid: {e}"
+                
             args = validated_args
 
         return executor(self.context, args)
