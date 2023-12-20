@@ -7,3 +7,4 @@ from .Birthday import *
 from .Record import *
 from .Bot import *
 from .Notes import *
+from .BasicModel import *

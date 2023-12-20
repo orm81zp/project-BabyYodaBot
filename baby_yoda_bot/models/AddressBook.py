@@ -1,9 +1,10 @@
 import pickle
 from collections import UserDict
 from .Record import Record
+from .BasicModel import BasicModel
 
 
-class AddressBook(UserDict):
+class AddressBook(UserDict, BasicModel):
     def __init__(self):
         self.data = dict()
         self.filename = "AddressBookData.dat"
