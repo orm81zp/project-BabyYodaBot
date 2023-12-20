@@ -21,8 +21,7 @@ class PrintRecord(PrintObject):
 
     def print(self):
         title = self.options.get("title") or f"⚔️ {str(self.model.name)}'s record"
-        self.options.update({"title": title})
-        table = Table("Name", "Phone", "Birthday", "Email", **self.options)
+        table = Table("Name", "Phone", "Birthday", "Email", title=title, **self.options)
 
         table.add_row(
             str(self.model.name),
