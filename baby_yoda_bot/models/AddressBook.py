@@ -53,8 +53,8 @@ class AddressBook(UserDict):
     def show(self):
         if len(self.data) == 0:
             print("Address Book is empty")
-        for record in self.data.values():
-            StyledPrint(record).print()
+        else:
+            StyledPrint(self.data, entity="contacts").print()
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:

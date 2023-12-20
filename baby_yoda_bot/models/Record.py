@@ -1,6 +1,7 @@
 from .Phone import Phone
 from .Name import Name
 from .Email import Email
+from ..utils.styled_print import StyledPrint
 
 
 class Record:
@@ -57,6 +58,9 @@ class Record:
 
     def remove_birthday(self):
         self.birthday = None
+
+    def show(self):
+        StyledPrint(self, entity="contact").print()
 
     def __str__(self):
         phone_numbers = ", ".join(str(phone) for phone in self.phones)
