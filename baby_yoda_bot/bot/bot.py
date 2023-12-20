@@ -10,8 +10,9 @@ class Bot:
     @staticmethod
     def command(name):
         def decorator(func):
-            inner = Bot.__make_inner(func)
+            inner, key = Bot.__make_inner(func)
             Bot.__COMMANDS_METADATA__['map'][name] = func
+            Bot.__COMMANDS_METADATA__[key]['command'] = name
 
             return inner
         return decorator
@@ -118,6 +119,24 @@ class Bot:
 
         return executor(self.context, args)
 
+    def help(self):
+        print('Commands list:')
+        for name, metadata in Bot.__COMMANDS_METADATA__.items():
+            # TODO exclude map by spliy mapper and metadata
+            if name == 'map':
+                continue
+            
+            arguments_list = ''
+            command  = metadata['command']
+            description = metadata['description'] if 'description' in metadata else ''
+
+            arguments = metadata['arguments'] if 'arguments' in metadata else []
+
+            if len(arguments):
+                arguments_list = ', '.join([f"<{arg['name']}>" for arg in arguments])
+
+            print(f"{command} {arguments_list} - {description}")
+
     def listen(self):
         # TODO: add hello message or animation
 
@@ -131,6 +150,10 @@ class Bot:
                 if command in ['exit', 'close']:
                     print('See you later!')
                     break
+                
+                if command == 'help':
+                    self.help()
+                    continue
 
                 cmd, args = parse_input(command)
                 output = self.__exec(cmd, args)
