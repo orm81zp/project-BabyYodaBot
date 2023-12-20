@@ -17,7 +17,7 @@ from ..utils import (
 
 class Record:
     def __init__(self, name, silent=False):
-        self.name = Name(name)
+        self.name = name
         self.phones = []
         self.birthday = None
         self.email = None
@@ -46,9 +46,9 @@ class Record:
                 print_deleted("Email")
 
     # ----------- ADDRESS------------------------------------------------
-    def add_address(self, address):
+    def add_address(self, address: Address):
         old_address = self.address
-        self.address = Address(address)
+        self.address = address
         if old_address:
             if not self.silent:
                 print_diff(str(old_address), address)
@@ -87,7 +87,7 @@ class Record:
                 print_exists("Phone number")
             return False
 
-        self.phones.append(Phone(number))
+        self.phones.append(number)
         if not self.silent:
             print_added("Phone number")
         return True
@@ -122,7 +122,8 @@ class Record:
     # ----------- BIRTHDAY----------------------------------------------
     def add_birthday(self, birthday):
         old_birthday = self.birthday
-        self.birthday = Birthday(birthday)
+        self.birthday = birthday
+
         if old_birthday:
             if not self.silent:
                 print_diff(str(old_birthday), birthday)

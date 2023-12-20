@@ -4,7 +4,8 @@ from .commands import commands_handler
 from .constants import TEXT
 from .models.Bot import Bot
 
+from .bot import Bot
 
 def yoda_say():
     bot = Bot()
-    bot.command1()
+    bot.listen()
