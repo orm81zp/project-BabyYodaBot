@@ -24,19 +24,6 @@ class Record:
         self.address = None
         self.silent = silent
 
-    def find_phone(self, search_phone):
-        for phone in self.phones:
-            if str(phone) == search_phone:
-                return phone
-        return None
-
-    def get_phones(self, placeholder=" - "):
-        phone_numbers = placeholder
-        if len(self.phones) > 0:
-            phone_numbers = ", ".join([str(phone) for phone in self.phones])
-
-        return phone_numbers
-
     # ----------- EMAIL------------------------------------------------
     def add_email(self, email):
         old_email = self.email
@@ -59,7 +46,6 @@ class Record:
                 print_deleted("Email")
 
     # ----------- ADDRESS------------------------------------------------
-
     def add_address(self, address):
         old_address = self.address
         self.address = Address(address)
@@ -81,6 +67,19 @@ class Record:
                 print_deleted("Address")
 
     # ----------- PHONE------------------------------------------------
+    def find_phone(self, search_phone):
+        for phone in self.phones:
+            if str(phone) == search_phone:
+                return phone
+        return None
+
+    def get_phones(self, placeholder=" - "):
+        phone_numbers = placeholder
+        if len(self.phones) > 0:
+            phone_numbers = ", ".join([str(phone) for phone in self.phones])
+
+        return phone_numbers
+
     def add_phone(self, number):
         phone = self.find_phone(number)
         if phone:
@@ -121,7 +120,6 @@ class Record:
         return False
 
     # ----------- BIRTHDAY----------------------------------------------
-
     def add_birthday(self, birthday):
         old_birthday = self.birthday
         self.birthday = Birthday(birthday)
