@@ -8,4 +8,4 @@ from .models.Bot import Bot
 
 def yoda_say():
     bot = Bot()
-    bot.command1()
+    bot.start()
