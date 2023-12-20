@@ -1,5 +1,6 @@
 from collections import defaultdict
-from baby_yoda_bot.models.AddressBook import AddressBook
+
+from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
 
@@ -52,9 +53,7 @@ class Bot:
         return inner, name
 
     def __init__(self):
-        # TODO: add save/read from file
-        # TODO: add notes class initialization
-        self.address_book = AddressBook()
+        self.context = Context()
 
     def __exec(self, command, args):
         if command not in Bot.__COMMANDS_METADATA__['map']:
@@ -96,11 +95,7 @@ class Bot:
                 pass
                 # TODO: add args validation just by template like '<name> <phone> <birthday>
 
-        ctx = {
-            'address_book': self.address_book
-        }
-
-        return executor(ctx, args)
+        return executor(self.context, args)
 
     def listen(self):
         # TODO: add hello message or animation
