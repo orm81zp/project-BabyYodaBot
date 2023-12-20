@@ -4,7 +4,7 @@ from .Commands.RequestInput import RequestInput
 
 
 class BotLogic:
-    def reequestCommand(self):
+    def requestCommand(self):
         inp = RequestInput()
 
         return inp.value

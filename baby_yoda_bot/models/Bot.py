@@ -5,7 +5,7 @@ class Bot(BotLogic):
     def start(self):
         while True:
             try:
-                cmd, args = self.reequestCommand()
+                cmd, args = self.requestCommand()
 
                 # Todo parcing from dictinary
                 if cmd:
