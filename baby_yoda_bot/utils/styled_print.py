@@ -61,8 +61,6 @@ class PrintRecords(PrintObject):
 
 
 class StyledPrint:
-    printer: None | PrintObject
-
     def __init__(self, model, entity=None, **options):
         self.options = options
         self.model = model
