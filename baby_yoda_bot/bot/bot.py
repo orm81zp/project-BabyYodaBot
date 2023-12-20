@@ -12,7 +12,6 @@ class Bot:
         def decorator(func):
             inner, key = Bot.__make_inner(func)
             Bot.__COMMANDS_METADATA__['map'][name] = func
-            print('command', key)
 
             return inner
         return decorator
@@ -22,7 +21,6 @@ class Bot:
         def decorator(func):
             inner, key = Bot.__make_inner(func)
             Bot.__COMMANDS_METADATA__[key]['args'] = args
-            print('arguments', key)
 
             return inner
 
@@ -33,8 +31,6 @@ class Bot:
     def description(description):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            print('describe', key)
-            print('Metadata', Bot.__COMMANDS_METADATA__[key])
             Bot.__COMMANDS_METADATA__[key]['description'] = description
 
             return inner
@@ -107,7 +103,7 @@ class Bot:
                 if not command:
                     continue
 
-                cmd, *args = parse_input(command)
+                cmd, args = parse_input(command)
                 output = self.__exec(cmd, args)
 
                 print(output)
