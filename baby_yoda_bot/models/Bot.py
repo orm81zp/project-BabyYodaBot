@@ -2,6 +2,7 @@ import pickle
 from .AddressBook import AddressBook
 from .Notes import Notes
 from .Record import Record
+from .Note import Note
 
 
 class Bot:
@@ -46,7 +47,10 @@ class Bot:
 
     # //робота із notes
     def command2(self):
-        pass
+        note = Note("First Note")
+        print(note)
+        # note.add_content()
+        # note.add_tags()
 
         # note = self.notes.find_note({'name'='Alex','description'....})
         # note = note.show('teest@gmail.com')
