@@ -1,6 +1,7 @@
 import pickle
 from collections import UserDict
 from .Record import Record
+from ..utils.styled_print import StyledPrint
 
 
 class AddressBook(UserDict):
@@ -53,7 +54,7 @@ class AddressBook(UserDict):
         if len(self.data) == 0:
             print("Address Book is empty")
         for record in self.data.values():
-            print(record)
+            StyledPrint(record).print()
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
