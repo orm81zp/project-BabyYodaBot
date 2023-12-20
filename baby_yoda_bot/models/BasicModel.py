@@ -13,3 +13,9 @@ class BasicModel:
             return self.data
         except (OSError, IOError) as e:
             pass
+
+    def show(self):
+        if len(self.data) == 0:
+            print("Address Book is empty")
+        for record in self.data.values():
+            print(record)
