@@ -25,7 +25,7 @@ def parse_input(user_input):
     cmd, *args = user_input.strip().split()
     cmd = cmd.strip().lower()
 
-    return cmd, *args
+    return cmd, args
 
 __all__ = [
     'request_input',
