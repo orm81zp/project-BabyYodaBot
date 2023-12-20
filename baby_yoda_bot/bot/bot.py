@@ -128,6 +128,10 @@ class Bot:
                 if not command:
                     continue
 
+                if command in ['exit', 'close']:
+                    print('See you later!')
+                    break
+
                 cmd, args = parse_input(command)
                 output = self.__exec(cmd, args)
 
