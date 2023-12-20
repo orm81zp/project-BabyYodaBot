@@ -10,7 +10,7 @@ class Bot:
     @staticmethod
     def command(name):
         def decorator(func):
-            inner, key = Bot.__make_inner(func)
+            inner = Bot.__make_inner(func)
             Bot.__COMMANDS_METADATA__['map'][name] = func
 
             return inner
