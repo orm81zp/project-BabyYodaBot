@@ -1,4 +1,4 @@
-from ..models import AddressBook
+from .models import AddressBook
 
 #  TODO move to logic
 #  AddressBook method read_from_file and save_to_file

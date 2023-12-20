@@ -16,10 +16,12 @@ class PrintRecord(PrintObject):
     def __init__(self, model, options):
         super().__init__(model)
         self.options.update(options)
+        self.options["title"] = (
+            options.get("title") or f"⚔️ {str(self.model.name)}'s Record"
+        )
 
     def print(self):
-        title = self.options.get("title") or f"⚔️ {str(self.model.name)}'s record"
-        table = Table(title=title, **self.options)
+        table = Table(**self.options)
         table.add_column("Name", min_width=15)
         table.add_column("Phone")
         table.add_column("Birthday")
@@ -27,7 +29,7 @@ class PrintRecord(PrintObject):
 
         table.add_row(
             str(self.model.name),
-            self.model.show_phones(),
+            self.model.get_phones(),
             str(self.model.birthday),
             str(self.model.email),
         )
@@ -41,19 +43,21 @@ class PrintRecords(PrintObject):
     def __init__(self, model, options):
         super().__init__(model)
         self.options.update(options)
+        self.options["title"] = options.get("title") or "⚔️ All Contacts"
 
     def print(self):
-        title = self.options.get("title") or "⚔️ All Contacts"
-        table = Table(title=title, **self.options)
+        table = Table(**self.options)
         table.add_column("Name", min_width=15)
         table.add_column("Phone")
         table.add_column("Birthday")
         table.add_column("Email")
 
-        for contact in self.model.values():
+        contacts = self.model.values() if isinstance(self.model, dict) else self.model
+
+        for contact in contacts:
             table.add_row(
                 str(contact.name),
-                contact.show_phones(),
+                contact.get_phones(),
                 str(contact.birthday),
                 str(contact.email),
             )
@@ -65,6 +69,7 @@ class StyledPrint:
         self.options = options
         self.model = model
         self.entity = entity
+        self.printer = None
         self.setup()
 
     def setup(self):
