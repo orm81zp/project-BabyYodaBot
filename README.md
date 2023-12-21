@@ -50,6 +50,7 @@ Type `help` to see all commands. The example of the output is below:
 ```
 add-contact               - used to add a new contact: add-contact <name> [phone] [birthday] [email]
 all-contacts              - used to display all contacts: all-contacts
+search-contact                    - case-insensitive world characters. Example: Alex
 
 help                      - used to display information about all commands: help
 close | exit              - used to close the program, data will be saved: close
@@ -70,7 +71,6 @@ index                     - a sequence number, starts from 1
 tag|s>                    - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
 text                      - from 10 to 500 characters
 birthday                  - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
-search                    - case-insensitive world characters. Example: Hello World
 days                      - a number of days. Example: 7, 14
 ```
 
