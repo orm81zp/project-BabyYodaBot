@@ -55,6 +55,10 @@ show-contact              - used to display a contact: show-contact <name>
 remove-contact            - used to remove a contact: remove-contact <name>
 add-birthday              - used to add a birthday: add-birthday <name> <birthday>
 show-birthday             - used to display a birthday: show-birthday <name>
+remove-birthday           - used to remove a birthday: remove-birthday <name>
+add-phone                 - used to add a phone: add-phone <name> <phone>
+
+
 
 save                      - used to save data: save
 help                      - used to display information about all commands: help
@@ -83,7 +87,6 @@ search                    - case-insensitive world characters. Example: Hello Wo
 ### Commands for further implementation
 
 ```
-remove-birthday           - used to remove a birthday: remove-birthday <name>
 birthdays                 - used to display birthdays in coming days (7 by default): birthdays [days]
 
 add-address               - used to add an address: add-address <name> <address>
@@ -94,7 +97,7 @@ add-email                 - used to add an email: add-email <name> <email>
 show-email                - used to display an email: show-email <name>
 remove-email              - used to remove an email: remove-email <name>
 
-add-phone                 - used to add a phone: add-phone <name> <phone>
+
 show-phone                - used to display a phone: show-phone <name>
 change-phone              - used to change a phone: change-phone <name> <old phone> <new phone>
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
