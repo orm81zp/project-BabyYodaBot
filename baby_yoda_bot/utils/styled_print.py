@@ -26,12 +26,14 @@ class PrintRecord(PrintObject):
         table.add_column("Phone")
         table.add_column("Birthday")
         table.add_column("Email")
+        table.add_column("Address")
 
         table.add_row(
             str(self.model.name),
             self.model.get_phones(),
             str(self.model.birthday),
             str(self.model.email),
+            str(self.model.address),
         )
 
         Console().print(table)
@@ -51,6 +53,7 @@ class PrintRecords(PrintObject):
         table.add_column("Phone")
         table.add_column("Birthday")
         table.add_column("Email")
+        table.add_column("Address")
 
         contacts = self.model.values() if isinstance(self.model, dict) else self.model
 
@@ -60,6 +63,7 @@ class PrintRecords(PrintObject):
                 contact.get_phones(),
                 str(contact.birthday),
                 str(contact.email),
+                str(contact.address),
             )
         Console().print(table)
 

@@ -9,7 +9,7 @@ class Address(Field):
 
     @value.setter
     def value(self, new_value):
-        if new_value and (10 <= len(new_value) <= 100):
+        if new_value and (5 <= len(new_value) <= 100):
             self.__value = new_value
         else:
             raise ValidationValueException("Address failed validation.")

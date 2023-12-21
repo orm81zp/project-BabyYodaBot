@@ -1,7 +1,7 @@
 from ..bot import Bot
 
 
-from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
+from baby_yoda_bot.models import Birthday, Context
 
 
 @Bot.command("add-birthday")
