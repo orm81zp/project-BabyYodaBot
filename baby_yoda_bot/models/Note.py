@@ -1,78 +1,50 @@
-import re
 import time
-from ..exceptions import ValidationValueException
-from .Field import Field
-
-
-class Content(Field):
-    @property
-    def value(self):
-        return self.__value
-
-    @value.setter
-    def value(self, new_value):
-        if new_value and len(new_value) > 10 and len(new_value) <= 500:
-            self.__value = new_value
-        else:
-            raise ValidationValueException("Content failed validation.")
-
-    def __str__(self):
-        return str(self.__value)
-
-    def __repr__(self):
-        return str(f"Content: {self.__value}")
-
-
-class Title(Field):
-    @property
-    def value(self):
-        return self.__value
-
-    @value.setter
-    def value(self, new_value):
-        if new_value and len(new_value) > 4 and len(new_value) <= 20:
-            self.__value = new_value
-        else:
-            raise ValidationValueException("Title failed validation.")
-
-    def __str__(self):
-        return str(self.__value)
-
-    def __repr__(self):
-        return str(f"Title: {self.__value}")
-
-
-class Tag(Field):
-    @property
-    def value(self):
-        return self.__value
-
-    @value.setter
-    def value(self, new_value):
-        if new_value and re.search(r"^\w{1,15}$", new_value):
-            self.__value = new_value
-        else:
-            raise ValidationValueException("Tag failed validation.")
-
-    def __str__(self):
-        return str(self.__value)
-
-    def __repr__(self):
-        return str(f"Tag: {self.__value}")
+from .Content import Content
+from .Title import Title
+from .Tag import Tag
 
 
 class Note:
-    def __init__(self, title, content, tags):
+    def __init__(self, title):
         self.title = Title(title)
-        self.content = Content(content)
+        self.content = None
         self.tags = []
-        self.DateCreation = time.strftime("%Y-%m-%d %H:%M:%S")
-        self.DateModified = None
-        self.add_tags(tags)
-
+        self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
+        self.date_modification = None
+    
+     # ----------- Tags------------------------------------------------
     def add_tags(self, tags):
-        if tags and isinstance(tags, list):
-            for tag in tags:
-                for i in self.tags:
-                    if str(i) != tag:
-                        self.tags.append(Tag(tag))
+        self.tags.append(Tag(tags))
+    
+    def show_tags(self)
+        return self.tags
+    
+    def remove_tags(self):
+        self.tags = None
+
+    
+     # ----------- Content------------------------------------------------
+    def add_content(self, content):
+        self.content = Content(content)
+
+    def show_content(self):
+        return self.content
+    
+    def remove_content(self):
+        self.content = None
+
+    # ----------- Content------------------------------------------------
+        
+    def add_title(self,title):
+        self.title = Title(title)
+
+    def show_title(self):
+        return self.title
+    
+    def remove_title(self):
+        self.title = None
+   
+    def __str__(self):
+        return f"Title: {self.title.value}, Content: {content}, Tags: {self.tags.value}"
+        
+
