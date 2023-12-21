@@ -1,4 +1,7 @@
 from ..bot import Bot
+from ...utils import (
+    StyledPrint
+)
 
 
 from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
@@ -14,8 +17,9 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 def birthdays(ctx: Context, args):
     date = args[0]
     contacts = ctx.address_book.find(birthday=date)
-    # TODO it doesn't work as expected
-    return contacts
+    # TODO  it doesn't work as expected
+    for contact in contacts:
+        StyledPrint(contact, entity="contact").print()
 
 
 __all__ = ["birthdays"]
