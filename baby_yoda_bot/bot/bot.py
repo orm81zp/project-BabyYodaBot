@@ -145,6 +145,8 @@ class Bot:
         return executor(*executor_args)
 
     def help(self):
+        print("Commands list:")
+
         for metadata in Bot.__COMMANDS_METADATA__.values():
             arguments_list = ""
             command = metadata["command"]
