@@ -1,4 +1,5 @@
 import inspect
+import difflib
 from collections import defaultdict
 from ..assets import logo, phrase
 import time
@@ -83,9 +84,6 @@ class Bot:
         self.context = Context()
 
     def __exec(self, command, args):
-        if command not in Bot.__COMMANDS_HANDLERS:
-            return f"Unknown '{command}', use help to see commands list"
-
         executor_args = [self.context]
         executor = Bot.__COMMANDS_HANDLERS[command]
 
@@ -160,14 +158,16 @@ class Bot:
             print(f"{command} {arguments_list} - {description}")
 
     def listen(self):
+        commands = self.__commands
         rows = logo.split("\n")
+
         for row in rows:
             print(row)
             time.sleep(0.04)
 
         while True:
             try:
-                command = request_input("Enter command: ", self.__commands)
+                command = request_input("Enter command: ", commands)
 
                 if not command:
                     continue
@@ -192,7 +192,20 @@ class Bot:
                     self.context.address_book.save_to_file()
                     print("Saved!")
                     continue
-                cmd, args = parse_input(command)
+
+                if cmd not in Bot.__COMMANDS_HANDLERS:
+                    close_matches = difflib.get_close_matches(
+                        cmd, commands, n=1, cutoff=0.6
+                    )
+
+                    if close_matches:
+                        suggestion = close_matches[0]
+                        print(f"Unknown command '{cmd}'. Do you mean '{suggestion}'?")
+                    else:
+                        print(f"Unknown command '{cmd}', use help to see commands list")
+
+                    continue
+
                 output = self.__exec(cmd, args)
                 print(output)
             except KeyboardInterrupt:
