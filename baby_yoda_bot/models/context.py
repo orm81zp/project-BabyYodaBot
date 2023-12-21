@@ -1,4 +1,4 @@
-from baby_yoda_bot.models.AddressBook import AddressBook
+from baby_yoda_bot.models.address_book import AddressBook
 
 class Context:
     def __init__(self):

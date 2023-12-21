@@ -1,7 +1,7 @@
-from .Phone import Phone
-from .Name import Name
-from .Email import Email
-from .Birthday import Birthday
+from .phone import Phone
+from .name import Name
+from .email import Email
+from .birthday import Birthday
 from .address import Address
 from ..utils import (
     StyledPrint,
@@ -27,7 +27,7 @@ class Record:
     # ----------- EMAIL------------------------------------------------
     def add_email(self, email):
         old_email = self.email
-        self.email = Email(email)
+        self.email = email
         if old_email:
             if not self.silent:
                 print_diff(str(old_email), email)

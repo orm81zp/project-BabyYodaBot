@@ -1,6 +1,6 @@
 import pickle
 from collections import UserDict
-from .Record import Record
+from .record import Record
 from ..utils import (
     StyledPrint,
     is_yes,
@@ -97,7 +97,7 @@ class AddressBook(UserDict):
 
     def save(self, record: Record):
         name = str(record.name)
-        contact = self.find_one(name=name)
+        contact = self.find_one(name)
         if contact:
             print_exists(f"Contact {name}")
 
