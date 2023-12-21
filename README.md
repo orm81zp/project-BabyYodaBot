@@ -9,6 +9,8 @@ A personal Baby Yoda's bot that helps you manage your contacts and notes.
 -   [Installation](#installation)
 -   [Basic functionality](#basic-functionality)
 -   [Commands](#commands)
+-   [Available Сommands](#available-сommands)
+-   [Commands for further implementation](#commands-for-further-implementation)
 
 ## Installation
 
@@ -39,10 +41,41 @@ Can be restarted without losing data. All data (contacts, notes) are stored on t
 
 ### Commands
 
+There are two list of commands: already implemented and for futher implementetion.
+
+### Available Сommands
+
 Type `help` to see all commands. The example of the output is below:
 
 ```
 add-contact               - used to add a new contact: add-contact <name> [phone] [birthday] [email]
+
+help                      - used to display information about all commands: help
+close | exit              - used to close the program, data will be saved: close
+
+
+Types of argumets:
+<required>                - required argument
+[optional]                - optional argument
+
+Validation rules:
+name                      - from 1 to 30 characters. Example: Max, John Doe, Erika from the gym
+phone                     - begins with + and consist of 12 digits. Example: +380630000001
+old phone                 - same as for <phone>
+new phone                 - same as for <phone>
+address                   - from 10 to 100 characters. Example: USA Brooklyn, state Michigan, 3854 Central Avenue
+email                     - a valid email address. Example: maxi21@gmail.com
+index                     - a sequence number, starts from 1
+tag|s>                    - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
+text                      - from 10 to 500 characters
+birthday                  - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
+search                    - case-insensitive world characters. Example: Hello World
+days                      - a number of days. Example: 7, 14
+```
+
+### Commands for further implementation
+
+```
 search-contact            - used to search contacts (case-insensitive): search-contact <search>
 all-contacts              - used to display all contacts: all-contacts
 show-contact              - used to display a contact: show-contact <name>
@@ -77,35 +110,13 @@ add-tag                   - used to add a tag: add-tag <index> <tag|s>
 search-by-tag             - used to display all notes found by a tag (case-insensitive, strict match): search-by-tag <tag|s>
 remove-tag                - used to remove a tag (strict match): remove-tag <index> <tag|s>
 all-tags                  - used to display all tags with associated notes: all-tags
-
-help                      - used to display information about all commands: help
-close | exit              - used to close the program, data will be saved: close
-
-
-Types of argumets:
-<required>                - required argument
-[optional]                - optional argument
-
-Validation rules:
-name                    - from 1 to 30 characters. Example: Max, John Doe, Erika from the gym
-phone                   - begins with + and consist of 12 digits. Example: +380630000001
-old phone               - same as for <phone>
-new phone               - same as for <phone>
-address                 - from 10 to 100 characters. Example: USA Brooklyn, state Michigan, 3854 Central Avenue
-email                   - a valid email address. Example: maxi21@gmail.com
-index                   - a sequence number, starts from 1
-tag|s>                  - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
-text                    - from 10 to 500 characters
-birthday                - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
-search                  - case-insensitive world characters. Example: Hello World
-days                    - a number of days. Example: 7, 14
 ```
 
-### help
+#### help
 
 Used to display all commands: `help`.
 
-### close or exit
+#### close or exit
 
 use `close` or `exit` to close the program. The current data will be saved.
 
