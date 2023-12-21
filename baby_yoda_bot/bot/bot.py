@@ -1,3 +1,4 @@
+import inspect
 from collections import defaultdict
 
 from baby_yoda_bot.models.context import Context
@@ -5,13 +6,14 @@ from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
 
 class Bot:
+    __COMMANDS_HANDLERS = {}
     __COMMANDS_METADATA__ = defaultdict(dict)
 
     @staticmethod
     def command(name):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__['map'][name] = func
+            Bot.__COMMANDS_HANDLERS[name] = func
             Bot.__COMMANDS_METADATA__[key]['command'] = name
 
             return inner
@@ -63,10 +65,12 @@ class Bot:
         self.context = Context()
 
     def __exec(self, command, args):
-        if command not in Bot.__COMMANDS_METADATA__['map']:
+        if command not in Bot.__COMMANDS_HANDLERS:
             return f"Unknown '{command}', use help to see commands list"
 
-        executor = Bot.__COMMANDS_METADATA__['map'][command]
+        executor_args = [self.context]
+        executor = Bot.__COMMANDS_HANDLERS[command]
+
         metadata_key = executor.__bot_cmd__
         metadata = Bot.__COMMANDS_METADATA__[metadata_key]
 
@@ -94,8 +98,7 @@ class Bot:
                 
                       
                 validated_args.append(value)
-
-            args = validated_args
+            executor_args.append(validated_args)
 
         if 'arguments' in metadata:
             if (len(metadata['arguments']) != len(args)):
@@ -115,17 +118,18 @@ class Bot:
                 except ValidationValueException as e:
                     return f"Argument {name}='{value}' is invalid: {e}"
                 
-            args = validated_args
+            executor_args.append(validated_args)
 
-        return executor(self.context, args)
+        required_args = inspect.getfullargspec(executor).args
+
+        if len(required_args) == 2 and len(executor_args) == 1:
+            executor_args.append([])
+
+        return executor(*executor_args)
 
     def help(self):
         print('Commands list:')
-        for name, metadata in Bot.__COMMANDS_METADATA__.items():
-            # TODO exclude map by spliy mapper and metadata
-            if name == 'map':
-                continue
-            
+        for metadata in Bot.__COMMANDS_METADATA__.values():
             arguments_list = ''
             command  = metadata['command']
             description = metadata['description'] if 'description' in metadata else ''
