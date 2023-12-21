@@ -10,11 +10,12 @@ class Notes(UserDict):
         self.filename = "NotesData.dat"
 
     
-    def getId():
-        Notes.id
+    def getId(self):
+        return Notes.id
         
-    def generateId():
+    def generateId(self):
         Notes.id+=1
+        return Notes.id
 
     def find(self, title=None, content=None, tags=None):
         if title is None and content is None and tags is None:

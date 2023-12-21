@@ -14,9 +14,9 @@ from ..utils import (
 
 
 class Note:
-    def __init__(self, id, content, silent=False):
+    def __init__(self, id, silent=False):
         self.id = id
-        self.content = content
+        self.content = None
         self.tags = set()
         self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
         self.date_modification = None
@@ -38,8 +38,8 @@ class Note:
     #     self.tags = []
 
     # # ----------- Content------------------------------------------------
-    # def add_content(self, content):
-    #     self.content = Content(content)
+    def add_content(self, content):
+        self.content = Content(content)
 
     # def show_content(self):
     #     return self.content
