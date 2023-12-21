@@ -1,10 +1,10 @@
+import time
+import sys
 import inspect
 import difflib
 from collections import defaultdict
-from ..assets import logo, phrase
-import time
-import sys
 
+from ..assets import logo, phrase
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
@@ -19,10 +19,6 @@ class Bot:
         "help": "help",
         "save": "save",
     }
-
-    @property
-    def __is_silent(self):
-        return not ("--silent" in sys.argv or "-s" in sys.argv)
 
     @property
     def __commands(self):
@@ -165,7 +161,7 @@ class Bot:
             print(f"{command} {arguments_list} - {description}")
 
     def __animate(self, data, delay=0.04):
-        if self.__is_silent:
+        if not ("--silent" in sys.argv or "-s" in sys.argv):
             rows = data.split("\n")
 
             for row in rows:
