@@ -6,6 +6,9 @@ class PrintObject:
     def __init__(self, model):
         self.model = model
 
+    def show(self, value):
+        return str(value) if value else " - "
+
     def print(self):
         print(self.model)
 
