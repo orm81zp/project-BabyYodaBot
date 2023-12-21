@@ -22,7 +22,9 @@ def add_note(ctx: Context, args):
         tags = tags.split(',')
         for tag in tags:
             note.add_tag(tag)
-
+    
+    ctx.notes.save(note)
+ 
     return f"New note with id:{note.id} added."
 
 

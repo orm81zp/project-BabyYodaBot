@@ -224,7 +224,8 @@ class Bot:
             #     print(e)
             #     break
 
-        self.context.address_book.save_to_file()
+                self.context.address_book.save_to_file()
+                self.context.notes.save_to_file()
 
 
 __all__ = ["Bot"]

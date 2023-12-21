@@ -1,6 +1,13 @@
 import pickle
 from collections import UserDict
 from .note import Note
+from ..utils import (
+    StyledPrint,
+    is_yes,
+    print_not_found,
+    print_deleted,
+    print_exists,
+)
 
 
 class Notes(UserDict):
@@ -44,9 +51,27 @@ class Notes(UserDict):
 
         return res
 
-    def save(self, record: Note):
-        title = str(record.title)
-        self.data[title] = record
+    def save(self, note: Note):
+        id = str(note.id)
+        data = self.find_one(id)
+        if data:
+            print_exists(f"Note {id}")
+        else:
+            self.data[id] = note
+ 
+    def find_one(self, id):
+        if id in self.data:
+            return self.data[id]
+        return None
+    
+    def show_note(self, id):
+        note = self.find_one(id)
+        if note:
+            StyledPrint(note, entity="note").print()
+        else:
+            print_not_found("Note")  
+
+
         
     def delete(self, title: str):
         if title in self.data:
@@ -83,3 +108,9 @@ class Notes(UserDict):
             if normalized_tag in normalized_tags:
                 found_notes.append(title)
         return found_notes
+
+    def show_all(self):
+        if len(self.data) == 0:
+            print("Notes are empty")
+        else:
+            StyledPrint(self.data, entity="notes").print()

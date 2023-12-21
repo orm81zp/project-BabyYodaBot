@@ -31,21 +31,21 @@ class Note:
              print_updated("Tag")
             
 
-    # def show_tags(self):
-    #     return self.tags
+    def show_tags(self):
+        return self.tags
 
-    # def remove_tags(self):
-    #     self.tags = []
+    def remove_tags(self):
+        self.tags = []
 
     # # ----------- Content------------------------------------------------
     def add_content(self, content):
         self.content = Content(content)
 
-    # def show_content(self):
-    #     return self.content
+    def show_content(self):
+        return self.content
 
-    # def remove_content(self):
-    #     self.content = None
+    def remove_content(self):
+        self.content = None
 
     # # ----------- Content------------------------------------------------
 

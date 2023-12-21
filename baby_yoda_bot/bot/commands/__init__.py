@@ -20,3 +20,5 @@ from .change_phone import *
 from .remove_phone import *
 #--------NOTES----------------
 from .add_note import *
+from .show_note import *
+from .show_notes import *
