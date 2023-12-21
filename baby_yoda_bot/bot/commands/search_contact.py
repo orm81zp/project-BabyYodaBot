@@ -1,11 +1,11 @@
 from ..bot import Bot
 
 
-from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
+from baby_yoda_bot.models import  Context
 
 
 @Bot.command("search-contact")
-@Bot.description("used to search a contact")
+@Bot.description("used to search a contact by name")
 @Bot.questions(
     [
         {"name": "search", "required": True, "type": str}

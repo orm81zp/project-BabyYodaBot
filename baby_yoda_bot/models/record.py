@@ -73,7 +73,7 @@ class Record:
                 return phone
         return None
 
-    def get_phones(self, placeholder=" - "):
+    def show_phones(self, placeholder=" - "):
         phone_numbers = placeholder
         if len(self.phones) > 0:
             phone_numbers = ", ".join([str(phone) for phone in self.phones])
@@ -94,6 +94,7 @@ class Record:
 
     def change_phone(self, old_phone, new_phone):
         found_phone = self.find_phone(old_phone)
+
         if found_phone:
             for index in range(len(self.phones)):
                 if str(self.phones[index]) == old_phone:
@@ -102,7 +103,6 @@ class Record:
                         print_diff(old_phone, new_phone)
                         print_updated("Phone number")
                     break
-
         else:
             print_not_found("Phone number")
 
@@ -139,7 +139,7 @@ class Record:
         if is_yes("Existing birthday will be deleted, continue?"):
             self.birthday = None
             if not self.silent:
-                print_deleted("Email")
+                print_deleted("Birthday")
 
     def show(self):
         StyledPrint(self, entity="contact").print()

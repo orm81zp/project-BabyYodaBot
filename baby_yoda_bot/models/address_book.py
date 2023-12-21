@@ -101,20 +101,26 @@ class AddressBook(UserDict):
         contact = self.find_one(name)
         if contact:
             print_exists(f"Contact {name}")
-
         else:
             self.data[name] = record
 
-    def delete(self, name: str):
+    def remove(self, name: str):
         if name in self.data:
-            if is_yes("Existing address will be deleted, continue?"):
+            if is_yes(f"Contact {name} will be removed, continue?"):
                 is_removed = self.data.pop(name, None)
                 if is_removed is not None:
                     print_deleted("Contact")
         else:
             print_not_found("Contact")
 
-    def show(self):
+    def show_contact(self, name):
+        contact = self.find_one(name)
+        if contact:
+            StyledPrint(contact, entity="contact").print()
+        else:
+            print_not_found("Contact")
+
+    def show_all(self):
         if len(self.data) == 0:
             print("Address Book is empty")
         else:
