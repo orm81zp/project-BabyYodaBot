@@ -1,4 +1,4 @@
-from .Field import Field
+from .field import Field
 from ..exceptions import ValidationValueException
 
 

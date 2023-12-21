@@ -1,6 +1,6 @@
 import re
 from ..exceptions import ValidationValueException
-from .Field import Field
+from .field import Field
 
 
 class Phone(Field):
