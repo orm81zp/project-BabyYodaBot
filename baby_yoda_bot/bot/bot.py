@@ -1,10 +1,11 @@
 import inspect
 from collections import defaultdict
+import time
 
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
-
+import art 
 
 class Bot:
     __COMMANDS_HANDLERS = {}
@@ -145,7 +146,11 @@ class Bot:
             print(f"{command} {arguments_list} - {description}")
 
     def listen(self):
-        # TODO: add hello message or animation
+        rows = art.a.split("\n")
+        for row in rows:
+            print(row)
+            time.sleep(0.04)
+               
         while True:
             try:
                 command = request_input("Enter command: ")
@@ -154,7 +159,11 @@ class Bot:
                     continue
 
                 if command in ["exit", "close"]:
-                    print("See you later!")
+                    rows = art.h.split("\n")
+                    for row in rows:
+                        print(row)
+                        time.sleep(0.1)
+                    print ("Goodbye! I hope I was useful. Thank you for using me.! See you soon.\n")
                     break
 
                 if command == "help":
