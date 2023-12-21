@@ -12,6 +12,20 @@ class Bot:
     __COMMANDS_HANDLERS = {}
     __COMMANDS_METADATA__ = defaultdict(dict)
 
+    __EXIT_COMMANDS = ["exit", "close"]
+    __INTERNAL_COMMANDS = {
+        "help": "help",
+        "save": "save",
+    }
+
+    @property
+    def __commands(self):
+        commands = list(Bot.__COMMANDS_HANDLERS.keys())
+        commands.extend(self.__INTERNAL_COMMANDS.values())
+        commands.extend(self.__EXIT_COMMANDS)
+
+        return commands
+
     @staticmethod
     def command(name):
         def decorator(func):
@@ -133,7 +147,6 @@ class Bot:
         return executor(*executor_args)
 
     def help(self):
-        print("Commands list:")
         for metadata in Bot.__COMMANDS_METADATA__.values():
             arguments_list = ""
             command = metadata["command"]
@@ -154,13 +167,14 @@ class Bot:
 
         while True:
             try:
-                command = request_input("Enter command: ")
+                command = request_input("Enter command: ", self.__commands)
 
                 if not command:
                     continue
 
-                if command in ["exit", "close"]:
+                if command in __EXIT_COMMANDS:
                     rows = phrase.split("\n")
+
                     for row in rows:
                         print(row)
                         time.sleep(0.1)
@@ -170,11 +184,11 @@ class Bot:
 
                     break
 
-                if command == "help":
+                if command == self.__INTERNAL_COMMANDS["help"]:
                     self.help()
                     continue
 
-                if command == "save":
+                if command == self.__INTERNAL_COMMANDS["save"]:
                     self.context.address_book.save_to_file()
                     print("Saved!")
                     continue
