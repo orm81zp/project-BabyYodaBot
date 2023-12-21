@@ -19,7 +19,7 @@ class Note:
     def show_tags(self)
         return self.tags
     
-    def remove_address(self):
+    def remove_tags(self):
         self.tags = None
 
     
