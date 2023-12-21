@@ -59,6 +59,10 @@ remove-birthday           - used to remove a birthday: remove-birthday <name>
 add-phone                 - used to add a phone: add-phone <name> <phone>
 add-address               - used to add an address: add-address <name> <address>
 show-address              - used to display an address: show-address <name>
+add-email                 - used to add an email: add-email <name> <email>
+show-email                - used to display an email: show-email <name>
+
+
 
 save                      - used to save data: save
 help                      - used to display information about all commands: help
@@ -93,8 +97,7 @@ birthdays                 - used to display birthdays in coming days (7 by defau
 
 remove-address            - used to remove an address: remove-address <name>
 
-add-email                 - used to add an email: add-email <name> <email>
-show-email                - used to display an email: show-email <name>
+
 remove-email              - used to remove an email: remove-email <name>
 
 
