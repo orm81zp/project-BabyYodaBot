@@ -68,6 +68,8 @@ change-phone              - used to change a phone: change-phone <name> <old pho
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
 birthdays                 - used to display birthdays in coming days (7 by default): birthdays [days]
 add-note                  - used to add a note: add-note <text> [tag|s]
+show-note                 - used to display a note: show-note <index>
+all-notes                 - used to display all notes: all-notes
 
 save                      - used to save data: save
 help                      - used to display information about all commands: help
@@ -96,11 +98,11 @@ search                    - case-insensitive world characters. Example: Hello Wo
 ### Commands for further implementation
 
 ```
-show-note                 - used to display a note: show-note <index>
+
 change-note               - used to change a note: change-note <index> <text>
 search-note               - used to search notes by content (case-insensitive): search-note <search>
 remove-note               - used to remove a note: remove-note <index>
-all-notes                 - used to display all notes: all-notes
+
 
 add-tag                   - used to add a tag: add-tag <index> <tag|s>
 search-by-tag             - used to display all notes found by a tag (case-insensitive, strict match): search-by-tag <tag|s>
