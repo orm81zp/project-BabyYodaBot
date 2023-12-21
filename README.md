@@ -72,6 +72,7 @@ tag|s>                    - from 1 to 15 word characters, no spaces, can be a li
 text                      - from 10 to 500 characters
 birthday                  - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
 days                      - a number of days. Example: 7, 14
+search                    - case-insensitive world characters. Example: Hello World
 ```
 
 ### Commands for further implementation
