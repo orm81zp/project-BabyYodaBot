@@ -48,6 +48,7 @@ class AddressBook(UserDict):
         return res
 
     def search(self, search_value):
+        print('search...')
         results = []
         formatted_search = search_value.lower()
         contacts = self.data.values()

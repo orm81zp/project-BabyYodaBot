@@ -12,9 +12,9 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
     ]
 )
 def search_contact(ctx: Context, args):
-    value= args
+    value = args
 
-    data = ctx.address_book.search()
+    data = ctx.address_book.search(value)
 
     return data
 
