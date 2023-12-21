@@ -4,22 +4,20 @@ from ..bot import Bot
 from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 
 
-@Bot.command("show-birthday")
-@Bot.description("used to show a birthday for a contact")
+@Bot.command("remove-birthday")
+@Bot.description("used to remove birthday for a contact")
 @Bot.questions(
     [
         {"name": "name", "required": True, "type": str}
     ]
 )
-def show_birthday(ctx: Context, args):
+def remove_birthday(ctx: Context, args):
     name = args[0]
     contact = ctx.address_book.find_one(name)
-
     if not contact:
         return f"Contact '{name}' not found"
+    ctx.address_book.remove(name)
 
 
-    return contact.show_birthday()
 
-
-__all__ = ["show_birthday"]
+__all__ = ["remove_birthday"]

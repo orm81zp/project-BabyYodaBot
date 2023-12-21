@@ -13,7 +13,7 @@ from baby_yoda_bot.models import Context, Phone
         'type': Phone
     }
 ])
-@Bot.description('add phone to contact by name')
+@Bot.description('used to add a phone to a contact')
 def add_phone(ctx: Context, args):
     name, phone = args
     contact = ctx.address_book.find_one(name)
