@@ -212,8 +212,7 @@ class Bot:
 
                     continue
 
-                output = self.__exec(cmd, args)
-                print(output)
+                self.__exec(cmd, args)
             except KeyboardInterrupt:
                 print("See you later!")
                 self.context.address_book.save_to_file()

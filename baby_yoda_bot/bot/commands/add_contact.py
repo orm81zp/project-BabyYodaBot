@@ -18,22 +18,7 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
     ]
 )
 def add_contact(ctx: Context, args):
-    name, phone, birthday, email = args
-
-    record = Record(name, silent=True)
-
-    if birthday is not None:
-        record.add_birthday(birthday)
-
-    if email is not None:
-        record.add_email(email)
-
-    if phone is not None:
-        record.add_phone(phone.value)
-
-    ctx.address_book.save(record)
-
-    return f"New contact with name {record.name} added."
+    ctx.address_book.add_contact(args)
 
 
 __all__ = ["add_contact"]

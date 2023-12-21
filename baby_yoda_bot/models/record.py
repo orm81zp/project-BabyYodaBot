@@ -87,7 +87,7 @@ class Record:
                 print_exists("Phone number")
             return False
 
-        self.phones.append(number)
+        self.phones.append(Phone(number))
         if not self.silent:
             print_added("Phone number")
         return True
