@@ -1,4 +1,5 @@
 import inspect
+import difflib
 from collections import defaultdict
 from ..assets import logo, phrase
 import time
@@ -11,6 +12,20 @@ from baby_yoda_bot.exceptions.exceptions import ValidationValueException
 class Bot:
     __COMMANDS_HANDLERS = {}
     __COMMANDS_METADATA__ = defaultdict(dict)
+
+    __EXIT_COMMANDS = ["exit", "close"]
+    __INTERNAL_COMMANDS = {
+        "help": "help",
+        "save": "save",
+    }
+
+    @property
+    def __commands(self):
+        commands = list(Bot.__COMMANDS_HANDLERS.keys())
+        commands.extend(self.__INTERNAL_COMMANDS.values())
+        commands.extend(self.__EXIT_COMMANDS)
+
+        return commands
 
     @staticmethod
     def command(name):
@@ -69,9 +84,6 @@ class Bot:
         self.context = Context()
 
     def __exec(self, command, args):
-        if command not in Bot.__COMMANDS_HANDLERS:
-            return f"Unknown '{command}', use help to see commands list"
-
         executor_args = [self.context]
         executor = Bot.__COMMANDS_HANDLERS[command]
 
@@ -134,6 +146,7 @@ class Bot:
 
     def help(self):
         print("Commands list:")
+
         for metadata in Bot.__COMMANDS_METADATA__.values():
             arguments_list = ""
             command = metadata["command"]
@@ -147,20 +160,23 @@ class Bot:
             print(f"{command} {arguments_list} - {description}")
 
     def listen(self):
+        commands = self.__commands
         rows = logo.split("\n")
+
         for row in rows:
             print(row)
             time.sleep(0.04)
 
         while True:
             try:
-                command = request_input("Enter command: ")
+                command = request_input("Enter command: ", commands)
 
                 if not command:
                     continue
 
-                if command in ["exit", "close"]:
+                if command in Bot.__EXIT_COMMANDS:
                     rows = phrase.split("\n")
+
                     for row in rows:
                         print(row)
                         time.sleep(0.1)
@@ -170,15 +186,28 @@ class Bot:
 
                     break
 
-                if command == "help":
+                if command == self.__INTERNAL_COMMANDS["help"]:
                     self.help()
                     continue
 
-                if command == "save":
+                if command == self.__INTERNAL_COMMANDS["save"]:
                     self.context.address_book.save_to_file()
                     print("Saved!")
                     continue
-                cmd, args = parse_input(command)
+
+                if cmd not in Bot.__COMMANDS_HANDLERS:
+                    close_matches = difflib.get_close_matches(
+                        cmd, commands, n=1, cutoff=0.6
+                    )
+
+                    if close_matches:
+                        suggestion = close_matches[0]
+                        print(f"Unknown command '{cmd}'. Do you mean '{suggestion}'?")
+                    else:
+                        print(f"Unknown command '{cmd}', use help to see commands list")
+
+                    continue
+
                 output = self.__exec(cmd, args)
                 print(output)
             except KeyboardInterrupt:
