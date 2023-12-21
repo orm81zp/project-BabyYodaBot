@@ -32,7 +32,7 @@ class Note:
             
 
     def show_tags(self):
-        return self.tags
+        return ", ".join([str(tag) for tag in self.tags]) if len(self.tags) > 0 else " - "
 
     def remove_tags(self):
         self.tags = []
