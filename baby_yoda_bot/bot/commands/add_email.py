@@ -5,7 +5,7 @@ from baby_yoda_bot.models import Email, Context
 
 
 @Bot.command("add-email")
-@Bot.description("used to add address to the contact")
+@Bot.description("used to add email to the contact")
 @Bot.questions(
     [
         {"name": "name", "required": True, "type": str},

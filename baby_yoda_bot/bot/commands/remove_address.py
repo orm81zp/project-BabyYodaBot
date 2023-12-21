@@ -5,7 +5,7 @@ from baby_yoda_bot.models import  Context
 
 
 @Bot.command("remove-address")
-@Bot.description("used to show a address for a contact")
+@Bot.description("used to remove an address for a contact")
 @Bot.questions(
     [
         {"name": "name", "required": True, "type": str}

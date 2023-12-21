@@ -4,7 +4,7 @@ from baby_yoda_bot.models import Context
 
 
 @Bot.command("remove-phone")
-@Bot.description("used to change phone for a contact")
+@Bot.description("used to remove phone for a contact")
 @Bot.questions(
     [
         {"name": "name", "required": True, "type": str},
