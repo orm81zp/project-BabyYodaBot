@@ -27,7 +27,7 @@ class Record:
     # ----------- EMAIL------------------------------------------------
     def add_email(self, email):
         old_email = self.email
-        self.email = Email(email)
+        self.email = email
         if old_email:
             if not self.silent:
                 print_diff(str(old_email), email)
