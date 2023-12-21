@@ -174,7 +174,7 @@ class Bot:
                 if not command:
                     continue
 
-                if command in __EXIT_COMMANDS:
+                if command in Bot.__EXIT_COMMANDS:
                     rows = phrase.split("\n")
 
                     for row in rows:
