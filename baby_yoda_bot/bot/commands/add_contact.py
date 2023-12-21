@@ -33,7 +33,7 @@ def add_contact(ctx: Context, args):
 
     ctx.address_book.save(record)
 
-    return f"New contact added {str(record)}"
+    return f"New contact with name {record.name} added."
 
 
 __all__ = ["add_contact"]

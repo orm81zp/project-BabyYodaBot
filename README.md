@@ -51,6 +51,9 @@ Type `help` to see all commands. The example of the output is below:
 add-contact               - used to add a new contact: add-contact <name> [phone] [birthday] [email]
 all-contacts              - used to display all contacts: all-contacts
 search-contact            - used to search contacts (case-insensitive): search-contact <search>
+show-contact              - used to display a contact: show-contact <name>
+remove-contact            - used to remove a contact: remove-contact <name>
+add-birthday              - used to add a birthday: add-birthday <name> <birthday>
 
 save                      - used to save data: save
 help                      - used to display information about all commands: help
@@ -80,10 +83,10 @@ search                    - case-insensitive world characters. Example: Hello Wo
 
 ```
 
-show-contact              - used to display a contact: show-contact <name>
-remove-contact            - used to remove a contact: remove-contact <name>
 
-add-birthday              - used to add a birthday: add-birthday <name> <birthday>
+
+
+
 show-birthday             - used to display a birthday: show-birthday <name>
 remove-birthday           - used to remove a birthday: remove-birthday <name>
 birthdays                 - used to display birthdays in coming days (7 by default): birthdays [days]
