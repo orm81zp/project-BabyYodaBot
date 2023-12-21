@@ -1,9 +1,10 @@
+import time
+import sys
 import inspect
 import difflib
 from collections import defaultdict
-from ..assets import logo, phrase
-import time
 
+from ..assets import logo, phrase
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
@@ -159,13 +160,18 @@ class Bot:
 
             print(f"{command} {arguments_list} - {description}")
 
+    def __animate(self, data, delay=0.04):
+        if not ("--silent" in sys.argv or "-s" in sys.argv):
+            rows = data.split("\n")
+
+            for row in rows:
+                print(row)
+                time.sleep(delay)
+
     def listen(self):
         commands = self.__commands
-        rows = logo.split("\n")
 
-        for row in rows:
-            print(row)
-            time.sleep(0.04)
+        self.__animate(logo)
 
         while True:
             try:
@@ -177,11 +183,7 @@ class Bot:
                 cmd, args = parse_input(command)
 
                 if command in Bot.__EXIT_COMMANDS:
-                    rows = phrase.split("\n")
-
-                    for row in rows:
-                        print(row)
-                        time.sleep(0.1)
+                    self.__animate(phrase, 0.1)
                     print(
                         "Goodbye! I hope I was useful. Thank you for using me.! See you soon.\n"
                     )
