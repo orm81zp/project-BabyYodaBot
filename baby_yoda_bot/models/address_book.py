@@ -131,9 +131,9 @@ class AddressBook(UserDict):
         try:
             with open(self.filename, "rb") as file:
                 self.data = pickle.load(file)
-                print(f"Contact book {self.filename} restored!")
         except (OSError, IOError):
-            print("Oh! Something went wrong while restoring the contact book!")
+            pass #працюємо із порожнім self.data
+
 
     def __str__(self):
         if len(self.data) > 0:
