@@ -1,6 +1,6 @@
 import pickle
-from .AddressBook import AddressBook
-from .Record import Record
+from .address_book import AddressBook
+from .record import Record
 
 
 class Bot:

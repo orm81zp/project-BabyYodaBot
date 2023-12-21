@@ -35,7 +35,7 @@ def add_contact(ctx: Context, args):
         record.add_birthday(birthday)
     
     if email is not None:
-        record.add_address(email)
+        record.add_email(email)
 
     if phone is not None:
         record.add_phone(phone.value)

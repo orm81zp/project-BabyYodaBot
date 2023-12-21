@@ -1,5 +1,5 @@
 from ..exceptions import ValidationValueException
-from .Field import Field
+from .field import Field
 
 
 class Address(Field):

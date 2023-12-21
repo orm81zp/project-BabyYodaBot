@@ -1,7 +1,7 @@
 import time
-from .Content import Content
-from .Title import Title
-from .Tag import Tag
+from .content import Content
+from .title import Title
+from .tag import Tag
 
 
 class Note:
@@ -16,7 +16,7 @@ class Note:
     def add_tags(self, tags):
         self.tags.append(Tag(tags))
     
-    def show_tags(self)
+    def show_tags(self):
         return self.tags
     
     def remove_tags(self):
