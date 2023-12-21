@@ -41,7 +41,7 @@ Can be restarted without losing data. All data (contacts, notes) are stored on t
 
 ### Commands
 
-There are two list of commands: already implemented and for futher implementetion.
+There are two list of commands: already available and for further implementation.
 
 ### Available Сommands
 
