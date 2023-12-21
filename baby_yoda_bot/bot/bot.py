@@ -168,8 +168,10 @@ class Bot:
             except KeyboardInterrupt:
                 print('\nBye!')
                 break
+            finally:
+                self.context.address_book.save_to_file()
 
-            self.context.address_book.save_to_file()
+
 
 
 __all__ = [
