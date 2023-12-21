@@ -34,7 +34,7 @@ class Record:
                 print_updated("Email")
         else:
             if not self.silent:
-                print_added("Email")
+                c
 
     def show_email(self):
         print(self.email)

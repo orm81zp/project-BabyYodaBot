@@ -4,9 +4,17 @@ from .note import Note
 
 
 class Notes(UserDict):
+    id = 1
     def __init__(self):
         self.data = dict()
         self.filename = "NotesData.dat"
+
+    
+    def getId():
+        Notes.id
+        
+    def generateId():
+        Notes.id+=1
 
     def find(self, title=None, content=None, tags=None):
         if title is None and content is None and tags is None:

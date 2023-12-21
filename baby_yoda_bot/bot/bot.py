@@ -217,6 +217,7 @@ class Bot:
             except KeyboardInterrupt:
                 print("See you later!")
                 self.context.address_book.save_to_file()
+                self.context.notes.save_to_file()
                 break
             except Exception as e:
                 print("Oops! Something went wrong!")
