@@ -1,12 +1,11 @@
 import inspect
 from collections import defaultdict
-from art import art
+from ..assets import logo, phrase
 import time
 
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
-
 
 
 class Bot:
@@ -148,7 +147,7 @@ class Bot:
             print(f"{command} {arguments_list} - {description}")
 
     def listen(self):
-        rows = art.a.split("\n")
+        rows = logo.split("\n")
         for row in rows:
             print(row)
             time.sleep(0.04)
@@ -161,11 +160,13 @@ class Bot:
                     continue
 
                 if command in ["exit", "close"]:
-                    rows = art.h.split("\n")
+                    rows = phrase.split("\n")
                     for row in rows:
                         print(row)
                         time.sleep(0.1)
-                    print ("Goodbye! I hope I was useful. Thank you for using me.! See you soon.\n")
+                    print(
+                        "Goodbye! I hope I was useful. Thank you for using me.! See you soon.\n"
+                    )
 
                     break
 
