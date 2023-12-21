@@ -143,7 +143,6 @@ class Bot:
 
     def listen(self):
         # TODO: add hello message or animation
-
         while True:
             try:
                 command = request_input('Enter command: ')
@@ -169,6 +168,8 @@ class Bot:
             except KeyboardInterrupt:
                 print('\nBye!')
                 break
+
+            self.context.address_book.save_to_file()
 
 
 __all__ = [
