@@ -139,7 +139,7 @@ class Record:
         if is_yes("Existing birthday will be deleted, continue?"):
             self.birthday = None
             if not self.silent:
-                print_deleted("Email")
+                print_deleted("Birthday")
 
     def show(self):
         StyledPrint(self, entity="contact").print()

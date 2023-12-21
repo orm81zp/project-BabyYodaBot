@@ -16,7 +16,7 @@ def remove_birthday(ctx: Context, args):
     contact = ctx.address_book.find_one(name)
     if not contact:
         return f"Contact '{name}' not found"
-    ctx.address_book.remove(name)
+    contact.remove_birthday()
 
 
 

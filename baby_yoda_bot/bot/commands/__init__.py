@@ -6,3 +6,4 @@ from .show_contact import *
 from .remove_contact import *
 from .add_birthday import *
 from .show_birthday import *
+from .remove_birthday import *
