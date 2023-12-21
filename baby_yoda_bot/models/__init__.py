@@ -6,4 +6,6 @@ from .email import *
 from .birthday import *
 from .record import *
 from .notes import *
+from .note import *
+from .tag import *
 from .context import *

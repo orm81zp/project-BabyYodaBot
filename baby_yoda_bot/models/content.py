@@ -8,9 +8,9 @@ class Content(Field):
         return self.__value
 
     @value.setter
-    def value(self, new_value):
-        if new_value and len(new_value) > 10 and len(new_value) <= 500:
-            self.__value = new_value
+    def value(self, data:str):
+        if len(data) > 10 and len(data) <= 500:
+            self.__value = data
         else:
             raise ValidationValueException("Content failed validation.")
 

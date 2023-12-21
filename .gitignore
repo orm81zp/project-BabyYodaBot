@@ -173,4 +173,4 @@ cython_debug/
 tasks.txt
 pull_requests.txt
 
-AddressBookData.dat
+*.dat

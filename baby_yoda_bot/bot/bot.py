@@ -196,6 +196,7 @@ class Bot:
 
                 if command == self.__INTERNAL_COMMANDS["save"]:
                     self.context.address_book.save_to_file()
+                    self.context.notes.save_to_file()
                     print("Saved!")
                     continue
 
@@ -216,6 +217,7 @@ class Bot:
             except KeyboardInterrupt:
                 print("See you later!")
                 self.context.address_book.save_to_file()
+                self.context.notes.save_to_file()
                 break
             except Exception as e:
                 print("Oops! Something went wrong!")
@@ -223,6 +225,7 @@ class Bot:
                 break
 
         self.context.address_book.save_to_file()
+        self.context.notes.save_to_file()
 
 
 __all__ = ["Bot"]
