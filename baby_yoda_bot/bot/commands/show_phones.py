@@ -4,23 +4,21 @@ from ..bot import Bot
 from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 
 
-@Bot.command("show-contact")
+@Bot.command("show-phones")
 @Bot.description("used to show a contact")
 @Bot.questions(
     [
         {"name": "name", "required": True, "type": str}
     ]
 )
-def show_contact(ctx: Context, args):
+def show_phones(ctx: Context, args):
     name = args[0]
     contact = ctx.address_book.find_one(name)
 
     if not contact:
         return f"Contact '{name}' not found"
 
-    data = ctx.address_book.show_contact(name)
-
-    return data
+    return  contact.show_phones()
 
 
-__all__ = ["show_contact"]
+__all__ = ["show_phones"]

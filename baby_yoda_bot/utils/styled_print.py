@@ -30,7 +30,7 @@ class PrintRecord(PrintObject):
 
         table.add_row(
             str(self.model.name),
-            self.model.get_phones(),
+            self.model.show_phones(),
             str(self.model.birthday),
             str(self.model.email),
             str(self.model.address),
@@ -60,7 +60,7 @@ class PrintRecords(PrintObject):
         for contact in contacts:
             table.add_row(
                 str(contact.name),
-                contact.get_phones(),
+                contact.show_phones(),
                 str(contact.birthday),
                 str(contact.email),
                 str(contact.address),

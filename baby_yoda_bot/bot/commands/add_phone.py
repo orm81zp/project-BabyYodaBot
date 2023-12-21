@@ -1,18 +1,14 @@
 from ..bot import Bot
 
-from baby_yoda_bot.models import Context, Phone
+from baby_yoda_bot.models import Context, Phone,  Name
 
 @Bot.command('add-phone')
-@Bot.arguments([
-    {
-        'name': 'name',
-        'type': str
-    },
-    {
-        'name': 'phone',
-        'type': Phone
-    }
-])
+@Bot.questions(
+    [
+        {"name": "name", "required": True, "type": str},
+        {"name": "phone", "required": True, "type": Phone}
+    ]
+)
 @Bot.description('used to add a phone to a contact')
 def add_phone(ctx: Context, args):
     name, phone = args

@@ -73,7 +73,7 @@ class Record:
                 return phone
         return None
 
-    def get_phones(self, placeholder=" - "):
+    def show_phones(self, placeholder=" - "):
         phone_numbers = placeholder
         if len(self.phones) > 0:
             phone_numbers = ", ".join([str(phone) for phone in self.phones])
