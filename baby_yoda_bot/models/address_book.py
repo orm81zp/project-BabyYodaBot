@@ -96,13 +96,19 @@ class AddressBook(UserDict):
         else:
             print("Address Book is empty")
 
+    def add_contact(self, name, **kwargs):
+        contact = Record(name, **kwargs)
+        return self.save(contact)
+
     def save(self, record: Record):
         name = str(record.name)
         contact = self.find_one(name)
         if contact:
             print_exists(f"Contact {name}")
+            return False
         else:
             self.data[name] = record
+            return True
 
     def remove(self, name: str):
         if name in self.data:

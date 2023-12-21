@@ -174,7 +174,7 @@ class Bot:
         self.__animate(logo)
 
         while True:
-            # try:
+            try:
                 command = request_input("Enter command: ", commands)
 
                 if not command:
@@ -196,6 +196,7 @@ class Bot:
 
                 if command == self.__INTERNAL_COMMANDS["save"]:
                     self.context.address_book.save_to_file()
+                    self.context.notes.save_to_file()
                     print("Saved!")
                     continue
 
@@ -212,20 +213,19 @@ class Bot:
 
                     continue
 
-                output = self.__exec(cmd, args)
-                print(output)
-            # except KeyboardInterrupt:
-            #     print("See you later!")
-            #     self.context.address_book.save_to_file()
-            #     self.context.notes.save_to_file()
-            #     break
-            # except Exception as e:
-            #     print("Oops! Something went wrong!")
-            #     print(e)
-            #     break
-
+                self.__exec(cmd, args)
+            except KeyboardInterrupt:
+                print("See you later!")
                 self.context.address_book.save_to_file()
                 self.context.notes.save_to_file()
+                break
+            except Exception as e:
+                print("Oops! Something went wrong!")
+                print(e)
+                break
+
+        self.context.address_book.save_to_file()
+        self.context.notes.save_to_file()
 
 
 __all__ = ["Bot"]

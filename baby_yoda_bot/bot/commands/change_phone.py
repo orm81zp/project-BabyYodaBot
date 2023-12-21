@@ -1,26 +1,32 @@
+from baby_yoda_bot.models import Context
+from baby_yoda_bot.utils import print_not_found
+from baby_yoda_bot.commands.commands import (
+    CMD_CHANGE_PHONE,
+    ARG_NAME,
+    ARG_OLD_PHONE,
+    ARG_NEW_PHONE,
+    COMMAND_DESCRIPTION,
+)
 from ..bot import Bot
 
-from baby_yoda_bot.models import  Context
 
-
-@Bot.command("change-phone")
-@Bot.description("used to change phone for a contact")
+@Bot.command(CMD_CHANGE_PHONE)
+@Bot.description(COMMAND_DESCRIPTION[CMD_CHANGE_PHONE])
 @Bot.questions(
     [
-        {"name": "name", "required": True, "type": str},
-        {"name": "old_phone", "required": True, "type": str},
-        {"name": "new_phone", "required": True, "type": str}
+        {"name": ARG_NAME, "required": True, "type": str},
+        {"name": ARG_OLD_PHONE, "required": True, "type": str},
+        {"name": ARG_NEW_PHONE, "required": True, "type": str},
     ]
 )
 def change_phone(ctx: Context, args):
     name, old_phone, new_phone = args
-    contact = ctx.address_book.find_one(name)
+    contact = ctx.address_book.find_one(str(name))
 
-    if not contact:
-        return f"Contact '{name}' not found"
-
-    contact.change_phone(old_phone, new_phone)
-    return f"Phone was changed from '{old_phone}'to '{new_phone}'"
+    if contact:
+        contact.change_phone(old_phone, new_phone)
+    else:
+        print_not_found(f'Contact "{name}"')
 
 
 __all__ = ["change_phone"]

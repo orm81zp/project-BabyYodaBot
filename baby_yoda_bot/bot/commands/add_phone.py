@@ -1,26 +1,33 @@
+from baby_yoda_bot.models import Context, Phone
+from baby_yoda_bot.utils import print_added
+from baby_yoda_bot.commands.commands import (
+    CMD_ADD_PHONE,
+    ARG_NAME,
+    ARG_PHONE,
+    COMMAND_DESCRIPTION,
+)
 from ..bot import Bot
 
-from baby_yoda_bot.models import Context, Phone,  Name
 
-@Bot.command('add-phone')
+@Bot.command(CMD_ADD_PHONE)
+@Bot.description(COMMAND_DESCRIPTION[CMD_ADD_PHONE])
 @Bot.questions(
     [
-        {"name": "name", "required": True, "type": str},
-        {"name": "phone", "required": True, "type": Phone}
+        {"name": ARG_NAME, "required": True, "type": str},
+        {"name": ARG_PHONE, "required": True, "type": Phone},
     ]
 )
-@Bot.description('used to add a phone to a contact')
 def add_phone(ctx: Context, args):
     name, phone = args
-    contact = ctx.address_book.find_one(name)
+    contact = ctx.address_book.find_one(str(name))
 
-    if not contact:
-        return f"Contact '{name}' not found"
+    if contact:
+        contact.add_phone(str(phone))
+    else:
+        added = ctx.address_book.add_contact(name=str(name), phone=phone)
+        if added:
+            print_added(f'Contact "{str(name)}"')
+            print_added("Phone number")
 
-    contact.add_phone(phone)
 
-    return 'Phone added'
-
-__all__ = [
-    'add_phone'
-]
+__all__ = ["add_phone"]

@@ -1,14 +1,12 @@
+from baby_yoda_bot.models import Context
+from baby_yoda_bot.commands.commands import CMD_ALL_CONTACTS, COMMAND_DESCRIPTION
 from ..bot import Bot
 
-from baby_yoda_bot.models import  Context
 
-@Bot.command('all-contacts')
-@Bot.description('shows all the contacts')
-def all_contacts(ctx: Context):    
+@Bot.command(CMD_ALL_CONTACTS)
+@Bot.description(COMMAND_DESCRIPTION[CMD_ALL_CONTACTS])
+def all_contacts(ctx: Context):
     ctx.address_book.show_all()
 
-    return ''
 
-__all__ = [
-    'all_contacts'
-]
+__all__ = ["all_contacts"]

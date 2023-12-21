@@ -63,7 +63,7 @@ add-email                 - used to add an email: add-email <name> <email>
 show-email                - used to display an email: show-email <name>
 remove-address            - used to remove an address: remove-address <name>
 remove-email              - used to remove an email: remove-email <name>
-show-phones                - used to display a phone: show-phone <name>
+show-phone                - used to display a phone: show-phone <name>
 change-phone              - used to change a phone: change-phone <name> <old phone> <new phone>
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
 birthdays                 - used to display birthdays in coming days (7 by default): birthdays [days]

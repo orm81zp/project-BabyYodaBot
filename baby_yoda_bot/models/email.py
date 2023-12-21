@@ -1,7 +1,7 @@
 import re
 from ..exceptions import ValidationValueException
 from .field import Field
-
+from ..commands.commands import ARG_EMAIL, VALIDATION_RULES
 
 class Email(Field):
     @property
@@ -14,7 +14,7 @@ class Email(Field):
         if new_value and re.match(pattern, new_value):
             self.__value = new_value
         else:
-            raise ValidationValueException("Email failed validation.")
+            raise ValidationValueException(VALIDATION_RULES[ARG_EMAIL])
 
     def __str__(self):
         return self.__value

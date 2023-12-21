@@ -1,15 +1,22 @@
+from baby_yoda_bot.models import Name, Phone, Birthday, Email, Context
+from baby_yoda_bot.utils import print_added
+from baby_yoda_bot.commands.commands import (
+    CMD_ADD_CONTACT,
+    ARG_NAME,
+    ARG_BIRTHDAY,
+    ARG_PHONE,
+    COMMAND_DESCRIPTION,
+)
 from ..bot import Bot
 
-from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 
-
-@Bot.command("add-contact")
-@Bot.description("used to add a contact")
+@Bot.command(CMD_ADD_CONTACT)
+@Bot.description(COMMAND_DESCRIPTION[CMD_ADD_CONTACT])
 @Bot.questions(
     [
-        {"name": "name", "required": True, "type": Name},
-        {"name": "phone", "required": False, "type": Phone},
-        {"name": "birthday", "required": False, "type": Birthday},
+        {"name": ARG_NAME, "required": True, "type": Name},
+        {"name": ARG_PHONE, "required": False, "type": Phone},
+        {"name": ARG_BIRTHDAY, "required": False, "type": Birthday},
         {
             "name": "email",
             "required": False,
@@ -19,21 +26,12 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 )
 def add_contact(ctx: Context, args):
     name, phone, birthday, email = args
+    added = ctx.address_book.add_contact(
+        name, phone=phone, birthday=birthday, email=email
+    )
 
-    record = Record(name, silent=True)
-
-    if birthday is not None:
-        record.add_birthday(birthday)
-
-    if email is not None:
-        record.add_email(email)
-
-    if phone is not None:
-        record.add_phone(phone.value)
-
-    ctx.address_book.save(record)
-
-    return f"New contact with name {record.name} added."
+    if added:
+        print_added(f'Contact "{str(name)}"')
 
 
 __all__ = ["add_contact"]
