@@ -174,6 +174,8 @@ class Bot:
                 if not command:
                     continue
 
+                cmd, args = parse_input(command)
+
                 if command in Bot.__EXIT_COMMANDS:
                     rows = phrase.split("\n")
 
