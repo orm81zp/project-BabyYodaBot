@@ -48,7 +48,7 @@ class AddressBook(UserDict):
         return res
 
     def search(self, search_value):
-        print('search...')
+        print("search...")
         results = []
         formatted_search = search_value.lower()
         contacts = self.data.values()
@@ -132,8 +132,7 @@ class AddressBook(UserDict):
             with open(self.filename, "rb") as file:
                 self.data = pickle.load(file)
         except (OSError, IOError):
-            pass #працюємо із порожнім self.data
-
+            pass  # працюємо із порожнім self.data
 
     def __str__(self):
         if len(self.data) > 0:

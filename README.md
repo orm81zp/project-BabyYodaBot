@@ -52,6 +52,7 @@ add-contact               - used to add a new contact: add-contact <name> [phone
 all-contacts              - used to display all contacts: all-contacts
 search-contact            - used to search contacts (case-insensitive): search-contact <search>
 
+save                      - used to save data: save
 help                      - used to display information about all commands: help
 close | exit              - used to close the program, data will be saved: close
 
