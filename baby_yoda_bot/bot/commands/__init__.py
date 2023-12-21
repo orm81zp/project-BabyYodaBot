@@ -1,3 +1,4 @@
+#--------CONTACTS-----------
 from .all_contacts import *
 from .add_contact import *
 from .add_phone import *
@@ -17,3 +18,7 @@ from .remove_email import *
 from .show_phones import *
 from .change_phone import *
 from .remove_phone import *
+#--------NOTES----------------
+from .add_note import *
+from .show_note import *
+from .all_notes import *
