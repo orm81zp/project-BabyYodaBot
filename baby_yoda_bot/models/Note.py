@@ -11,18 +11,39 @@ class Note:
         self.tags = []
         self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
         self.date_modification = None
-
+    
+     # ----------- Tags------------------------------------------------
     def add_tags(self, tags):
-        if tags and isinstance(tags, list):
-            for tag in tags:
-                for i in self.tags:
-                    if str(i) != tag:
-                        self.tags.append(Tag(tag))
+        self.tags.append(Tag(tags))
+    
+    def show_tags(self)
+        return self.tags
+    
+    def remove_address(self):
+        self.tags = None
 
+    
+     # ----------- Content------------------------------------------------
     def add_content(self, content):
         self.content = Content(content)
 
+    def show_content(self):
+        return self.content
     
+    def remove_content(self):
+        self.content = None
+
+    # ----------- Content------------------------------------------------
+        
+    def add_title(self,title):
+        self.title = Title(title)
+
+    def show_title(self):
+        return self.title
+    
+    def remove_title(self):
+        self.title = None
+   
     def __str__(self):
         return f"Title: {self.title.value}, Content: {content}, Tags: {self.tags.value}"
         
