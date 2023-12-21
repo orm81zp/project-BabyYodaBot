@@ -1,11 +1,13 @@
 import inspect
 from collections import defaultdict
+from art import art
+import time
 
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
-from art import art
-import time
+
+
 
 class Bot:
     __COMMANDS_HANDLERS = {}
@@ -16,16 +18,17 @@ class Bot:
         def decorator(func):
             inner, key = Bot.__make_inner(func)
             Bot.__COMMANDS_HANDLERS[name] = func
-            Bot.__COMMANDS_METADATA__[key]['command'] = name
+            Bot.__COMMANDS_METADATA__[key]["command"] = name
 
             return inner
+
         return decorator
 
     @staticmethod
     def questions(args):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]['questions'] = args
+            Bot.__COMMANDS_METADATA__[key]["questions"] = args
 
             return inner
 
@@ -35,20 +38,20 @@ class Bot:
     def arguments(args):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]['arguments'] = args
+            Bot.__COMMANDS_METADATA__[key]["arguments"] = args
 
             return inner
 
         return decorator
 
-
     @staticmethod
     def description(description):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]['description'] = description
+            Bot.__COMMANDS_METADATA__[key]["description"] = description
 
             return inner
+
         return decorator
 
     @staticmethod
@@ -56,10 +59,10 @@ class Bot:
         inner = func
         name = func.__name__
 
-        if hasattr(func, '__bot_cmd__'):
+        if hasattr(func, "__bot_cmd__"):
             name = func.__bot_cmd__
         else:
-            setattr(inner, '__bot_cmd__', name)
+            setattr(inner, "__bot_cmd__", name)
 
         return inner, name
 
@@ -76,50 +79,51 @@ class Bot:
         metadata_key = executor.__bot_cmd__
         metadata = Bot.__COMMANDS_METADATA__[metadata_key]
 
-        if 'questions' in metadata:
+        if "questions" in metadata:
             validated_args = []
 
-            for rule in metadata['questions']:
-                is_optional = not rule['required'] if 'required' in rule else False
+            for rule in metadata["questions"]:
+                is_optional = not rule["required"] if "required" in rule else False
 
                 while True:
-                    optional = '(optional)' if is_optional else ''
+                    optional = "(optional)" if is_optional else ""
                     value = input(f"Enter {rule['name']}{optional}: ")
 
                     if not value and is_optional:
                         value = None
                         break
 
-                    if 'type' in rule:
+                    if "type" in rule:
                         try:
-                            value = rule['type'](value)
+                            value = rule["type"](value)
                             break
                         except ValidationValueException as e:
                             print(e)
                             continue
-                
-                      
+
                 validated_args.append(value)
             executor_args.append(validated_args)
 
-        if 'arguments' in metadata:
-            if (len(metadata['arguments']) != len(args)):
-                expected_args = ', '.join([f"<{arg['name']}>" for arg in metadata['arguments']])
-                
+        if "arguments" in metadata:
+            if len(metadata["arguments"]) != len(args):
+                expected_args = ", ".join(
+                    [f"<{arg['name']}>" for arg in metadata["arguments"]]
+                )
+
                 return f"Invalid number of arguments, expected: {expected_args}"
 
             validated_args = []
 
-            for i, rule in enumerate(metadata['arguments']):
-                name = rule['name']
-                validation_type = rule['type']
+            for i, rule in enumerate(metadata["arguments"]):
+                name = rule["name"]
+                validation_type = rule["type"]
                 value = args[i]
 
                 try:
                     validated_args.append(type(validation_type))
                 except ValidationValueException as e:
                     return f"Argument {name}='{value}' is invalid: {e}"
-                
+
             executor_args.append(validated_args)
 
         required_args = inspect.getfullargspec(executor).args
@@ -130,16 +134,16 @@ class Bot:
         return executor(*executor_args)
 
     def help(self):
-        print('Commands list:')
+        print("Commands list:")
         for metadata in Bot.__COMMANDS_METADATA__.values():
-            arguments_list = ''
-            command  = metadata['command']
-            description = metadata['description'] if 'description' in metadata else ''
+            arguments_list = ""
+            command = metadata["command"]
+            description = metadata["description"] if "description" in metadata else ""
 
-            arguments = metadata['arguments'] if 'arguments' in metadata else []
+            arguments = metadata["arguments"] if "arguments" in metadata else []
 
             if len(arguments):
-                arguments_list = ', '.join([f"<{arg['name']}>" for arg in arguments])
+                arguments_list = ", ".join([f"<{arg['name']}>" for arg in arguments])
 
             print(f"{command} {arguments_list} - {description}")
 
@@ -151,35 +155,41 @@ class Bot:
 
         while True:
             try:
-                command = request_input('Enter command: ')
+                command = request_input("Enter command: ")
 
                 if not command:
                     continue
 
-                if command in ['exit', 'close']:
+                if command in ["exit", "close"]:
                     rows = art.h.split("\n")
                     for row in rows:
                         print(row)
                         time.sleep(0.1)
                     print ("Goodbye! I hope I was useful. Thank you for using me.! See you soon.\n")
+
                     break
-                
-                if command == 'help':
+
+                if command == "help":
                     self.help()
                     continue
 
+                if command == "save":
+                    self.context.address_book.save_to_file()
+                    print("Saved!")
+                    continue
                 cmd, args = parse_input(command)
                 output = self.__exec(cmd, args)
-
                 print(output)
+            except KeyboardInterrupt:
+                print("See you later!")
+                self.context.address_book.save_to_file()
+                break
             except Exception as e:
+                print("Oops! Something went wrong!")
                 print(e)
                 break
-            except KeyboardInterrupt:
-                print('\nBye!')
-                break
+
+        self.context.address_book.save_to_file()
 
 
-__all__ = [
-  'Bot'
-]
+__all__ = ["Bot"]

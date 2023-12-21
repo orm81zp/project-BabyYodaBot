@@ -6,6 +6,9 @@ class PrintObject:
     def __init__(self, model):
         self.model = model
 
+    def show(self, value):
+        return str(value) if value else " - "
+
     def print(self):
         print(self.model)
 
@@ -28,10 +31,10 @@ class PrintRecord(PrintObject):
         table.add_column("Email")
 
         table.add_row(
-            str(self.model.name),
+            self.show(self.model.name),
             self.model.get_phones(),
-            str(self.model.birthday),
-            str(self.model.email),
+            self.show(self.model.birthday),
+            self.show(self.model.email),
         )
 
         Console().print(table)
@@ -56,10 +59,10 @@ class PrintRecords(PrintObject):
 
         for contact in contacts:
             table.add_row(
-                str(contact.name),
+                self.show(contact.name),
                 contact.get_phones(),
-                str(contact.birthday),
-                str(contact.email),
+                self.show(contact.birthday),
+                self.show(contact.email),
             )
         Console().print(table)
 
