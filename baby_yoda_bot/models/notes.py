@@ -1,6 +1,6 @@
 import pickle
 from collections import UserDict
-from .Note import Note
+from .note import Note
 
 
 class Notes(UserDict):

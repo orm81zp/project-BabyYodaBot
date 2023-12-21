@@ -1,7 +1,7 @@
 import time
-from .Content import Content
-from .Title import Title
-from .Tag import Tag
+from .content import Content
+from .title import Title
+from .tag import Tag
 
 
 class Note:

@@ -1,7 +1,7 @@
-from .Phone import Phone
-from .Name import Name
-from .Email import Email
-from .Birthday import Birthday
+from .phone import Phone
+from .name import Name
+from .email import Email
+from .birthday import Birthday
 from .address import Address
 from ..utils import (
     StyledPrint,

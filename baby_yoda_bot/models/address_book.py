@@ -1,6 +1,6 @@
 import pickle
 from collections import UserDict
-from .Record import Record
+from .record import Record
 from ..utils import (
     StyledPrint,
     is_yes,
