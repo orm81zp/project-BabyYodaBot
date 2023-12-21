@@ -1,7 +1,7 @@
-from .Phone import Phone
-from .Name import Name
-from .Email import Email
-from .Birthday import Birthday
+from .phone import phone
+from .name import name
+from .email import email
+from .birthday import birthday
 from .address import Address
 from ..utils import (
     StyledPrint,
@@ -15,7 +15,7 @@ from ..utils import (
 )
 
 
-class Record:
+class record:
     def __init__(self, name, silent=False):
         self.name = name
         self.phones = []
@@ -27,7 +27,7 @@ class Record:
     # ----------- EMAIL------------------------------------------------
     def add_email(self, email):
         old_email = self.email
-        self.email = Email(email)
+        self.email = email(email)
         if old_email:
             if not self.silent:
                 print_diff(str(old_email), email)
@@ -97,7 +97,7 @@ class Record:
         if found_phone:
             for index in range(len(self.phones)):
                 if str(self.phones[index]) == old_phone:
-                    self.phones[index] = Phone(new_phone)
+                    self.phones[index] = phone(new_phone)
                     if not self.silent:
                         print_diff(old_phone, new_phone)
                         print_updated("Phone number")

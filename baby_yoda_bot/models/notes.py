@@ -1,9 +1,9 @@
 import pickle
 from collections import UserDict
-from .Note import Note
+from .note import note
 
 
-class Notes(UserDict):
+class notes(UserDict):
     def __init__(self):
         self.data = dict()
         self.filename = "NotesData.dat"
@@ -35,7 +35,7 @@ class Notes(UserDict):
 
         return res
 
-    def save(self, record: Note):
+    def save(self, record: note):
         title = str(record.title)
         self.data[title] = record
         

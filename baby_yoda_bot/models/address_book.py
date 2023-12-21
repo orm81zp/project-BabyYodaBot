@@ -1,6 +1,6 @@
 import pickle
 from collections import UserDict
-from .Record import Record
+from .record import record
 from ..utils import (
     StyledPrint,
     is_yes,
@@ -10,7 +10,7 @@ from ..utils import (
 )
 
 
-class AddressBook(UserDict):
+class address_book(UserDict):
     def __init__(self):
         self.data = dict()
         self.filename = "AddressBookData.dat"
@@ -54,7 +54,7 @@ class AddressBook(UserDict):
 
         if len(contacts) > 0:
             for contact in contacts:
-                potential_contact: Record = contact
+                potential_contact: record = contact
 
                 # searching by name
                 if str(potential_contact.name).lower().find(formatted_search) > -1:
@@ -95,7 +95,7 @@ class AddressBook(UserDict):
         else:
             print("Address Book is empty")
 
-    def save(self, record: Record):
+    def save(self, record: record):
         name = str(record.name)
         contact = self.find_one(name=name)
         if contact:

@@ -1,6 +1,6 @@
 from ..bot import Bot
 
-from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
+from baby_yoda_bot.models import name, phone, birthday, email, record, Context
 
 @Bot.command('add-contact')
 @Bot.description('used to add a contact')
@@ -8,28 +8,28 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
     {
         'name': 'name',
         'required': True,
-        'type': Name
+        'type': name
     },
     {
         'name': 'phone',
         'required': False,
-        'type': Phone
+        'type': phone
     },
     {
         'name': 'birthday',
         'required': False,
-        'type': Birthday
+        'type': birthday
     },
     {
         'name': 'email',
         'required': False,
-        'type': Email,
+        'type': email,
     }
 ])
 def add_contact(ctx: Context, args):
     name, phone, birthday, email = args
 
-    record = Record(name)
+    record = record(name)
 
     if birthday is not None:
         record.add_birthday(birthday)

@@ -1,8 +1,8 @@
 from ..exceptions import ValidationValueException
-from .Field import Field
+from .field import field
 
 
-class Address(Field):
+class Address(field):
     @property
     def value(self):
         return self.__value

@@ -1,21 +1,21 @@
-from .Field import Field
+from .field import field
 from ..exceptions import ValidationValueException
 
 
-class Content(Field):
+class title(field):
     @property
     def value(self):
         return self.__value
 
     @value.setter
     def value(self, new_value):
-        if new_value and len(new_value) > 10 and len(new_value) <= 500:
+        if new_value and len(new_value) > 4 and len(new_value) <= 20:
             self.__value = new_value
         else:
-            raise ValidationValueException("Content failed validation.")
+            raise ValidationValueException("Title failed validation.")
 
     def __str__(self):
         return str(self.__value)
 
     def __repr__(self):
-        return str(f"Content: {self.__value}")
+        return str(f"Title: {self.__value}")

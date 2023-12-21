@@ -1,12 +1,12 @@
 import time
-from .Content import Content
-from .Title import Title
-from .Tag import Tag
+from .content import content
+from .title import title
+from .tag import tag
 
 
-class Note:
+class note:
     def __init__(self, title):
-        self.title = Title(title)
+        self.title = title(title)
         self.content = None
         self.tags = []
         self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -14,9 +14,9 @@ class Note:
     
      # ----------- Tags------------------------------------------------
     def add_tags(self, tags):
-        self.tags.append(Tag(tags))
+        self.tags.append(tag(tags))
     
-    def show_tags(self)
+    def show_tags(self):
         return self.tags
     
     def remove_tags(self):
@@ -25,7 +25,7 @@ class Note:
     
      # ----------- Content------------------------------------------------
     def add_content(self, content):
-        self.content = Content(content)
+        self.content = content(content)
 
     def show_content(self):
         return self.content
@@ -36,7 +36,7 @@ class Note:
     # ----------- Content------------------------------------------------
         
     def add_title(self,title):
-        self.title = Title(title)
+        self.title = title(title)
 
     def show_title(self):
         return self.title

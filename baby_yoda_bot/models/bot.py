@@ -1,26 +1,26 @@
 import pickle
-from .AddressBook import AddressBook
-from .Record import Record
+from .address_book import address_book
+from .record import record
 
 
-class Bot:
+class bot:
     def __init__(self):
         # self.notes  = Notes()
         # self.notes.read_from_file()
-        self.address_book = AddressBook()
+        self.address_book = address_book()
         self.address_book.read_from_file()
 
     # робота із адресной книгой
     def command1(self):
         # example how to add Record
-        record = Record("Alex", silent=True)  # required name
+        record = record("Alex", silent=True)  # required name
         record.add_birthday("23.02.1985")  # not required
         record.add_birthday("24.02.1985")  # not required
         record.add_phone("+380503611576")  # not required
         record.add_email("alex@gmail.com")  # not required
 
         self.address_book.save(record)
-        record = Record("Antonina", silent=True)  # required name
+        record = record("Antonina", silent=True)  # required name
         record.add_birthday("12.04.1989")  # not required
         record.add_phone("+380503622500")  # not required
         record.add_email("antonina@gmail.com")  # not required
@@ -36,7 +36,7 @@ class Bot:
         # без параметров вызов self.address_book.find() вернет все значения
 
         # change record:
-        record1 = Record("Antonina", silent=True)  # required name
+        record1 = record("Antonina", silent=True)  # required name
         record1.add_birthday("23.03.1985")  # not required
         record1.add_phone("+440503622544")  # not required
         record1.add_email("antoninasych@gmail.com")  # not required

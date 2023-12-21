@@ -1,6 +1,6 @@
 from ..bot import Bot
 
-from baby_yoda_bot.models import Context, Phone
+from baby_yoda_bot.models import Context, phone
 
 @Bot.command('add-phone')
 @Bot.arguments([
@@ -10,7 +10,7 @@ from baby_yoda_bot.models import Context, Phone
     },
     {
         'name': 'phone',
-        'type': Phone
+        'type': phone
     }
 ])
 @Bot.description('add phone to contact by name')

@@ -1,19 +1,18 @@
-import re
 from ..exceptions import ValidationValueException
-from .Field import Field
+from .field import field
 
 
-class Phone(Field):
+class name(field):
     @property
     def value(self):
         return self.__value
 
     @value.setter
     def value(self, new_value):
-        if new_value and re.search(r"^\+?[0-9]{12}", new_value):
+        if len(new_value) < 30 and len(new_value) > 1:
             self.__value = new_value
         else:
-            raise ValidationValueException("Phone failed validation.")
+            raise ValidationValueException("Name failed validation.")
 
     def __str__(self):
         return self.__value

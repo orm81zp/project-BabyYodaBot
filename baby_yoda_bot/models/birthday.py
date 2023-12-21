@@ -1,10 +1,10 @@
 import re
 from datetime import datetime
 from ..exceptions import ValidationValueException
-from .Field import Field
+from .field import field
 
 
-class Birthday(Field):
+class birthday(field):
     @property
     def value(self):
         return self.__value
