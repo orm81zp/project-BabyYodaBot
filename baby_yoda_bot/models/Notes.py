@@ -46,14 +46,13 @@ class Notes(UserDict):
     def __str__(self):
         if len(self.data) == 0:
             return("Notes are empty")
-        for record in self.data.values():
-            return(record)
+        return "\n".join(str(record) for record in self.data.values())
 
     def show(self):
         if len(self.data) == 0:
             print("Notes are empty")
         for record in self.data.values():
-            print(record)  
+            return(record)  
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
