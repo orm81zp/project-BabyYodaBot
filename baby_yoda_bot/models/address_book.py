@@ -7,7 +7,6 @@ from ..utils import (
     print_not_found,
     print_deleted,
     print_exists,
-    print_added,
 )
 
 
@@ -97,30 +96,19 @@ class AddressBook(UserDict):
         else:
             print("Address Book is empty")
 
-    def add_contact(self, args):
-        name, phone, birthday, email = args
-
-        contact = Record(name, silent=True)
-
-        if birthday is not None:
-            contact.add_birthday(birthday)
-
-        if email is not None:
-            contact.add_email(email)
-
-        if phone is not None:
-            contact.add_phone(phone.value)
-
-        self.save(contact)
+    def add_contact(self, name, **kwargs):
+        contact = Record(name, **kwargs)
+        return self.save(contact)
 
     def save(self, record: Record):
         name = str(record.name)
         contact = self.find_one(name)
         if contact:
             print_exists(f"Contact {name}")
+            return False
         else:
             self.data[name] = record
-            print_added(f"Contact {name}")
+            return True
 
     def remove(self, name: str):
         if name in self.data:

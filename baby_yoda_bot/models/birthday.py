@@ -1,7 +1,7 @@
-import re
 from datetime import datetime
 from ..exceptions import ValidationValueException
 from .field import Field
+from ..commands.commands import ARG_BIRTHDAY, VALIDATION_RULES
 
 
 class Birthday(Field):
@@ -14,11 +14,11 @@ class Birthday(Field):
         try:
             birthday = datetime.strptime(new_value, "%d.%m.%Y")
         except ValueError:
-            raise ValidationValueException("Birthday failed validation.")
+            raise ValidationValueException(VALIDATION_RULES[ARG_BIRTHDAY])
 
         if birthday > datetime.today():
             raise ValidationValueException(
-                "Birthday failed validation. The future's date of birth is not accepted."
+                "Birthday failed validation. The future's date accepted."
             )
 
         self.__value = birthday

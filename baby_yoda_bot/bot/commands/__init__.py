@@ -14,6 +14,6 @@ from .remove_address import *
 from .add_email import *
 from .show_email import *
 from .remove_email import *
-from .show_phones import *
+from .show_phone import *
 from .change_phone import *
 from .remove_phone import *

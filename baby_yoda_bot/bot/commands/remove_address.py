@@ -1,25 +1,25 @@
+from baby_yoda_bot.models import Context
+from baby_yoda_bot.utils import print_not_found
+from baby_yoda_bot.commands.commands import (
+    CMD_REMOVE_ADDRESS,
+    ARG_NAME,
+    COMMAND_DESCRIPTION,
+)
 from ..bot import Bot
 
 
-from baby_yoda_bot.models import  Context
-
-
-@Bot.command("remove-address")
-@Bot.description("used to remove an address for a contact")
-@Bot.questions(
-    [
-        {"name": "name", "required": True, "type": str}
-    ]
-)
+@Bot.command(CMD_REMOVE_ADDRESS)
+@Bot.description(COMMAND_DESCRIPTION[CMD_REMOVE_ADDRESS])
+@Bot.questions([{"name": ARG_NAME, "required": True, "type": str}])
 def remove_address(ctx: Context, args):
     name = args[0]
-    contact = ctx.address_book.find_one(name)
+    contact = ctx.address_book.find_one(str(name))
 
-    if not contact:
-        return f"Contact '{name}' not found"
+    if contact:
+        contact.remove_address()
 
-
-    return contact.remove_address()
+    else:
+        print_not_found(f'Contact "{str(name)}"')
 
 
 __all__ = ["remove_address"]
