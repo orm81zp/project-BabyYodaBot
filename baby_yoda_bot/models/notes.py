@@ -66,7 +66,7 @@ class Notes(UserDict):
     
     def show_note(self, id):
         note = self.find_one(id)
-        if note:
+        if note!=None:
             StyledPrint(note, entity="note").print()
         else:
             print_not_found("Note")  

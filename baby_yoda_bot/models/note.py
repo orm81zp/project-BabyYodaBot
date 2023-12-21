@@ -32,7 +32,7 @@ class Note:
             
 
     def show_tags(self):
-        return ", ".join([str(tag) for tag in self.tags]) if len(self.tags) > 0 else " - "
+       return ", ".join([str(tag) for tag in self.tags]) if len(self.tags) > 0 else " - "
 
     def remove_tags(self):
         self.tags = []
@@ -42,7 +42,7 @@ class Note:
         self.content = Content(content)
 
     def show_content(self):
-        return self.content
+        return str(self.content)
 
     def remove_content(self):
         self.content = None

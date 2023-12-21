@@ -19,7 +19,7 @@ class PrintNote(PrintObject):
         super().__init__(model)
         self.options.update(options)
         self.options["title"] = (
-            options.get("title") or f"⚔️ {str(self.model.name)}'s Note's"
+            options.get("title") or f"⚔️ {str(self.model.id)}'s Note's"
         )
 
     def print(self):
@@ -29,11 +29,9 @@ class PrintNote(PrintObject):
         table.add_column("Tags")
 
 
-        table.add_row(
-            str(self.model.id),
-            str(self.model.show_content()),
-             str(self.model.show_tags())
-        )
+        content = self.model.show_content() if len(self.model.show_content())>0 else '-'
+        tags = self.model.show_tags() if len(self.model.show_tags())>0  else '-'
+        table.add_row(str(self.model.id),content, tags)
 
         Console().print(table)
         
@@ -55,11 +53,9 @@ class PrintNotes(PrintObject):
         notes = self.model.values() if isinstance(self.model, dict) else self.model
 
         for note in notes:
-            table.add_row(
-                str(note.name),
-                note.show_tags(),
-                str(note.content)
-            )
+            content = note.show_content() if len(note.show_content())>0 else '-'
+            tags = note.show_tags() if len(note.show_tags())>0  else '-'
+            table.add_row(str(note.id),content, tags)
         Console().print(table)
 
 
@@ -134,9 +130,9 @@ class StyledPrint:
             self.printer = PrintRecord(self.model, self.options)
         elif self.entity == "contacts":
             self.printer = PrintRecords(self.model, self.options)
-        elif self.entity == "Note":
+        elif self.entity == "note":
             self.printer = PrintNote(self.model, self.options)
-        elif self.entity == "Notes":
+        elif self.entity == "notes":
             self.printer = PrintNotes(self.model, self.options)
 
     def print(self):
