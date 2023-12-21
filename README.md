@@ -49,6 +49,7 @@ Type `help` to see all commands. The example of the output is below:
 
 ```
 add-contact               - used to add a new contact: add-contact <name> [phone] [birthday] [email]
+all-contacts              - used to display all contacts: all-contacts
 
 help                      - used to display information about all commands: help
 close | exit              - used to close the program, data will be saved: close
@@ -77,7 +78,6 @@ days                      - a number of days. Example: 7, 14
 
 ```
 search-contact            - used to search contacts (case-insensitive): search-contact <search>
-all-contacts              - used to display all contacts: all-contacts
 show-contact              - used to display a contact: show-contact <name>
 remove-contact            - used to remove a contact: remove-contact <name>
 
