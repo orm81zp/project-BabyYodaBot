@@ -94,6 +94,7 @@ class Record:
 
     def change_phone(self, old_phone, new_phone):
         found_phone = self.find_phone(old_phone)
+
         if found_phone:
             for index in range(len(self.phones)):
                 if str(self.phones[index]) == old_phone:
@@ -102,7 +103,6 @@ class Record:
                         print_diff(old_phone, new_phone)
                         print_updated("Phone number")
                     break
-
         else:
             print_not_found("Phone number")
 
