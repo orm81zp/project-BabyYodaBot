@@ -50,7 +50,7 @@ Type `help` to see all commands. The example of the output is below:
 ```
 add-contact               - used to add a new contact: add-contact <name> [phone] [birthday] [email]
 all-contacts              - used to display all contacts: all-contacts
-search-contact                    - case-insensitive world characters. Example: Alex
+search-contact            - case-insensitive world characters. Example: Alex
 
 help                      - used to display information about all commands: help
 close | exit              - used to close the program, data will be saved: close
