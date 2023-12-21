@@ -157,10 +157,8 @@ class Bot:
                 if command == 'help':
                     self.help()
                     continue
-
                 cmd, args = parse_input(command)
                 output = self.__exec(cmd, args)
-
                 print(output)
             except Exception as e:
                 print(e)
