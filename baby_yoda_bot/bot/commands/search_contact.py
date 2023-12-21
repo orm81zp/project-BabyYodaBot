@@ -8,13 +8,13 @@ from baby_yoda_bot.models import Name, Phone, Birthday, Email, Record, Context
 @Bot.description("used to search a contact")
 @Bot.questions(
     [
-        {"search": "search", "required": False, "type": str}
+        {"name": "search", "required": False, "type": str}
     ]
 )
 def search_contact(ctx: Context, args):
     search = args
 
-    data = ctx.address_book.search(search)
+    data = ctx.address_book.search(str(search))
 
     return data
 
