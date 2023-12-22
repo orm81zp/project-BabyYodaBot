@@ -12,7 +12,7 @@ class Address(Field):
         if new_value and (5 <= len(new_value) <= 100):
             self.__value = new_value
         else:
-            raise ValidationValueException(VALIDATION_RULES[ARG_ADDRESS])
+            raise ValidationValueException(f"Address failed validation. {VALIDATION_RULES[ARG_ADDRESS]}")
 
     def __str__(self):
         return self.__value

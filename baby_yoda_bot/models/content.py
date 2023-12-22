@@ -1,5 +1,6 @@
 from .field import Field
 from ..exceptions import ValidationValueException
+from ..commands.commands import ARG_CONTENT, VALIDATION_RULES
 
 
 class Content(Field):
@@ -8,11 +9,13 @@ class Content(Field):
         return self.__value
 
     @value.setter
-    def value(self, data:str):
+    def value(self, data: str):
         if len(data) > 10 and len(data) <= 500:
             self.__value = data
         else:
-            raise ValidationValueException("Content failed validation.")
+            raise ValidationValueException(
+                f"Content failed validation. {VALIDATION_RULES[ARG_CONTENT]}"
+            )
 
     def __str__(self):
         return str(self.__value)

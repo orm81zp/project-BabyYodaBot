@@ -218,15 +218,15 @@ class Bot:
                     continue
 
                 self.__exec(cmd, args)
+            except ValidationValueException as err:
+                print(err)
             except KeyboardInterrupt:
                 print("See you later!")
                 self.context.address_book.save_to_file()
                 self.context.notes.save_to_file()
-                break
-            except Exception as e:
+            except Exception as err:
                 print("Oops! Something went wrong!")
-                print(e)
-                break
+                print(err)
 
         self.context.address_book.save_to_file()
         self.context.notes.save_to_file()

@@ -5,38 +5,39 @@ from ..utils import (
     StyledPrint,
     is_yes,
     print_not_found,
+    print_added,
     print_deleted,
     print_exists,
 )
 
 
 class Notes(UserDict):
-    id = 1
+    uuid = 1
 
     def __init__(self):
         self.data = dict()
         self.filename = "NotesData.dat"
 
     def getId(self):
-        return self.id
+        return self.uuid
 
     def restoreId(self):
         if len(self.data) > 0:
             last_id = list(self.data)[-1]
-            self.id = int(last_id)
+            self.uuid = int(last_id)
 
     def generateId(self):
-        self.id += 1
-        return self.id
+        self.uuid += 1
+        return self.uuid
 
     def find(self, title=None, content=None, tags=None):
         if title is None and content is None and tags is None:
             return self.data
         res = list()
-        if title != None:
+        if title:
             if title in self.data:
                 res.append(self.data[title])
-        if content != None:
+        if content:
             res.extend(
                 list(
                     filter(
@@ -45,7 +46,7 @@ class Notes(UserDict):
                     )
                 )
             )
-        if tags != None:
+        if tags:
             res.extend(
                 list(
                     filter(
@@ -58,39 +59,31 @@ class Notes(UserDict):
         return res
 
     def save(self, note: Note):
-        id = str(note.id)
-        data = self.find_one(id)
+        uuid = str(note.uuid)
+        data = self.find_one(uuid)
         if data:
-            print_exists(f"Note {id}")
+            print_exists(f"Note {uuid}")
         else:
-            self.data[id] = note
+            self.data[uuid] = note
+            print_added("Note")
 
-    def find_one(self, id):
-        if id in self.data:
-            return self.data[id]
+    def find_one(self, uuid):
+        if uuid in self.data:
+            return self.data[uuid]
         return None
 
-    def show_note(self, id):
-        note = self.find_one(id)
-        if note != None:
+    def show_note(self, uuid):
+        note = self.find_one(uuid)
+        if note:
             StyledPrint(note, entity="note").print()
         else:
-            print_not_found("Note")
+            print_not_found(f"Note {uuid}")
 
-    def delete(self, title: str):
-        if title in self.data:
-            del self.data[title]
-
-    def __str__(self):
-        if len(self.data) == 0:
-            return "Notes are empty"
-        return "\n".join(str(record) for record in self.data.values())
-
-    def show(self):
-        if len(self.data) == 0:
-            print("Notes are empty")
-        for record in self.data.values():
-            return record
+    def delete(self, uuid):
+        if uuid in self.data:
+            deleted = self.data.pop(uuid, None)
+            if deleted is not None:
+                print_deleted("Note")
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
@@ -119,7 +112,12 @@ class Notes(UserDict):
         return found_notes
 
     def show_all(self):
-        if len(self.data) == 0:
-            print("Notes are empty")
-        else:
+        if len(self.data) > 0:
             StyledPrint(self.data, entity="notes").print()
+        else:
+            print("Nothing to display")
+
+    def __str__(self):
+        if len(self.data) == 0:
+            return "Nothing to display"
+        return "\n".join(str(note) for note in self.data.values())

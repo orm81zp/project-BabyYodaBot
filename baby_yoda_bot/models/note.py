@@ -14,21 +14,22 @@ from ..utils import (
 
 
 class Note:
-    def __init__(self, id, silent=False):
-        self.id = id
-        self.content = None
+    def __init__(self, uuid, content=None, tags=None):
+        self.uuid = uuid
+        self.content = content
         self.tags = set()
         self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
         self.date_modification = None
-        self.silent = silent
+
+        if tags and len(tags) > 0:
+            for tag in tags:
+                self.tags.add(Tag(tag))
 
     # ----------- Tags------------------------------------------------
-    def add_tag(self, tag: str):
-        if len(tag) > 0:
+    def add_tag(self, tag):
+        if tag:
             self.tags.add(Tag(tag))
             print_added("Tag")
-        else:
-            print_updated("Tag")
 
     def get_tags(self):
         return (
@@ -39,19 +40,19 @@ class Note:
         print(self.get_tags())
 
     def remove_tags(self):
-        self.tags = []
+        self.tags = set()
 
     # # ----------- Content------------------------------------------------
     def add_content(self, content):
-        self.content = Content(content)
+        if self.content:
+            self.content = content
+            print_updated("Content")
 
     def show_content(self):
-        return str(self.content)
+        print(str(self.content))
 
     def remove_content(self):
         self.content = None
 
-    # # ----------- Content------------------------------------------------
-
-    # def __str__(self):
-    #     return f'Id: {str(self.id)}, Content: {str(self.content)}, Tags: {", ".join([str(tag) for tag in self.tags])}'
+    def __str__(self):
+        return f"#{str(self.uuid)}, {str(self.content)}\nTags: {self.get_tags()}"

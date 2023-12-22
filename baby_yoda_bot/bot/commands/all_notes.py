@@ -1,17 +1,12 @@
+from baby_yoda_bot.models import Context
+from baby_yoda_bot.commands.commands import CMD_ALL_NOTES, COMMAND_DESCRIPTION
 from ..bot import Bot
 
 
-from baby_yoda_bot.models import  Context
-
-
-@Bot.command("all-notes")
-@Bot.description("used to show all notes")
-
-def all_notes(ctx: Context, args):    
+@Bot.command(CMD_ALL_NOTES)
+@Bot.description(COMMAND_DESCRIPTION[CMD_ALL_NOTES])
+def all_notes(ctx: Context, _):
     ctx.notes.show_all()
-
-    return ''
-
 
 
 __all__ = ["all_notes"]
