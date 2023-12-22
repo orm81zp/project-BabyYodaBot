@@ -37,8 +37,7 @@ def change_note(ctx: Context, args):
     elif len(ARG_TAGS)>1 :
         note.remove_tags()
         note.add_tag(ARG_TAGS.strip())    
-    else:
-        note.remove_tags()
+
   
            
     return print(f'Note with Id#"{ARG_ID}" updated.') 
