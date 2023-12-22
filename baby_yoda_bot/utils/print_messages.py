@@ -10,7 +10,8 @@ def print_diff(old_value, new_value):
 
 def print_message(suffix):
     def inner(prefix):
-        print(prefix + " " + suffix)
+        console = Console()
+        console.print(prefix + " " + suffix, style="color(16)")
 
     return inner
 
