@@ -66,9 +66,9 @@ remove-email              - used to remove an email: remove-email <name>
 show-phone                - used to display a phone: show-phone <name>
 change-phone              - used to change a phone: change-phone <name> <old phone> <new phone>
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
-birthdays                 - used to display birthdays in coming days (7 by default) or by a date (DD.MM): birthdays
+birthdays                 - used to display birthdays in coming days (7 by default) or by a date (DD.MM): birthdays [birthday range]
 add-note                  - used to add a note: add-note <text> [tag|s]
-show-note                 - used to display a note: show-note <index>
+show-note                 - used to display a note: show-note <Id>
 all-notes                 - used to display all notes: all-notes
 
 save                      - used to save data: save
@@ -85,13 +85,13 @@ name                      - from 1 to 30 characters. Example: Max, John Doe, Eri
 phone                     - begins with + and consist of 12 digits. Example: +380630000001
 old phone                 - same as for <phone>
 new phone                 - same as for <phone>
-address                   - from 10 to 100 characters. Example: USA Brooklyn, state Michigan, 3854 Central Avenue
+address                   - from 5 to 100 characters. Example: USA Brooklyn, state Michigan, 3854 Central Avenue
 email                     - a valid email address. Example: maxi21@gmail.com
-index                     - a sequence number, starts from 1
-tag|s>                    - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
+Id                        - a sequence number, starts from 1
+tag                       - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
 text                      - from 10 to 500 characters
 birthday                  - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
-days                      - a number of days. Example: 7, 14
+birthday range            - a number of days or a date (DD.MM). Example: 14, 01.12
 search                    - case-insensitive world characters. Example: Hello World
 ```
 
@@ -99,14 +99,14 @@ search                    - case-insensitive world characters. Example: Hello Wo
 
 ```
 
-change-note               - used to change a note: change-note <index> <text>
+change-note               - used to change a note: change-note <Id> <text>
 search-note               - used to search notes by content (case-insensitive): search-note <search>
-remove-note               - used to remove a note: remove-note <index>
+remove-note               - used to remove a note: remove-note <Id>
 
 
-add-tag                   - used to add a tag: add-tag <index> <tag|s>
+add-tag                   - used to add a tag: add-tag <Id> <tag|s>
 search-by-tag             - used to display all notes found by a tag (case-insensitive, strict match): search-by-tag <tag|s>
-remove-tag                - used to remove a tag (strict match): remove-tag <index> <tag|s>
+remove-tag                - used to remove a tag (strict match): remove-tag <Id> <tag|s>
 all-tags                  - used to display all tags with associated notes: all-tags
 ```
 
