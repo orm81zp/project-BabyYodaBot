@@ -1,7 +1,13 @@
 from baby_yoda_bot.models import Note, Context, Content
 from baby_yoda_bot.commands.commands import CMD_ADD_NOTE, COMMAND_DESCRIPTION
 from ..bot import Bot
-
+from baby_yoda_bot.commands.commands import (
+    CMD_CHANGE_NOTE,
+    COMMAND_DESCRIPTION,
+    ARG_CONTENT,
+    ARG_TAGS,
+    ARG_ID
+)
 
 @Bot.command(CMD_ADD_NOTE)
 @Bot.description(COMMAND_DESCRIPTION[CMD_ADD_NOTE])
@@ -9,7 +15,7 @@ from ..bot import Bot
     [
         {"name": "content", "required": True, "type": Content},
         {
-            "name": "tags, separated only by commas or spaces",
+            "name": ARG_TAGS,
             "required": False,
             "type": str,
         },

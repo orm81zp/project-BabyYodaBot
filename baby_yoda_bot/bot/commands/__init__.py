@@ -22,3 +22,4 @@ from .remove_phone import *
 from .add_note import *
 from .show_note import *
 from .all_notes import *
+from .change_note import *

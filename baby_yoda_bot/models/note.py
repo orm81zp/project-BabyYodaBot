@@ -29,7 +29,6 @@ class Note:
     def add_tag(self, tag):
         if tag:
             self.tags.add(Tag(tag))
-            print_added("Tag")
 
     def get_tags(self):
         return (
@@ -53,6 +52,10 @@ class Note:
 
     def remove_content(self):
         self.content = None
+        
+    def change_content(self, content):
+         self.content = Content(content)
+        
 
     def __str__(self):
         return f"#{str(self.uuid)}, {str(self.content)}\nTags: {self.get_tags()}"
