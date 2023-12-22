@@ -1,26 +1,14 @@
+from baby_yoda_bot.models import Context
+from baby_yoda_bot.commands.commands import CMD_SHOW_NOTE, COMMAND_DESCRIPTION
 from ..bot import Bot
 
 
-from baby_yoda_bot.models import  Context
-
-
-@Bot.command("show-note")
-@Bot.description("used to show a contact")
-@Bot.questions(
-    [
-        {"name": "id", "required": True, "type": str}
-    ]
-)
+@Bot.command(CMD_SHOW_NOTE)
+@Bot.description(COMMAND_DESCRIPTION[CMD_SHOW_NOTE])
+@Bot.questions([{"name": "Id", "required": True, "type": str}])
 def show_note(ctx: Context, args):
-    id = args[0]
-    notes = ctx.notes.find_one(id)
-
-    if not notes:
-        return f"Notee '{id}' not found"
-
-    data = ctx.notes.show_note(id)
-
-    return data
+    uuid = args[0]
+    ctx.notes.show_note(uuid)
 
 
 __all__ = ["show_note"]

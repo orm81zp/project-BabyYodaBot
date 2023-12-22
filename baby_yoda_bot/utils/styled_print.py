@@ -20,7 +20,7 @@ class PrintNote(PrintObject):
         super().__init__(model)
         self.options.update(options)
         self.options["title"] = (
-            options.get("title") or f":crossed_swords: {str(self.model.id)}'s Note"
+            options.get("title") or f":crossed_swords: {str(self.model.uuid)}'s Note"
         )
 
     def print(self):
@@ -31,7 +31,7 @@ class PrintNote(PrintObject):
         table.add_column("Tags")
 
         table.add_row(
-            str(self.model.id), self.show(self.model.content), self.model.get_tags()
+            str(self.model.uuid), self.show(self.model.content), self.model.get_tags()
         )
 
         Console().print(table)
@@ -56,7 +56,7 @@ class PrintNotes(PrintObject):
         notes = self.model.values() if isinstance(self.model, dict) else self.model
 
         for note in notes:
-            table.add_row(str(note.id), self.show(note.content), note.get_tags())
+            table.add_row(str(note.uuid), self.show(note.content), note.get_tags())
         Console().print(table)
         print()
 

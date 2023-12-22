@@ -14,7 +14,9 @@ class Birthday(Field):
         try:
             birthday = datetime.strptime(new_value, "%d.%m.%Y")
         except ValueError:
-            raise ValidationValueException(VALIDATION_RULES[ARG_BIRTHDAY])
+            raise ValidationValueException(
+                f"Birthday failed validation. {VALIDATION_RULES[ARG_BIRTHDAY]}"
+            )
 
         if birthday > datetime.today():
             raise ValidationValueException(

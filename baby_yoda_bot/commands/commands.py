@@ -34,6 +34,8 @@ EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
 ARG_NAME = "name"
 ARG_PHONE = "phone"
+ARG_TAG = "tag"
+ARG_CONTENT = "content"
 ARG_OLD_PHONE = "old_phone"
 ARG_NEW_PHONE = "new_phone"
 ARG_ADDRESS = "address"
@@ -52,6 +54,8 @@ VALIDATION_RULES = {
     ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", no future\'s date of birth. Example: 24.06.2001',
     ARG_SEARCH: "case-insensitive world characters. Example: hello world",
     ARG_BIRTHDAY_RANGE: "days range (7 by default) or a date (DD.MM). Example: 14 or 15.02",
+    ARG_TAG: "from 1 to 15 word characters, no spaces",
+    ARG_CONTENT: "from 10 to 500 characters",
 }
 
 COMMAND_DESCRIPTION = {
