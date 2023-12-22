@@ -101,13 +101,24 @@ class Bot:
 
             for rule in metadata["questions"]:
                 is_optional = not rule["required"] if "required" in rule else False
+                is_unique = "unique" in rule and rule["unique"]
+
+                requirements = []
+
+                if is_optional:
+                    requirements.append("optional")
+
+                if is_unique:
+                    requirements.append("unique")
 
                 while True:
-                    value = ""
-                    optional = "(optional)" if is_optional else ""
+                    hint = ""
+
+                    if len(requirements):
+                        hint = f" ({', '.join(requirements)})"
 
                     try:
-                        value = input(f"Enter {rule['name']}{optional}: ")
+                        value = input(f"Enter {rule['name']}{hint}: ")
                     except KeyboardInterrupt:
                         print("\n")
                         return
@@ -116,9 +127,18 @@ class Bot:
                         value = None
                         break
 
+                    value = value.strip()
+
+                    if is_unique:
+                        record = self.context.address_book.find_one(value)
+
+                        if record:
+                            print(f"{rule['name']} '{value}' must be unique")
+                            continue
+
                     if "type" in rule:
                         try:
-                            value = rule["type"](value.strip())
+                            value = rule["type"](value)
                             break
                         except ValidationValueException as e:
                             print(e)
