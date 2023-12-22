@@ -11,7 +11,7 @@ class Content(Field):
     @value.setter
     def value(self, data: str):
         if len(data) > 10 and len(data) <= 500:
-            self.__value = data
+            self.__value = data.strip()
         else:
             raise ValidationValueException(
                 f"Content failed validation. {VALIDATION_RULES[ARG_CONTENT]}"

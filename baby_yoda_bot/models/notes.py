@@ -1,14 +1,13 @@
 import pickle
 from collections import UserDict
-from .note import Note
 from ..utils import (
     StyledPrint,
-    is_yes,
     print_not_found,
     print_added,
+    print_updated,
     print_deleted,
-    print_exists,
 )
+from .note import Note
 
 
 class Notes(UserDict):
@@ -30,39 +29,44 @@ class Notes(UserDict):
         self.uuid += 1
         return self.uuid
 
-    def find(self, title=None, content=None, tags=None):
-        if title is None and content is None and tags is None:
-            return self.data
-        res = list()
-        if title:
-            if title in self.data:
-                res.append(self.data[title])
-        if content:
-            res.extend(
-                list(
-                    filter(
-                        lambda record: record.content.value == content,
-                        self.data.values(),
-                    )
-                )
-            )
+    def parse_tags(self, tags):
         if tags:
-            res.extend(
-                list(
-                    filter(
-                        lambda record: str(record.tags) == tags,
-                        self.data.values(),
-                    )
-                )
-            )
+            tags = tags.split(",") if "," in tags else tags.split(" ")
+            tags = list(map((lambda x: x.strip()), tags))
+            return tags
+        return []
 
-        return res
+    def search(self, search_value=None):
+        notes = []
+
+        if search_value:
+            search_formatted = search_value.lower()
+            for note in self.data.values():
+                # searching by content
+                if str(note.content).lower().find(search_formatted) > -1:
+                    notes.append(note)
+                    continue
+
+                # searching by tags if by content not found
+                for tag in note.tags:
+                    if str(tag).find(search_formatted) > -1:
+                        notes.append(note)
+                        break
+
+            if len(notes) > 0:
+                title = f'Search Result for "{search_value}"'
+                StyledPrint(notes, entity="notes", title=title).print()
+            else:
+                print("Nothing to display.")
+        else:
+            print("No search query specified.")
 
     def save(self, note: Note):
         uuid = str(note.uuid)
-        data = self.find_one(uuid)
-        if data:
-            print_exists(f"Note {uuid}")
+        existed_note = self.find_one(uuid)
+        if existed_note:
+            self.data[uuid] = note
+            print_updated(f"Note #{uuid}")
         else:
             self.data[uuid] = note
             print_added("Note")
@@ -77,13 +81,13 @@ class Notes(UserDict):
         if note:
             StyledPrint(note, entity="note").print()
         else:
-            print_not_found(f"Note {uuid}")
+            print_not_found(f"Note #{uuid}")
 
-    def delete(self, uuid):
+    def remove(self, uuid):
         if uuid in self.data:
             deleted = self.data.pop(uuid, None)
             if deleted is not None:
-                print_deleted("Note")
+                print_deleted(f"Note #{uuid}")
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
@@ -98,26 +102,26 @@ class Notes(UserDict):
         except (OSError, IOError) as e:
             pass
 
-    def find_note_by_tag(self, tag):
-        found_notes = []
-        normalized_tag = (
-            tag.strip().lower()
-        )  # Нормалізуємо тег до нижнього регістру та видаляємо зайві пробіли
-        for title, note in self.data.items():
-            normalized_tags = [
-                t.strip().lower() for t in note["tags"]
-            ]  # Нормалізуємо всі теги нотатки до нижнього регістру
-            if normalized_tag in normalized_tags:
-                found_notes.append(title)
-        return found_notes
+    def search_by_tag(self, tag):
+        notes = []
+        for note in self.data.values():
+            tags = [str(t).lower() for t in note.tags]
+            if tag.lower() in tags:
+                notes.append(note)
+
+        if len(notes) > 0:
+            title = f"Search Result by #{tag} tag"
+            StyledPrint(notes, entity="notes", title=title).print()
+        else:
+            print("Nothing to display.")
 
     def show_all(self):
         if len(self.data) > 0:
             StyledPrint(self.data, entity="notes").print()
         else:
-            print("Nothing to display")
+            print("Nothing to display.")
 
     def __str__(self):
         if len(self.data) == 0:
-            return "Nothing to display"
+            return "Nothing to display."
         return "\n".join(str(note) for note in self.data.values())

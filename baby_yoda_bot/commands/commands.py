@@ -1,3 +1,4 @@
+CMD_CHANGE_NOTE = "change-note"
 CMD_ADD_ADDRESS = "add-address"
 CMD_SHOW_ADDRESS = "show-address"
 CMD_REMOVE_ADDRESS = "remove-address"
@@ -32,8 +33,10 @@ CMD_CLOSE = "close"
 CMD_EXIT = "exit"
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
+ARG_ID = "id"
 ARG_NAME = "name"
 ARG_PHONE = "phone"
+ARG_TAGS = "tags"
 ARG_TAG = "tag"
 ARG_CONTENT = "content"
 ARG_OLD_PHONE = "old_phone"
@@ -54,11 +57,14 @@ VALIDATION_RULES = {
     ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", no future\'s date of birth. Example: 24.06.2001',
     ARG_SEARCH: "case-insensitive world characters. Example: hello world",
     ARG_BIRTHDAY_RANGE: "days range (7 by default) or a date (DD.MM). Example: 14 or 15.02",
-    ARG_TAG: "from 1 to 15 word characters, no spaces",
+    ARG_TAGS: "comma separated tags",
+    ARG_TAGS: "from 1 to 15 word characters, no spaces",
     ARG_CONTENT: "from 10 to 500 characters",
+    ARG_ID: "number ID of record",
 }
 
 COMMAND_DESCRIPTION = {
+    CMD_REMOVE_NOTE: "used to remove note",
     CMD_ADD_CONTACT: "used to add a new contact",
     CMD_ALL_CONTACTS: "used to display all contacts",
     CMD_SEARCH_CONTACT: "used to search contacts (case-insensitive)",
@@ -85,7 +91,7 @@ COMMAND_DESCRIPTION = {
     CMD_REMOVE_NOTE: "used to remove a note",
     CMD_ALL_NOTES: "used to display all notes",
     CMD_ADD_TAG: "used to add a tag",
-    CMD_SEARCH_BY_TAG: "used to display all notes found by a tag",
+    CMD_SEARCH_BY_TAG: "used to display notes by a tag",
     CMD_REMOVE_TAG: "used to remove a tag",
     CMD_ALL_TAGS: "used to display all tags with associated notes",
 }

@@ -12,7 +12,7 @@ class Tag(Field):
     @value.setter
     def value(self, new_value):
         if new_value and re.search(r"^\w{1,15}$", new_value):
-            self.__value = new_value
+            self.__value = new_value.strip()
         else:
             raise ValidationValueException(
                 f"Tag failed validation. {VALIDATION_RULES[ARG_TAG]}"
