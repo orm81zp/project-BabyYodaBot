@@ -224,6 +224,7 @@ class Bot:
                 print("See you later!")
                 self.context.address_book.save_to_file()
                 self.context.notes.save_to_file()
+                break
             except Exception as err:
                 print("Oops! Something went wrong!")
                 print(err)
