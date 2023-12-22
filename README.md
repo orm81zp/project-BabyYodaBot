@@ -42,7 +42,7 @@ pip install --index-url https://test.pypi.org/simple/ --no-deps baby-yoda-bot
 Using in the code
 
 ```
-from baby-yoda-bot import yoda_say
+from baby_yoda_bot import yoda_say
 
 yoda_say()
 ```
