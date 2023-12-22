@@ -4,17 +4,18 @@ import inspect
 import difflib
 from collections import defaultdict
 
-from ..assets import logo, phrase
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
+from baby_yoda_bot.commands.commands import EXIT_COMMANDS
+
+from ..assets import logo, phrase
 
 
 class Bot:
     __COMMANDS_HANDLERS = {}
     __COMMANDS_METADATA__ = defaultdict(dict)
 
-    __EXIT_COMMANDS = ["exit", "close"]
     __INTERNAL_COMMANDS = {
         "help": "help",
         "save": "save",
@@ -24,7 +25,7 @@ class Bot:
     def __commands(self):
         commands = list(Bot.__COMMANDS_HANDLERS.keys())
         commands.extend(self.__INTERNAL_COMMANDS.values())
-        commands.extend(self.__EXIT_COMMANDS)
+        commands.extend(EXIT_COMMANDS)
 
         return commands
 
@@ -182,7 +183,7 @@ class Bot:
 
                 cmd, args = parse_input(command)
 
-                if command in Bot.__EXIT_COMMANDS:
+                if command in EXIT_COMMANDS:
                     self.__animate(phrase, 0.1)
                     print(
                         "Goodbye! I hope I was useful. Thank you for using me! See you soon.\n"
