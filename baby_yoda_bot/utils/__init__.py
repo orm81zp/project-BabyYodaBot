@@ -3,3 +3,4 @@ from .uuid import *
 from .print_messages import *
 from .styled_print import *
 from .cmd import *
+from .get_birthdays import *

@@ -5,7 +5,7 @@ from baby_yoda_bot import yoda_say
 
 
 class TestBabyYoda(unittest.TestCase):
-    """Tests Baby Yoda's Bot"""
+    """Tests Baby Yoda Bot"""
 
     def setUp(self):
         pass

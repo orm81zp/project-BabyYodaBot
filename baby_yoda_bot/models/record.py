@@ -1,7 +1,5 @@
 from .phone import Phone
-from .name import Name
-from .email import Email
-from .birthday import Birthday
+from datetime import datetime
 from .address import Address
 from ..utils import (
     StyledPrint,
@@ -132,6 +130,13 @@ class Record:
         if is_yes("Existing birthday will be deleted, continue?"):
             self.birthday = None
             print_deleted("Birthday")
+
+    def get_birthday_datetime(self):
+        if self.birthday:
+            day, month, year = str(self.birthday).split(".")
+            birthday = datetime(year=int(year), month=int(month), day=int(day))
+            return birthday
+        return None
 
     def show(self):
         StyledPrint(self, entity="contact").print()

@@ -7,6 +7,7 @@ from ..utils import (
     print_not_found,
     print_deleted,
     print_exists,
+    get_birthdays,
 )
 
 
@@ -131,6 +132,38 @@ class AddressBook(UserDict):
             print("Address Book is empty")
         else:
             StyledPrint(self.data, entity="contacts").print()
+
+    def birthdays(self, birthday_range):
+        use_date = False
+
+        if "." in birthday_range and birthday_range.count(".") >= 1:
+            use_date = True
+
+        contacts = []
+        for contact in self.data.values():
+            if contact.birthday:
+                name = f"{str(contact.birthday)} {str(contact.name)}"
+                birthday = contact.get_birthday_datetime()
+                if use_date:
+                    splitted_range = birthday_range.split(".")
+                    day, month = splitted_range
+                    birthday_day, birthday_month, _ = str(contact.birthday).split(".")
+
+                    if day == birthday_day and month == birthday_month:
+                        contacts.append(
+                            {
+                                "name": name,
+                                "birthday": birthday,
+                            }
+                        )
+                else:
+                    contacts.append({"name": name, "birthday": birthday})
+
+        days_range = None
+        if birthday_range and birthday_range.isnumeric():
+            days_range = int(birthday_range)
+
+        get_birthdays(contacts, days_range, use_range=not use_date, use_work_days=False)
 
     def save_to_file(self):
         try:
