@@ -103,8 +103,8 @@ def get_birthdays(users, days_range=None, use_range=True, use_work_days=True):
     if len(grouped_birthdays) > 0:
         print()
         title = ":party_popper: Birthdays"
-        table = Table(title=title, header_style="bright_green", min_width=105)
-        table.add_column("Weekday", min_width=15)
+        table = Table(title=title, header_style="bright_green", min_width=80)
+        table.add_column("Weekday", min_width=10)
         table.add_column("Contacts")
 
         for weekday, users_list in grouped_birthdays.items():
