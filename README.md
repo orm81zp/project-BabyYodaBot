@@ -120,5 +120,5 @@ use `close` or `exit` to close the program. The current data will be saved.
 
 ```
 Enter a command: exit
-See you later!
+"Goodbye! I hope I was useful. Thank you for using me! See you soon.
 ```

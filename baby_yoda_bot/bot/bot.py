@@ -185,7 +185,7 @@ class Bot:
                 if command in Bot.__EXIT_COMMANDS:
                     self.__animate(phrase, 0.1)
                     print(
-                        "Goodbye! I hope I was useful. Thank you for using me.! See you soon.\n"
+                        "Goodbye! I hope I was useful. Thank you for using me! See you soon.\n"
                     )
 
                     break

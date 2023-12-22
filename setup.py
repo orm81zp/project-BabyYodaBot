@@ -19,6 +19,6 @@ setup(
         "Environment :: Console",
         "Programming Language :: Python :: 3",
     ],
-    entry_points={"console_scripts": ["yoda_say = baby_yoda_bot.main:yoda_say"]},
+    entry_points={"console_scripts": ["yoda_bot = baby_yoda_bot.main:yoda_say"]},
     install_requires=["rich", "prompt_toolkit"],
 )
