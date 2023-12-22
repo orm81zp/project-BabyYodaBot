@@ -1,14 +1,16 @@
-# Baby Yoda's bot
+# Baby Yoda Bot
 
 ## Description
 
-A personal Baby Yoda's bot that helps you manage your contacts and notes.
+A personal Baby Yoda Bot that helps you manage your contacts and notes.
 
 ## Table of Contents
 
 -   [Installation](#installation)
 -   [Basic functionality](#basic-functionality)
 -   [Commands](#commands)
+-   [Available Сommands](#available-сommands)
+-   [Commands for further implementation](#commands-for-further-implementation)
 
 ## Installation
 
@@ -21,7 +23,31 @@ A personal Baby Yoda's bot that helps you manage your contacts and notes.
 
 ### By pip
 
-Not availble yet
+Available on [test.pypi.org](https://test.pypi.org/project/baby-yoda-bot/) only for academic purposes.
+
+The latests Alpha version
+
+```
+pip install --index-url https://test.pypi.org/simple/ baby-yoda-bot
+```
+
+_Add `--no-deps` option if you don't want to install all package dependencies._
+
+```
+pip install --index-url https://test.pypi.org/simple/ --no-deps baby-yoda-bot
+```
+
+## How to run
+
+Using in the code
+
+```
+from baby-yoda-bot import yoda_say
+
+yoda_say()
+```
+
+or directly from the terminal `yoda_bot` after installation from pip.
 
 ## Basic functionality
 
@@ -39,72 +65,84 @@ Can be restarted without losing data. All data (contacts, notes) are stored on t
 
 ### Commands
 
+There are two list of commands: already available and for further implementation.
+
+### Available Сommands
+
 Type `help` to see all commands. The example of the output is below:
 
 ```
-add-contact               - used to add a new contact with all fields at once (wizard form): add-contact
-search-contact            - used to search contacts by name, birthday, email, phone, address (case-insensitive): search-contact <search value>
-show-contact              - used to display a contact: show-contact <name>
+add-contact               - used to add a new contact: add-contact <name> [phone] [birthday] [email]
 all-contacts              - used to display all contacts: all-contacts
+search-contact            - used to search contacts (case-insensitive): search-contact <search>
+show-contact              - used to display a contact: show-contact <name>
 remove-contact            - used to remove a contact: remove-contact <name>
 add-birthday              - used to add a birthday: add-birthday <name> <birthday>
 show-birthday             - used to display a birthday: show-birthday <name>
 remove-birthday           - used to remove a birthday: remove-birthday <name>
-birthdays                 - used to display birthdays that will happen in coming days (7 days by default): birthdays [days range]
+add-phone                 - used to add a phone: add-phone <name> <phone>
 add-address               - used to add an address: add-address <name> <address>
 show-address              - used to display an address: show-address <name>
-remove-address            - used to remove an address: remove-address <name>
 add-email                 - used to add an email: add-email <name> <email>
 show-email                - used to display an email: show-email <name>
+remove-address            - used to remove an address: remove-address <name>
 remove-email              - used to remove an email: remove-email <name>
-add-phone                 - used to add a phone: add-phone <name> <phone>
 show-phone                - used to display a phone: show-phone <name>
 change-phone              - used to change a phone: change-phone <name> <old phone> <new phone>
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
-add-note                  - used to add a note: add-note <text>
-show-note                 - used to display a note: show-note <note index>
-change-note               - used to change a note: change-note <note index> <text>
-search-note               - used to search notes by content (case-insensitive): search-note <search value>
-remove-note               - used to remove a note: remove-note <note index>
+birthdays                 - used to display birthdays in coming days (7 by default) or by a date (DD.MM): birthdays [birthday range]
+add-note                  - used to add a note: add-note <text> [tag|s]
+show-note                 - used to display a note: show-note <Id>
 all-notes                 - used to display all notes: all-notes
-search-note-by-tag        - used to display all notes found by a tag (case-insensitive, strict match): search-note-by-tag <tag>
-add-tag                   - used to add a tag: add-tag <note index> <tag>
-remove-tag                - used to remove a tag (strict match): remove-tag <note index> <tag>
-all-tags                  - used to display all tags: all-tags
-show-tag                  - used to display tags in a note: show-tag <note index>
+
+save                      - used to save data: save
 help                      - used to display information about all commands: help
 close | exit              - used to close the program, data will be saved: close
+
 
 Types of argumets:
 <required>                - required argument
 [optional]                - optional argument
 
 Validation rules:
-<name>                    - equivalent to "a-zA-Z0-9_.-", no spaces. Example: Max, J.Brain, Tom-1
-<new name>                - same as for <name>
-<phone>                   - begins with + and consist of 12 digits. Example: +380630000001
-<old phone>               - same as for <phone>
-<new phone>               - same as for <phone>
-<address>                 - from 10 to 100 characters. Example: 3944 D Street
-<email>                   - a valid email address. Example: max101@gmail.com
-<note index>              - an existing index of a note, starts from 1
-<tag>                     - from 1 to 15 word characters, equivalent to "a-zA-Z0-9_", no spaces. Example: shopping
-<text>                    - from 10 to 500 characters
-<birthday>                - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
-<search value>            - case-insensitive world characters. Example: hello world
-[days range]              - (optional) a number of days (7 by default). Example: 14
+name                      - from 1 to 30 characters. Example: Max, John Doe, Erika from the gym
+phone                     - begins with + and consist of 12 digits. Example: +380630000001
+old phone                 - same as for <phone>
+new phone                 - same as for <phone>
+address                   - from 5 to 100 characters. Example: USA Brooklyn, state Michigan, 3854 Central Avenue
+email                     - a valid email address. Example: maxi21@gmail.com
+Id                        - a sequence number, starts from 1
+tag                       - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
+text                      - from 10 to 500 characters
+birthday                  - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
+birthday range            - a number of days or a date (DD.MM). Example: 14, 01.12
+search                    - case-insensitive world characters. Example: Hello World
 ```
 
-### help
+### Commands for further implementation
+
+```
+
+change-note               - used to change a note: change-note <Id> <text>
+search-note               - used to search notes by content (case-insensitive): search-note <search>
+remove-note               - used to remove a note: remove-note <Id>
+
+
+add-tag                   - used to add a tag: add-tag <Id> <tag|s>
+search-by-tag             - used to display all notes found by a tag (case-insensitive, strict match): search-by-tag <tag|s>
+remove-tag                - used to remove a tag (strict match): remove-tag <Id> <tag|s>
+all-tags                  - used to display all tags with associated notes: all-tags
+```
+
+#### help
 
 Used to display all commands: `help`.
 
-### close or exit
+#### close or exit
 
 use `close` or `exit` to close the program. The current data will be saved.
 
 ```
 Enter a command: exit
-Good bye!
-✓ Contact book saved!
+"Goodbye! I hope I was useful. Thank you for using me! See you soon.
 ```

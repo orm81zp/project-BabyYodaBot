@@ -1,0 +1,24 @@
+{
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "[python]": {
+        "editor.insertSpaces": true,
+        "editor.detectIndentation" : false,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit",
+            "source.organizeImports": "explicit"
+          }
+    },
+    "python.formatting.provider": "none",
+    "workbench.startupEditor": "none",
+    "files.autoSave": "afterDelay",
+    "python.analysis.typeCheckingMode": "basic",
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "prettier.tabWidth": 4,
+    "editor.fontSize": 14
+}
