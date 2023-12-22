@@ -112,10 +112,7 @@ class Bot:
                     requirements.append("unique")
 
                 while True:
-                    hint = ""
-
-                    if len(requirements):
-                        hint = f" ({', '.join(requirements)})"
+                    hint = f" ({', '.join(requirements)})" if len(requirements) else ""
 
                     try:
                         value = input(f"Enter {rule['name']}{hint}: ")
