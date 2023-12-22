@@ -11,13 +11,12 @@ def get_long_description():
 
 setup(
     name="baby-yoda-bot",
-    version="0.0.2",
+    version="0.0.4",
     description="Your personal Baby Yoda Bot that helps you manage your contacts and notes.",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
     url="https://github.com/orm81zp/project-BabyYodaBot",
-    author="Roman Onishchenko, Antonina Sych, Vitalii Pavelko, Bogdan Onoyko",
-    author_email="orm81zp@gmail.com, antoninasych@gmail.com, pavelko.vetal@gmail.com, bogdan.onoyko@gmail.com",
+    author="Roman Onishchenko <orm81zp@gmail.com>, Antonina Sych <antoninasych@gmail.com>, Vitalii Pavelko <pavelko.vetal@gmail.com>, Bogdan Onoyko <bogdan.onoyko@gmail.com>",
     maintainer="Roman Onishchenko",
     maintainer_email="orm81zp@gmail.com",
     license="MIT",

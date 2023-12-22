@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.0.4
+
+### Miscellaneous
+
+-   code improvements
+
+## 0.0.3
+
+### Miscellaneous
+
+-   update authors
+
 ## 0.0.2
 
 ### Features
