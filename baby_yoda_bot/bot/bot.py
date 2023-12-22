@@ -4,12 +4,11 @@ import inspect
 from platform import system
 import difflib
 from collections import defaultdict
-
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
 from baby_yoda_bot.commands.commands import EXIT_COMMANDS
-
+from ..constants import HELP_INFO
 from ..assets import logo, phrase
 
 
@@ -196,10 +195,17 @@ class Bot:
                 print(row)
                 time.sleep(delay)
 
+    def show_static_help(self):
+        print(HELP_INFO)
+
     def listen(self):
         commands = self.__commands
 
         self.__animate(logo)
+        print(
+            "\nWelcome to the Baby Yoda Bot! Here are some magic commands you can use....\n"
+        )
+        self.show_static_help()
 
         while True:
             try:
@@ -219,7 +225,7 @@ class Bot:
                     break
 
                 if command == self.__INTERNAL_COMMANDS["help"]:
-                    self.help()
+                    self.show_static_help()
                     continue
 
                 if command == self.__INTERNAL_COMMANDS["save"]:

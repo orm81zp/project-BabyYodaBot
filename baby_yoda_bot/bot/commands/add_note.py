@@ -3,7 +3,6 @@ from baby_yoda_bot.commands.commands import (
     CMD_ADD_NOTE,
     COMMAND_DESCRIPTION,
     ARG_CONTENT,
-    ARG_TAGS,
 )
 from ..bot import Bot
 
@@ -14,7 +13,7 @@ from ..bot import Bot
     [
         {"name": ARG_CONTENT, "required": True, "type": Content},
         {
-            "name": ARG_TAGS,
+            "name": "a tag or comma separated tags",
             "required": False,
             "type": str,
         },

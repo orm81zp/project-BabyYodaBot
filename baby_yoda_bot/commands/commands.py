@@ -90,10 +90,10 @@ COMMAND_DESCRIPTION = {
     CMD_SEARCH_NOTE: "used to search notes by content",
     CMD_REMOVE_NOTE: "used to remove a note",
     CMD_ALL_NOTES: "used to display all notes",
-    CMD_ADD_TAG: "used to add a tag",
+    CMD_ADD_TAG: "used to add a tag(s)",
     CMD_SEARCH_BY_TAG: "used to display notes by a tag",
-    CMD_REMOVE_TAG: "used to remove a tag",
-    CMD_ALL_TAGS: "used to display all tags with associated notes",
+    CMD_REMOVE_TAG: "used to remove a tag(s)",
+    CMD_ALL_TAGS: "used to display all tags",
 }
 
 ARGUMENT_TYPES = {

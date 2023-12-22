@@ -15,7 +15,7 @@ from ..bot import Bot
     [
         {"name": ARG_ID, "required": True, "type": str},
         {"name": ARG_CONTENT, "required": True, "type": Content},
-        {"name": "comma separated tags", "optional": True, "type": str},
+        {"name": "a tag or comma separated tags", "optional": True, "type": str},
     ]
 )
 def change_note(ctx: Context, args):

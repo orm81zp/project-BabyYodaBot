@@ -26,4 +26,10 @@ from .all_notes import *
 from .change_note import *
 from .remove_note import *
 from .search_note import *
+
+# --------TAGS----------------
+
 from .search_by_tag import *
+from .add_tag import *
+from .remove_tag import *
+from .all_tags import *

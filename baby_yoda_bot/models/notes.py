@@ -121,6 +121,21 @@ class Notes(UserDict):
         else:
             print("Nothing to display.")
 
+    def show_all_tags(self):
+        if len(self.data) > 0:
+            tags = set()
+            for note in self.data.values():
+                for tag in note.tags:
+                    tags.add(str(tag))
+
+            if len(tags) > 0:
+                print(f"({len(tags)}) " + (", ".join(tags)))
+            else:
+                print("Nothing to display.")
+
+        else:
+            print_not_found("Notes")
+
     def __str__(self):
         if len(self.data) == 0:
             return "Nothing to display."
