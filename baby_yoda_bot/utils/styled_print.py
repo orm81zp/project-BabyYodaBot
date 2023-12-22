@@ -30,11 +30,9 @@ class PrintNote(PrintObject):
         table.add_column("Content", max_width=80)
         table.add_column("Tags")
 
-        content = (
-            self.model.show_content() if len(self.model.show_content()) > 0 else "-"
+        table.add_row(
+            str(self.model.id), self.show(self.model.content), self.model.get_tags()
         )
-        tags = self.model.show_tags() if len(self.model.show_tags()) > 0 else "-"
-        table.add_row(str(self.model.id), content, tags)
 
         Console().print(table)
         print()
@@ -58,9 +56,7 @@ class PrintNotes(PrintObject):
         notes = self.model.values() if isinstance(self.model, dict) else self.model
 
         for note in notes:
-            content = note.show_content() if len(note.show_content()) > 0 else "-"
-            tags = note.show_tags() if len(note.show_tags()) > 0 else "-"
-            table.add_row(str(note.id), content, tags)
+            table.add_row(str(note.id), self.show(note.content), note.get_tags())
         Console().print(table)
         print()
 
@@ -87,9 +83,9 @@ class PrintRecord(PrintObject):
         table.add_row(
             str(self.model.name),
             self.model.get_phones(),
-            str(self.model.birthday),
-            str(self.model.email),
-            str(self.model.address),
+            self.show(self.model.birthday),
+            self.show(self.model.email),
+            self.show(self.model.address),
         )
 
         Console().print(table)
@@ -119,9 +115,9 @@ class PrintRecords(PrintObject):
             table.add_row(
                 str(contact.name),
                 contact.get_phones(),
-                str(contact.birthday),
-                str(contact.email),
-                str(contact.address),
+                self.show(contact.birthday),
+                self.show(contact.email),
+                self.show(contact.address),
             )
         Console().print(table)
         print()

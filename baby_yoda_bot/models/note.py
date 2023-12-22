@@ -30,10 +30,13 @@ class Note:
         else:
             print_updated("Tag")
 
-    def show_tags(self):
+    def get_tags(self):
         return (
             ", ".join([str(tag) for tag in self.tags]) if len(self.tags) > 0 else " - "
         )
+
+    def show_tags(self):
+        print(self.get_tags())
 
     def remove_tags(self):
         self.tags = []

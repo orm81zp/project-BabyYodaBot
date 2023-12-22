@@ -207,9 +207,13 @@ class Bot:
 
                     if close_matches:
                         suggestion = close_matches[0]
-                        print(f"Unknown command '{cmd}'. Do you mean '{suggestion}'?")
+                        print(
+                            f"'{cmd}' is not a Bot command. The most similar command is '{suggestion}'"
+                        )
                     else:
-                        print(f"Unknown command '{cmd}', use help to see commands list")
+                        print(
+                            f"'{cmd}'is not a Bot command. Use help to see commands list."
+                        )
 
                     continue
 

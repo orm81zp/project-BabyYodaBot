@@ -12,17 +12,22 @@ from ..utils import (
 
 class Notes(UserDict):
     id = 1
+
     def __init__(self):
         self.data = dict()
         self.filename = "NotesData.dat"
 
-    
     def getId(self):
-        return Notes.id
-        
+        return self.id
+
+    def restoreId(self):
+        if len(self.data) > 0:
+            last_id = list(self.data)[-1]
+            self.id = int(last_id)
+
     def generateId(self):
-        Notes.id+=1
-        return Notes.id
+        self.id += 1
+        return self.id
 
     def find(self, title=None, content=None, tags=None):
         if title is None and content is None and tags is None:
@@ -35,7 +40,8 @@ class Notes(UserDict):
             res.extend(
                 list(
                     filter(
-                        lambda record: record.content.value == content, self.data.values()
+                        lambda record: record.content.value == content,
+                        self.data.values(),
                     )
                 )
             )
@@ -58,35 +64,33 @@ class Notes(UserDict):
             print_exists(f"Note {id}")
         else:
             self.data[id] = note
- 
+
     def find_one(self, id):
         if id in self.data:
             return self.data[id]
         return None
-    
+
     def show_note(self, id):
         note = self.find_one(id)
-        if note!=None:
+        if note != None:
             StyledPrint(note, entity="note").print()
         else:
-            print_not_found("Note")  
+            print_not_found("Note")
 
-
-        
     def delete(self, title: str):
         if title in self.data:
             del self.data[title]
 
     def __str__(self):
         if len(self.data) == 0:
-            return("Notes are empty")
+            return "Notes are empty"
         return "\n".join(str(record) for record in self.data.values())
 
     def show(self):
         if len(self.data) == 0:
             print("Notes are empty")
         for record in self.data.values():
-            return(record)  
+            return record
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:
@@ -96,15 +100,20 @@ class Notes(UserDict):
         try:
             with open(self.filename, "rb") as file:
                 self.data = pickle.load(file)
+                self.restoreId()
             return self.data
         except (OSError, IOError) as e:
             pass
-       
+
     def find_note_by_tag(self, tag):
         found_notes = []
-        normalized_tag = tag.strip().lower()  # Нормалізуємо тег до нижнього регістру та видаляємо зайві пробіли
+        normalized_tag = (
+            tag.strip().lower()
+        )  # Нормалізуємо тег до нижнього регістру та видаляємо зайві пробіли
         for title, note in self.data.items():
-            normalized_tags = [t.strip().lower() for t in note['tags']]  # Нормалізуємо всі теги нотатки до нижнього регістру
+            normalized_tags = [
+                t.strip().lower() for t in note["tags"]
+            ]  # Нормалізуємо всі теги нотатки до нижнього регістру
             if normalized_tag in normalized_tags:
                 found_notes.append(title)
         return found_notes
