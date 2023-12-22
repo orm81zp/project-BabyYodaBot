@@ -14,7 +14,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_ADD_CONTACT])
 @Bot.questions(
     [
-        {"name": ARG_NAME, "required": True, "type": Name},
+        {"name": ARG_NAME, "required": True, "type": Name, "unique": True},
         {"name": ARG_PHONE, "required": False, "type": Phone},
         {"name": ARG_BIRTHDAY, "required": False, "type": Birthday},
         {

@@ -1,30 +1,34 @@
 import time
 import sys
 import inspect
+from platform import system
 import difflib
 from collections import defaultdict
 
-from ..assets import logo, phrase
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
+from baby_yoda_bot.commands.commands import EXIT_COMMANDS
+
+from ..assets import logo, phrase
 
 
 class Bot:
     __COMMANDS_HANDLERS = {}
     __COMMANDS_METADATA__ = defaultdict(dict)
 
-    __EXIT_COMMANDS = ["exit", "close"]
     __INTERNAL_COMMANDS = {
         "help": "help",
         "save": "save",
     }
 
+    __WIZARD_CLOSE_COMMAND = "Control + C" if system() == "Darwin" else "Ctrl + C"
+
     @property
     def __commands(self):
         commands = list(Bot.__COMMANDS_HANDLERS.keys())
         commands.extend(self.__INTERNAL_COMMANDS.values())
-        commands.extend(self.__EXIT_COMMANDS)
+        commands.extend(EXIT_COMMANDS)
 
         return commands
 
@@ -93,17 +97,41 @@ class Bot:
 
         if "questions" in metadata:
             validated_args = []
+            print(f"(Press {self.__WIZARD_CLOSE_COMMAND} to exit from menu)")
 
             for rule in metadata["questions"]:
                 is_optional = not rule["required"] if "required" in rule else False
+                is_unique = "unique" in rule and rule["unique"]
+
+                requirements = []
+
+                if is_optional:
+                    requirements.append("optional")
+
+                if is_unique:
+                    requirements.append("unique")
 
                 while True:
-                    optional = "(optional)" if is_optional else ""
-                    value = input(f"Enter {rule['name']}{optional}: ")
+                    hint = f" ({', '.join(requirements)})" if len(requirements) else ""
+
+                    try:
+                        value = input(f"Enter {rule['name']}{hint}: ")
+                    except KeyboardInterrupt:
+                        print("\n")
+                        return
 
                     if not value and is_optional:
                         value = None
                         break
+
+                    value = value.strip()
+
+                    if is_unique:
+                        record = self.context.address_book.find_one(value)
+
+                        if record:
+                            print(f"{rule['name']} '{value}' must be unique")
+                            continue
 
                     if "type" in rule:
                         try:
@@ -129,7 +157,7 @@ class Bot:
             for i, rule in enumerate(metadata["arguments"]):
                 name = rule["name"]
                 validation_type = rule["type"]
-                value = args[i]
+                value = args[i].strip()
 
                 try:
                     validated_args.append(type(validation_type))
@@ -182,7 +210,7 @@ class Bot:
 
                 cmd, args = parse_input(command)
 
-                if command in Bot.__EXIT_COMMANDS:
+                if command in EXIT_COMMANDS:
                     self.__animate(phrase, 0.1)
                     print(
                         "Goodbye! I hope I was useful. Thank you for using me! See you soon.\n"
@@ -224,6 +252,7 @@ class Bot:
                 print("See you later!")
                 self.context.address_book.save_to_file()
                 self.context.notes.save_to_file()
+                break
             except Exception as err:
                 print("Oops! Something went wrong!")
                 print(err)
