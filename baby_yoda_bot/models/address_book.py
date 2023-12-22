@@ -14,7 +14,7 @@ from ..utils import (
 class AddressBook(UserDict):
     def __init__(self):
         self.data = dict()
-        self.filename = "AddressBookData.dat"
+        self.filename = "yoda_bot_contacts.dat"
 
     def find_one(self, name):
         if name in self.data:

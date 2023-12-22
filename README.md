@@ -2,7 +2,7 @@
 
 ## Description
 
-A personal Baby Yoda Bot that helps you manage your contacts and notes.
+Your personal Baby Yoda Bot that helps you manage your contacts and notes.
 
 ## Table of Contents
 
@@ -37,7 +37,7 @@ pip install --index-url https://test.pypi.org/simple/ --no-deps baby-yoda-bot
 
 ## How to run
 
-Using in the code
+From the code
 
 ```
 from baby_yoda_bot import yoda_say
@@ -45,7 +45,7 @@ from baby_yoda_bot import yoda_say
 yoda_say()
 ```
 
-or directly from the terminal `yoda_bot` after installation from pip.
+or directly from the terminal running `yoda_bot` after installation from pip.
 
 ## Basic functionality
 
@@ -114,15 +114,169 @@ birthday range            - a number of days or a date (DD.MM). Example: 14, 01.
 search                    - case-insensitive world characters. Example: Hello World
 ```
 
-#### help
+### Some examples of the use of commands
+
+### help
 
 Used to display all commands: `help`.
+
+### add-phone
+
+Used to add a phone: `add-phone`.
+
+```
+Enter name: Maxima
+Enter phone: +380660000001
+Contact "Maxima" added!
+Phone number added!
+```
+
+### change-phone
+
+used to change a phone: `change-phone`.
+
+```
+Enter command: change-phone
+(Press Control + C to exit from menu)
+Enter name: Maxima
+Enter old phone: +380660000001
+Enter new phone: +380663330001
+Phone number updated!
+```
+
+### add-birthday
+
+Used to add a birthday: `add-birthday`. Will be replaced if already exists.
+
+```
+Enter command: add-birthday
+(Press Control + C to exit from menu)
+Enter name: Maxima
+Enter birthday: 12.12.2001
+Birthday added!
+```
+
+### add-email
+
+Used to add an email: `add-email`. Will be replaced if already exists.
+
+```
+Enter command: add-email
+(Press Control + C to exit from menu)
+Enter name: Maxima
+Enter email: max21@gmail.com
+Email added!
+```
+
+### add-address
+
+Used to add an address: `add-address`. Will be replaced if already exists.
+
+```
+Enter command: add-address
+(Press Control + C to exit from menu)
+Enter name: Maxima
+Enter address: Ukraine, Lviv
+Address added!
+```
+
+### all-contacts
+
+Used to display all contacts: `all-contacts`.
+
+```
+Enter command: all-contacts
+
+                                             ⚔ All Contacts
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Name                  ┃ Phone              ┃ Birthday       ┃ Email                ┃ Address          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Maxima                │ +380663330001      │ 12.12.2001     │ max21@gmail.com      │ Ukraine, Lviv    │
+│ John Woo              │ +380500000100      │ 10.10.1982     │ woo@gmail.com        │  -               │
+└───────────────────────┴────────────────────┴────────────────┴──────────────────────┴──────────────────┘
+```
+
+### remove-contact
+
+Used to remove a contact: `remove-contact`.
+You need to confirm with "yes" or "y".
+
+```
+Enter command: remove-contact
+(Press Control + C to exit from menu)
+Enter name: Maxima
+Contact Maxima will be removed, continue? (y/no) y
+Contact deleted!
+```
+
+### birthdays
+
+Used to display birthdays that will happen in some days (7 days by default): `birthdays`.
+
+The example of the output:
+
+```
+                                  🎉 Birthdays
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Weekday           ┃ Contacts                                                 ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Thursday          │ 10.10.1982 John Woo, 10.10.1984 Erika                    │
+│ Monday            │ 25.12.1999 Steven Seagal                                 │
+└───────────────────┴──────────────────────────────────────────────────────────┘
+```
+
+The example of the output for a particular date:
+
+```
+Enter command: birthdays
+(Press Control + C to exit from menu)
+Enter days range (7 by default) or a date (DD.MM): 10.10
+
+                                  🎉 Birthdays
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Weekday           ┃ Contacts                                                 ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Thursday          │ 10.10.1982 John Woo, 10.10.1984 Erika                    │
+└───────────────────┴──────────────────────────────────────────────────────────┘
+```
+
+### add-note
+
+Used to add a note: `add-note`.
+
+```
+Enter command: add-note
+(Press Control + C to exit from menu)
+Enter content: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+printer took a galley of type and scrambled it to make a type specimen book.
+Enter tags, separated only by commas or spaces (optional): lorem dummy
+Note added!
+```
+
+### all-notes
+
+Used to display all notes: `all-notes`
+
+```
+Enter command: all-notes
+
+                                                  ⚔ All Notes
+┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Id         ┃ Content                                                                          ┃ Tags         ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ 2          │ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem │ dummy, lorem │
+│            │ Ipsum has been the industry's standard dummy text ever since the 1500s, when an  │              │
+│            │ unknown printer took a galley of type and scrambled it to make a type specimen   │              │
+│            │ book.                                                                            │              │
+└────────────┴──────────────────────────────────────────────────────────────────────────────────┴──────────────┘
+```
 
 #### close or exit
 
 use `close` or `exit` to close the program. The current data will be saved.
 
 ```
-Enter a command: exit
-"Goodbye! I hope I was useful. Thank you for using me! See you soon.
+Enter command: exit
+Goodbye! See you later...
 ```

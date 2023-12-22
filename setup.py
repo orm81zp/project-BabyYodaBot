@@ -1,12 +1,23 @@
 from setuptools import setup, find_namespace_packages
 
 
+def get_long_description():
+    """
+    Returns string of the README.md file
+    """
+    with open("README.md", encoding="utf8") as fh:
+        return fh.read()
+
+
 setup(
     name="baby-yoda-bot",
-    version="0.0.1",
-    description="A personal Baby Yoda Bot that helps you manage your contacts and notes.",
+    version="0.0.2",
+    description="Your personal Baby Yoda Bot that helps you manage your contacts and notes.",
+    long_description=get_long_description(),
+    long_description_content_type="text/markdown",
     url="https://github.com/orm81zp/project-BabyYodaBot",
-    author="Roman Onishchenko <orm81zp@gmail.com>, Antonina Sych <antoninasych@gmail.com>, Bogdan Onoyko <bogdan.onoyko@gmail.com>, Vitalii Pavelko <pavelko.vetal@gmail.com>",
+    author="Roman Onishchenko, Antonina Sych, Vitalii Pavelko, Bogdan Onoyko",
+    author_email="orm81zp@gmail.com, antoninasych@gmail.com, pavelko.vetal@gmail.com, bogdan.onoyko@gmail.com",
     maintainer="Roman Onishchenko",
     maintainer_email="orm81zp@gmail.com",
     license="MIT",
