@@ -60,7 +60,7 @@ VALIDATION_RULES = {
     ARG_TAGS: "comma separated tags",
     ARG_TAGS: "from 1 to 15 word characters, no spaces",
     ARG_CONTENT: "from 10 to 500 characters",
-    ARG_ID: "number ID of record"
+    ARG_ID: "number ID of record",
 }
 
 COMMAND_DESCRIPTION = {
@@ -91,7 +91,7 @@ COMMAND_DESCRIPTION = {
     CMD_REMOVE_NOTE: "used to remove a note",
     CMD_ALL_NOTES: "used to display all notes",
     CMD_ADD_TAG: "used to add a tag",
-    CMD_SEARCH_BY_TAG: "used to display all notes found by a tag",
+    CMD_SEARCH_BY_TAG: "used to display notes by a tag",
     CMD_REMOVE_TAG: "used to remove a tag",
     CMD_ALL_TAGS: "used to display all tags with associated notes",
 }
