@@ -21,26 +21,26 @@ from ..bot import Bot
   
 )
 def change_note(ctx: Context, args):
-    ARG_ID,ARG_CONTENT,ARG_TAGS = args
+    id,content,teag_items = args
     note = ctx.notes.find_one(str(ARG_ID))
     if not note:
-       return print_not_found(f'Con Note Id#"{ARG_ID}" not found.')
+       return print_not_found(f'Con Note Id#"{id}" not found.')
         
-    if ARG_CONTENT:
-        note.change_content(ARG_CONTENT)
+    if content:
+        note.change_content(content)
         
-    if ARG_TAGS.find(',')!=-1:
-        tags = ARG_TAGS.split(",") 
+    if teag_items.find(',')!=-1:
+        tags = teag_items.split(",") 
         note.remove_tags()
         for tag in tags:
                 note.add_tag(tag)       
-    elif len(ARG_TAGS)>1 :
+    elif len(teag_items)>1 :
         note.remove_tags()
-        note.add_tag(ARG_TAGS.strip())    
+        note.add_tag(teag_items.strip())    
 
   
            
-    return print(f'Note with Id#"{ARG_ID}" updated.') 
+    return print(f'Note with Id#"{id}" updated.') 
   
 
 

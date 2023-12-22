@@ -11,9 +11,8 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_REMOVE_NOTE])
 @Bot.questions([{"name": ARG_ID, "required": True, "type": str}])
 def remove_note(ctx: Context, args):
-    ARG_ID = args[0]
-    print(ARG_ID)
-    ctx.notes.remove(ARG_ID)
+    id = args[0]
+    ctx.notes.remove(id)
 
 
 __all__ = ["remove_note"]
