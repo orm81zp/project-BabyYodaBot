@@ -107,7 +107,7 @@ class Bot:
 
                     if "type" in rule:
                         try:
-                            value = rule["type"](value)
+                            value = rule["type"](value.strip())
                             break
                         except ValidationValueException as e:
                             print(e)
@@ -129,7 +129,7 @@ class Bot:
             for i, rule in enumerate(metadata["arguments"]):
                 name = rule["name"]
                 validation_type = rule["type"]
-                value = args[i]
+                value = args[i].strip()
 
                 try:
                     validated_args.append(type(validation_type))
