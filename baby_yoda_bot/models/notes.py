@@ -15,7 +15,7 @@ class Notes(UserDict):
 
     def __init__(self):
         self.data = dict()
-        self.filename = "NotesData.dat"
+        self.filename = "yoda_bot_notes.dat"
 
     def getId(self):
         return self.uuid
