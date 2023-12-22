@@ -79,11 +79,13 @@ class Notes(UserDict):
         else:
             print_not_found(f"Note {uuid}")
 
-    def delete(self, uuid):
+    def remove(self, uuid):
         if uuid in self.data:
             deleted = self.data.pop(uuid, None)
             if deleted is not None:
-                print_deleted("Note")
+                print_not_found("Note")
+        else:
+            print_not_found("Note")
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:

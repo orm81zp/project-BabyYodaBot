@@ -60,9 +60,11 @@ VALIDATION_RULES = {
     ARG_TAGS: "comma separated tags",
     ARG_TAGS: "from 1 to 15 word characters, no spaces",
     ARG_CONTENT: "from 10 to 500 characters",
+    ARG_ID: "number ID of record"
 }
 
 COMMAND_DESCRIPTION = {
+    CMD_REMOVE_NOTE: "used to remove note",
     CMD_ADD_CONTACT: "used to add a new contact",
     CMD_ALL_CONTACTS: "used to display all contacts",
     CMD_SEARCH_CONTACT: "used to search contacts (case-insensitive)",

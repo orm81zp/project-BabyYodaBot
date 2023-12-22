@@ -95,6 +95,8 @@ add-note                  - used to add a note: add-note <text> [tag|s]
 show-note                 - used to display a note: show-note <Id>
 all-notes                 - used to display all notes: all-notes
 change-note               - used to change a note: change-note <Id> <text> [tag|s]
+remove-note               - used to remove a note: remove-note <Id>
+
 
 save                      - used to save data: save
 help                      - used to display information about all commands: help
@@ -126,7 +128,6 @@ search                    - case-insensitive world characters. Example: Hello Wo
 
 
 search-note               - used to search notes by content (case-insensitive): search-note <search>
-remove-note               - used to remove a note: remove-note <Id>
 
 
 add-tag                   - used to add a tag: add-tag <Id> <tag|s>
