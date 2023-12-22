@@ -66,7 +66,7 @@ remove-email              - used to remove an email: remove-email <name>
 show-phone                - used to display a phone: show-phone <name>
 change-phone              - used to change a phone: change-phone <name> <old phone> <new phone>
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
-birthdays                 - used to display birthdays in coming days (7 by default): birthdays [days]
+birthdays                 - used to display birthdays in coming days (7 by default) or by a date (DD.MM): birthdays
 add-note                  - used to add a note: add-note <text> [tag|s]
 show-note                 - used to display a note: show-note <index>
 all-notes                 - used to display all notes: all-notes
