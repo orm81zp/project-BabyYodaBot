@@ -23,7 +23,31 @@ A personal Baby Yoda Bot that helps you manage your contacts and notes.
 
 ### By pip
 
-Not availble yet
+Available on [test.pypi.org](https://test.pypi.org/project/baby-yoda-bot/) only for academic purposes.
+
+The latests Alpha version
+
+```
+pip install --index-url https://test.pypi.org/simple/ baby-yoda-bot
+```
+
+_Add `--no-deps` option if you don't want to install all package dependencies._
+
+```
+pip install --index-url https://test.pypi.org/simple/ --no-deps baby-yoda-bot
+```
+
+## How to run
+
+Using in the code
+
+```
+from baby-yoda-bot import yoda_say
+
+yoda_say()
+```
+
+or directly from the terminal `yoda_bot` after installation from pip.
 
 ## Basic functionality
 
