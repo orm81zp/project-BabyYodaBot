@@ -12,55 +12,61 @@ class PrintObject:
     def print(self):
         print(self.model)
 
+
 class PrintNote(PrintObject):
-    options = {"header_style": "bright_yellow", "min_width": 80}
+    options = {"header_style": "bright_yellow", "min_width": 105}
 
     def __init__(self, model, options):
         super().__init__(model)
         self.options.update(options)
         self.options["title"] = (
-            options.get("title") or f"⚔️ {str(self.model.id)}'s Note's"
+            options.get("title") or f":crossed_swords: {str(self.model.id)}'s Note"
         )
 
     def print(self):
+        print()
         table = Table(**self.options)
-        table.add_column("Id", min_width=15)
-        table.add_column("Content")
+        table.add_column("Id", min_width=10)
+        table.add_column("Content", max_width=80)
         table.add_column("Tags")
 
-
-        content = self.model.show_content() if len(self.model.show_content())>0 else '-'
-        tags = self.model.show_tags() if len(self.model.show_tags())>0  else '-'
-        table.add_row(str(self.model.id),content, tags)
+        content = (
+            self.model.show_content() if len(self.model.show_content()) > 0 else "-"
+        )
+        tags = self.model.show_tags() if len(self.model.show_tags()) > 0 else "-"
+        table.add_row(str(self.model.id), content, tags)
 
         Console().print(table)
-        
+        print()
+
+
 class PrintNotes(PrintObject):
-    options = {"header_style": "bright_red", "min_width": 90}
+    options = {"header_style": "bright_red", "min_width": 105}
 
     def __init__(self, model, options):
         super().__init__(model)
         self.options.update(options)
-        self.options["title"] = options.get("title") or "⚔️ All Notes"
+        self.options["title"] = options.get("title") or ":crossed_swords: All Notes"
 
     def print(self):
+        print()
         table = Table(**self.options)
-        table.add_column("Id", min_width=15)
-        table.add_column("Content")
+        table.add_column("Id", min_width=10)
+        table.add_column("Content", max_width=80)
         table.add_column("Tags")
-
 
         notes = self.model.values() if isinstance(self.model, dict) else self.model
 
         for note in notes:
-            content = note.show_content() if len(note.show_content())>0 else '-'
-            tags = note.show_tags() if len(note.show_tags())>0  else '-'
-            table.add_row(str(note.id),content, tags)
+            content = note.show_content() if len(note.show_content()) > 0 else "-"
+            tags = note.show_tags() if len(note.show_tags()) > 0 else "-"
+            table.add_row(str(note.id), content, tags)
         Console().print(table)
+        print()
 
 
 class PrintRecord(PrintObject):
-    options = {"header_style": "bright_green", "min_width": 80}
+    options = {"header_style": "bright_green", "min_width": 105}
 
     def __init__(self, model, options):
         super().__init__(model)
@@ -70,6 +76,7 @@ class PrintRecord(PrintObject):
         )
 
     def print(self):
+        print()
         table = Table(**self.options)
         table.add_column("Name", min_width=15)
         table.add_column("Phone")
@@ -86,17 +93,19 @@ class PrintRecord(PrintObject):
         )
 
         Console().print(table)
+        print()
 
 
 class PrintRecords(PrintObject):
-    options = {"header_style": "bright_green", "min_width": 90}
+    options = {"header_style": "bright_green", "min_width": 105}
 
     def __init__(self, model, options):
         super().__init__(model)
         self.options.update(options)
-        self.options["title"] = options.get("title") or "⚔️ All Contacts"
+        self.options["title"] = options.get("title") or ":crossed_swords: All Contacts"
 
     def print(self):
+        print()
         table = Table(**self.options)
         table.add_column("Name", min_width=15)
         table.add_column("Phone")
@@ -115,6 +124,7 @@ class PrintRecords(PrintObject):
                 str(contact.address),
             )
         Console().print(table)
+        print()
 
 
 class StyledPrint:

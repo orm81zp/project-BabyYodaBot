@@ -40,7 +40,7 @@ ARG_ADDRESS = "address"
 ARG_EMAIL = "email"
 ARG_BIRTHDAY = "birthday"
 ARG_SEARCH = "search"
-ARG_BIRTHDAY_RANGE = "birthday_range"
+ARG_BIRTHDAY_RANGE = "birthday range"
 
 VALIDATION_RULES = {
     ARG_NAME: 'equivalent to "a-zA-Z0-9_.-", no spaces. Example: Max, J.Brain, Tom-1',
@@ -51,7 +51,7 @@ VALIDATION_RULES = {
     ARG_EMAIL: "a valid email address. Example: max101@gmail.com",
     ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", no future\'s date of birth. Example: 24.06.2001',
     ARG_SEARCH: "case-insensitive world characters. Example: hello world",
-    ARG_BIRTHDAY_RANGE: "a number of days (7 by default) or a date. Example: 14",
+    ARG_BIRTHDAY_RANGE: "days range (7 by default) or a date (DD.MM). Example: 14 or 15.02",
 }
 
 COMMAND_DESCRIPTION = {

@@ -1,8 +1,8 @@
-# Baby Yoda's bot
+# Baby Yoda Bot
 
 ## Description
 
-A personal Baby Yoda's bot that helps you manage your contacts and notes.
+A personal Baby Yoda Bot that helps you manage your contacts and notes.
 
 ## Table of Contents
 

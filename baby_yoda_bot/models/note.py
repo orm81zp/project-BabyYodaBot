@@ -23,16 +23,17 @@ class Note:
         self.silent = silent
 
     # ----------- Tags------------------------------------------------
-    def add_tag(self, tag:str):
+    def add_tag(self, tag: str):
         if len(tag) > 0:
             self.tags.add(Tag(tag))
             print_added("Tag")
         else:
-             print_updated("Tag")
-            
+            print_updated("Tag")
 
     def show_tags(self):
-       return ", ".join([str(tag) for tag in self.tags]) if len(self.tags) > 0 else " - "
+        return (
+            ", ".join([str(tag) for tag in self.tags]) if len(self.tags) > 0 else " - "
+        )
 
     def remove_tags(self):
         self.tags = []
@@ -48,8 +49,6 @@ class Note:
         self.content = None
 
     # # ----------- Content------------------------------------------------
-
-
 
     # def __str__(self):
     #     return f'Id: {str(self.id)}, Content: {str(self.content)}, Tags: {", ".join([str(tag) for tag in self.tags])}'
