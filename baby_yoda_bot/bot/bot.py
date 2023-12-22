@@ -1,6 +1,7 @@
 import time
 import sys
 import inspect
+from platform import system
 import difflib
 from collections import defaultdict
 
@@ -20,6 +21,8 @@ class Bot:
         "help": "help",
         "save": "save",
     }
+
+    __WIZARD_CLOSE_COMMAND = "Control + C" if system() == "Darwin" else "Ctrl + C"
 
     @property
     def __commands(self):
@@ -94,13 +97,20 @@ class Bot:
 
         if "questions" in metadata:
             validated_args = []
+            print(f"(Press {self.__WIZARD_CLOSE_COMMAND} to exit from menu)")
 
             for rule in metadata["questions"]:
                 is_optional = not rule["required"] if "required" in rule else False
 
                 while True:
+                    value = ""
                     optional = "(optional)" if is_optional else ""
-                    value = input(f"Enter {rule['name']}{optional}: ")
+
+                    try:
+                        value = input(f"Enter {rule['name']}{optional}: ")
+                    except KeyboardInterrupt:
+                        print("\n")
+                        return
 
                     if not value and is_optional:
                         value = None
