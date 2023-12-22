@@ -30,33 +30,43 @@ class Notes(UserDict):
         self.uuid += 1
         return self.uuid
 
-    def find(self, title=None, content=None, tags=None):
-        if title is None and content is None and tags is None:
+    def search(self, search_value=None):
+        if search_value is None:
             return self.data
         res = list()
-        if title:
-            if title in self.data:
-                res.append(self.data[title])
-        if content:
+    
+        if search_value:
+             # searching by content  
             res.extend(
                 list(
                     filter(
-                        lambda record: record.content.value == content,
+                        lambda record: str(record.content.value).lower().find(search_value.lower())  > -1,
                         self.data.values(),
                     )
                 )
             )
-        if tags:
-            res.extend(
-                list(
-                    filter(
-                        lambda record: str(record.tags) == tags,
-                        self.data.values(),
-                    )
-                )
-            )
+        if search_value:
+            for note in self.data.values():
+               # searching by tags
+                tags = note.tags
+                print(tags)
+                if len(tags) > 0 :
+                    for tag in tags:
+                        if str(tag.value).find(search_value.lower()) > -1:
+                            exist = False
+                            for  item in res:
+                                if(item.uuid==note.uuid):
+                                    exist = True
+                            if not exist:
+                                res.append(note)
+                                continue
 
-        return res
+        if len(res) > 0:
+                title = f'Search Result for "{search_value}"'
+                StyledPrint(res, entity="notes").print()
+        else:
+                print("No results were found")
+
 
     def save(self, note: Note):
         uuid = str(note.uuid)
@@ -84,8 +94,6 @@ class Notes(UserDict):
             deleted = self.data.pop(uuid, None)
             if deleted is not None:
                 print_not_found("Note")
-        else:
-            print_not_found("Note")
 
     def save_to_file(self):
         with open(self.filename, "wb") as file:

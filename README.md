@@ -91,11 +91,14 @@ show-phone                - used to display a phone: show-phone <name>
 change-phone              - used to change a phone: change-phone <name> <old phone> <new phone>
 remove-phone              - used to remove a phone: remove-phone <name> <phone>
 birthdays                 - used to display birthdays in coming days (7 by default) or by a date (DD.MM): birthdays [birthday range]
+
 add-note                  - used to add a note: add-note <text> [tag|s]
 show-note                 - used to display a note: show-note <Id>
 all-notes                 - used to display all notes: all-notes
 change-note               - used to change a note: change-note <Id> <text> [tag|s]
 remove-note               - used to remove a note: remove-note <Id>
+search-note               - used to search notes by content (case-insensitive): search-note <search>
+
 
 
 save                      - used to save data: save
@@ -127,7 +130,6 @@ search                    - case-insensitive world characters. Example: Hello Wo
 ```
 
 
-search-note               - used to search notes by content (case-insensitive): search-note <search>
 
 
 add-tag                   - used to add a tag: add-tag <Id> <tag|s>

@@ -24,3 +24,4 @@ from .show_note import *
 from .all_notes import *
 from .change_note import *
 from .remove_note import *
+from .search_note import *
