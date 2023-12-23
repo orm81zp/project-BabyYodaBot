@@ -153,8 +153,8 @@ class Bot:
                         except ValidationValueException as e:
                             print(e)
                             continue
-                if value:
-                    validated_args.append(value)
+
+                validated_args.append(value)
             executor_args.append(validated_args)
 
         required_args = inspect.getfullargspec(executor).args
