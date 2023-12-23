@@ -5,6 +5,7 @@ from baby_yoda_bot.commands.commands import (
     ARG_NAME,
     ARG_BIRTHDAY,
     ARG_PHONE,
+    ARG_EMAIL,
     COMMAND_DESCRIPTION,
 )
 from ..bot import Bot
@@ -18,7 +19,7 @@ from ..bot import Bot
         {"name": ARG_PHONE, "required": False, "type": Phone},
         {"name": ARG_BIRTHDAY, "required": False, "type": Birthday},
         {
-            "name": "email",
+            "name": ARG_EMAIL,
             "required": False,
             "type": Email,
         },

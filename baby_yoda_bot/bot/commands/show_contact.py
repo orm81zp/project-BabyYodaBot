@@ -1,5 +1,4 @@
 from baby_yoda_bot.models import Context
-from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
     CMD_SHOW_CONTACT,
     ARG_NAME,

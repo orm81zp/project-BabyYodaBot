@@ -1,6 +1,11 @@
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.utils import print_not_found
-from baby_yoda_bot.commands.commands import COMMAND_DESCRIPTION, CMD_REMOVE_TAG
+from baby_yoda_bot.commands.commands import (
+    COMMAND_DESCRIPTION,
+    CMD_REMOVE_TAG,
+    ARG_NOTE_ID,
+    ARG_TAGS,
+)
 from ..bot import Bot
 
 
@@ -8,8 +13,8 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_REMOVE_TAG])
 @Bot.questions(
     [
-        {"name": "Note Id", "required": True, "type": str},
-        {"name": "a tag or comma separated tags", "required": True, "type": str},
+        {"name": ARG_NOTE_ID, "required": True, "type": str},
+        {"name": ARG_TAGS, "required": True, "type": str},
     ]
 )
 def remove_tag(ctx: Context, args):

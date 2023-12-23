@@ -127,6 +127,14 @@ class AddressBook(UserDict):
         else:
             print_not_found("Contact")
 
+    def get_names(self):
+        names = []
+        for contact in self.data.values():
+            name = str(contact.name)
+            if name not in names:
+                names.append(name)
+        return names
+
     def show_all(self):
         if len(self.data) == 0:
             print("Address Book is empty")

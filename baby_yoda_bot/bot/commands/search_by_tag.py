@@ -2,6 +2,7 @@ from baby_yoda_bot.models import Context
 from baby_yoda_bot.commands.commands import (
     CMD_SEARCH_BY_TAG,
     COMMAND_DESCRIPTION,
+    ARG_TAG,
 )
 from ..bot import Bot
 
@@ -10,7 +11,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_SEARCH_BY_TAG])
 @Bot.questions(
     [
-        {"name": "a tag", "required": True, "type": str},
+        {"name": ARG_TAG, "required": True, "type": str},
     ]
 )
 def search_by_tag(ctx: Context, args):

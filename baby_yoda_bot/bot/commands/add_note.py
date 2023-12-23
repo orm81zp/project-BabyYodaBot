@@ -3,6 +3,7 @@ from baby_yoda_bot.commands.commands import (
     CMD_ADD_NOTE,
     COMMAND_DESCRIPTION,
     ARG_CONTENT,
+    ARG_TAGS,
 )
 from ..bot import Bot
 
@@ -12,11 +13,7 @@ from ..bot import Bot
 @Bot.questions(
     [
         {"name": ARG_CONTENT, "required": True, "type": Content},
-        {
-            "name": "a tag or comma separated tags",
-            "required": False,
-            "type": str,
-        },
+        {"name": ARG_TAGS, "required": False, "type": str},
     ]
 )
 def add_note(ctx: Context, args):

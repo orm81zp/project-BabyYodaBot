@@ -5,7 +5,7 @@ from ..bot import Bot
 
 @Bot.command(CMD_ALL_TAGS)
 @Bot.description(COMMAND_DESCRIPTION[CMD_ALL_TAGS])
-def all_tags(ctx: Context):
+def all_tags(ctx: Context, _):
     ctx.notes.show_all_tags()
 
 

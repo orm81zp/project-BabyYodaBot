@@ -2,14 +2,10 @@ import time
 from .content import Content
 from .tag import Tag
 from ..utils import (
-    StyledPrint,
-    is_yes,
-    print_diff,
     print_updated,
     print_not_found,
     print_added,
     print_deleted,
-    print_exists,
 )
 
 

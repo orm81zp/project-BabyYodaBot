@@ -15,9 +15,7 @@ class Email(Field):
         if new_value and re.match(pattern, new_value):
             self.__value = new_value
         else:
-            raise ValidationValueException(
-                f"Email failed validation. {VALIDATION_RULES[ARG_EMAIL]}"
-            )
+            raise ValidationValueException(VALIDATION_RULES[ARG_EMAIL])
 
     def __str__(self):
         return self.__value

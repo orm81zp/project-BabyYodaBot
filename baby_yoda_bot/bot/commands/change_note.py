@@ -4,6 +4,8 @@ from baby_yoda_bot.commands.commands import (
     CMD_CHANGE_NOTE,
     COMMAND_DESCRIPTION,
     ARG_CONTENT,
+    ARG_NOTE_ID,
+    ARG_TAGS
 )
 from ..bot import Bot
 
@@ -12,9 +14,9 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_CHANGE_NOTE])
 @Bot.questions(
     [
-        {"name": "Note Id", "required": True, "type": str},
+        {"name": ARG_NOTE_ID, "required": True, "type": str},
         {"name": ARG_CONTENT, "required": True, "type": Content},
-        {"name": "a tag or comma separated tags", "optional": True, "type": str},
+        {"name": ARG_TAGS, "optional": True, "type": str},
     ]
 )
 def change_note(ctx: Context, args):

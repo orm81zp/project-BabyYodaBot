@@ -14,13 +14,11 @@ class Birthday(Field):
         try:
             birthday = datetime.strptime(new_value, "%d.%m.%Y")
         except ValueError:
-            raise ValidationValueException(
-                f"Birthday failed validation. {VALIDATION_RULES[ARG_BIRTHDAY]}"
-            )
+            raise ValidationValueException(VALIDATION_RULES[ARG_BIRTHDAY])
 
         if birthday > datetime.today():
             raise ValidationValueException(
-                "Birthday failed validation. The future's date accepted."
+                "Birthday failed validation. The future's date not accepted."
             )
 
         self.__value = birthday

@@ -24,19 +24,17 @@ def request_input(message=">>>", compeltions=None):
 
 def parse_input(user_input):
     """
-    Function to parse user input and split into command and args parts.
+    Function to parse user input and split into command.
 
     Args:
         user_input (str): User input string.
 
     Returns:
         command (str): Command part of user input.
-        args (list): List of arguments part of user input.
     """
-    cmd, *args = user_input.strip().split()
-    cmd = cmd.strip().lower()
+    cmd = user_input.strip().lower()
 
-    return cmd, args
+    return cmd
 
 
 __all__ = ["request_input", "parse_input"]

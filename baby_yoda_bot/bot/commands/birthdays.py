@@ -1,5 +1,9 @@
 from baby_yoda_bot.models import Context
-from baby_yoda_bot.commands.commands import CMD_BIRTHDAYS, COMMAND_DESCRIPTION
+from baby_yoda_bot.commands.commands import (
+    CMD_BIRTHDAYS,
+    COMMAND_DESCRIPTION,
+    ARG_BIRTHDAY_RANGE,
+)
 from ..bot import Bot
 
 
@@ -8,7 +12,7 @@ from ..bot import Bot
 @Bot.questions(
     [
         {
-            "name": "days range (7 by default) or a date (DD.MM)",
+            "name": ARG_BIRTHDAY_RANGE,
             "required": True,
             "type": str,
         }

@@ -1,39 +1,39 @@
-CMD_CHANGE_NOTE = "change-note"
-CMD_ADD_ADDRESS = "add-address"
-CMD_SHOW_ADDRESS = "show-address"
-CMD_REMOVE_ADDRESS = "remove-address"
-CMD_ADD_CONTACT = "add-contact"
-CMD_SEARCH_CONTACT = "search-contact"
-CMD_SHOW_CONTACT = "show-contact"
-CMD_ALL_CONTACTS = "all-contacts"
-CMD_REMOVE_CONTACT = "remove-contact"
-CMD_ADD_BIRTHDAY = "add-birthday"
-CMD_SHOW_BIRTHDAY = "show-birthday"
-CMD_REMOVE_BIRTHDAY = "remove-birthday"
+CMD_CHANGE_NOTE = "change note"
+CMD_ADD_ADDRESS = "add address"
+CMD_SHOW_ADDRESS = "show address"
+CMD_REMOVE_ADDRESS = "remove address"
+CMD_ADD_CONTACT = "add contact"
+CMD_SEARCH_CONTACT = "search contact"
+CMD_SHOW_CONTACT = "show contact"
+CMD_ALL_CONTACTS = "all contacts"
+CMD_REMOVE_CONTACT = "remove contact"
+CMD_ADD_BIRTHDAY = "add birthday"
+CMD_SHOW_BIRTHDAY = "show birthday"
+CMD_REMOVE_BIRTHDAY = "remove birthday"
 CMD_BIRTHDAYS = "birthdays"
-CMD_ADD_EMAIL = "add-email"
-CMD_SHOW_EMAIL = "show-email"
-CMD_REMOVE_EMAIL = "remove-email"
-CMD_ADD_PHONE = "add-phone"
-CMD_SHOW_PHONE = "show-phone"
-CMD_CHANGE_PHONE = "change-phone"
-CMD_REMOVE_PHONE = "remove-phone"
-CMD_ADD_NOTE = "add-note"
-CMD_SHOW_NOTE = "show-note"
-CMD_CHANGE_NOTE = "change-note"
-CMD_SEARCH_NOTE = "search-note"
-CMD_REMOVE_NOTE = "remove-note"
-CMD_ALL_NOTES = "all-notes"
-CMD_SEARCH_BY_TAG = "search-by-tag"
-CMD_ADD_TAG = "add-tag"
-CMD_REMOVE_TAG = "remove-tag"
-CMD_ALL_TAGS = "all-tags"
+CMD_ADD_EMAIL = "add email"
+CMD_SHOW_EMAIL = "show email"
+CMD_REMOVE_EMAIL = "remove email"
+CMD_ADD_PHONE = "add phone"
+CMD_SHOW_PHONE = "show phone"
+CMD_CHANGE_PHONE = "change phone"
+CMD_REMOVE_PHONE = "remove phone"
+CMD_ADD_NOTE = "add note"
+CMD_SHOW_NOTE = "show note"
+CMD_CHANGE_NOTE = "change note"
+CMD_SEARCH_NOTE = "search note"
+CMD_REMOVE_NOTE = "remove note"
+CMD_ALL_NOTES = "all notes"
+CMD_SEARCH_BY_TAG = "search by tag"
+CMD_ADD_TAG = "add tag"
+CMD_REMOVE_TAG = "remove tag"
+CMD_ALL_TAGS = "all tags"
 CMD_HELP = "help"
 CMD_CLOSE = "close"
 CMD_EXIT = "exit"
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
-ARG_ID = "id"
+ARG_NOTE_ID = "note id"
 ARG_NAME = "name"
 ARG_PHONE = "phone"
 ARG_TAGS = "tags"
@@ -44,7 +44,7 @@ ARG_NEW_PHONE = "new phone"
 ARG_ADDRESS = "address"
 ARG_EMAIL = "email"
 ARG_BIRTHDAY = "birthday"
-ARG_SEARCH = "search"
+ARG_SEARCH = "search value"
 ARG_BIRTHDAY_RANGE = "birthday range"
 
 VALIDATION_RULES = {
@@ -54,13 +54,13 @@ VALIDATION_RULES = {
     ARG_NEW_PHONE: f"same as for {ARG_PHONE}",
     ARG_ADDRESS: "from 5 to 100 characters. Example: USA, 3944 D Street",
     ARG_EMAIL: "a valid email address. Example: max101@gmail.com",
-    ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", no future\'s date of birth. Example: 24.06.2001',
-    ARG_SEARCH: "case-insensitive world characters. Example: hello world",
-    ARG_BIRTHDAY_RANGE: "days range (7 by default) or a date (DD.MM). Example: 14 or 15.02",
-    ARG_TAGS: "comma separated tags",
-    ARG_TAGS: "from 1 to 15 word characters, no spaces",
+    ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", future\'s date not accepted. Example: 24.06.2001',
+    ARG_SEARCH: "case-insensitive characters. Example: hello world",
+    ARG_BIRTHDAY_RANGE: "days range (7 by default) or a date (DD.MM). Example: 14, 15.02",
+    ARG_TAG: "from 1 to 15 word characters",
+    ARG_TAGS: "from 1 to 15 word characters separated by comma",
     ARG_CONTENT: "from 10 to 500 characters",
-    ARG_ID: "number ID of record",
+    ARG_NOTE_ID: "serial number of the note",
 }
 
 COMMAND_DESCRIPTION = {
@@ -100,11 +100,3 @@ ARGUMENT_TYPES = {
     "<required>": "required argument",
     "[optional]": "optional argument",
 }
-
-
-def required(arg):
-    return f"<{arg}>"
-
-
-def optional(arg):
-    return f"[{arg}]"

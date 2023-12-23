@@ -1,14 +1,19 @@
 import time
 import sys
 import inspect
-from platform import system
 import difflib
+from rich.console import Console
 from collections import defaultdict
 from baby_yoda_bot.models.context import Context
+from baby_yoda_bot.constants import TEXT
 from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
-from baby_yoda_bot.commands.commands import EXIT_COMMANDS
-from ..constants import HELP_INFO
+from baby_yoda_bot.commands.commands import (
+    EXIT_COMMANDS,
+    ARGUMENT_TYPES,
+    VALIDATION_RULES,
+    ARG_NAME,
+)
 from ..assets import logo, phrase
 
 
@@ -21,7 +26,7 @@ class Bot:
         "save": "save",
     }
 
-    __WIZARD_CLOSE_COMMAND = "Control + C" if system() == "Darwin" else "Ctrl + C"
+    __WIZARD_CLOSE_COMMAND = "#exit"
 
     @property
     def __commands(self):
@@ -53,20 +58,20 @@ class Bot:
         return decorator
 
     @staticmethod
-    def arguments(args):
+    def description(description):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]["arguments"] = args
+            Bot.__COMMANDS_METADATA__[key]["description"] = description
 
             return inner
 
         return decorator
 
     @staticmethod
-    def description(description):
+    def rules(rules):
         def decorator(func):
             inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]["description"] = description
+            Bot.__COMMANDS_METADATA__[key]["rules"] = rules
 
             return inner
 
@@ -87,16 +92,18 @@ class Bot:
     def __init__(self):
         self.context = Context()
 
-    def __exec(self, command, args):
+    def __exec(self, command):
         executor_args = [self.context]
         executor = Bot.__COMMANDS_HANDLERS[command]
-
         metadata_key = executor.__bot_cmd__
         metadata = Bot.__COMMANDS_METADATA__[metadata_key]
+        console = Console()
 
         if "questions" in metadata:
             validated_args = []
-            print(f"(Press {self.__WIZARD_CLOSE_COMMAND} to exit from menu)")
+            console.print(
+                f":mage: I'm collecting your data...\n(Say {self.__WIZARD_CLOSE_COMMAND} to stop)"
+            )
 
             for rule in metadata["questions"]:
                 is_optional = not rule["required"] if "required" in rule else False
@@ -111,11 +118,18 @@ class Bot:
                     requirements.append("unique")
 
                 while True:
-                    hint = f" ({', '.join(requirements)})" if len(requirements) else ""
+                    hint = (
+                        f" ({', '.join(requirements)})" if len(requirements) > 0 else ""
+                    )
 
-                    try:
-                        value = input(f"Enter {rule['name']}{hint}: ")
-                    except KeyboardInterrupt:
+                    compeltions = []
+                    if rule["name"] == ARG_NAME:
+                        compeltions = self.context.address_book.get_names()
+                    value = request_input(
+                        f'Enter {rule["name"].capitalize()}{hint}: ', compeltions
+                    )
+
+                    if value.strip() == self.__WIZARD_CLOSE_COMMAND:
                         print("\n")
                         return
 
@@ -139,30 +153,8 @@ class Bot:
                         except ValidationValueException as e:
                             print(e)
                             continue
-
-                validated_args.append(value)
-            executor_args.append(validated_args)
-
-        if "arguments" in metadata:
-            if len(metadata["arguments"]) != len(args):
-                expected_args = ", ".join(
-                    [f"<{arg['name']}>" for arg in metadata["arguments"]]
-                )
-
-                return f"Invalid number of arguments, expected: {expected_args}"
-
-            validated_args = []
-
-            for i, rule in enumerate(metadata["arguments"]):
-                name = rule["name"]
-                validation_type = rule["type"]
-                value = args[i].strip()
-
-                try:
-                    validated_args.append(type(validation_type))
-                except ValidationValueException as e:
-                    return f"Argument {name}='{value}' is invalid: {e}"
-
+                if value:
+                    validated_args.append(value)
             executor_args.append(validated_args)
 
         required_args = inspect.getfullargspec(executor).args
@@ -172,20 +164,89 @@ class Bot:
 
         return executor(*executor_args)
 
-    def help(self):
-        print("Commands list:")
+    @staticmethod
+    def help():
+        commands_output = ""
+        all_arguments = {}
+        for commands_metadata in Bot.__COMMANDS_METADATA__.values():
+            description = "no description"
+            command = ""
+            arguments = []
+            for type_of_data, data in commands_metadata.items():
+                if type_of_data == "description":
+                    description = data
+                elif type_of_data == "command":
+                    command = data
+                elif type_of_data == "questions":
+                    for argument in data:
+                        required = "required" in argument and argument["required"]
+                        unique = "unique" in argument and argument["unique"]
+                        rule = ""
 
-        for metadata in Bot.__COMMANDS_METADATA__.values():
-            arguments_list = ""
-            command = metadata["command"]
-            description = metadata["description"] if "description" in metadata else ""
+                        if argument["name"] in VALIDATION_RULES:
+                            rule = VALIDATION_RULES[argument["name"]]
 
-            arguments = metadata["arguments"] if "arguments" in metadata else []
+                        command_arguments = {
+                            "name": argument["name"],
+                            "required": required,
+                            "unique": unique,
+                            "rule": rule,
+                        }
+                        arguments.append(command_arguments)
+                        if argument["name"] not in all_arguments:
+                            all_arguments[argument["name"]] = command_arguments
 
-            if len(arguments):
-                arguments_list = ", ".join([f"<{arg['name']}>" for arg in arguments])
+            # add a command with description
+            commands_output += f"{command:<25}  - {description}"
 
-            print(f"{command} {arguments_list} - {description}")
+            # add a command arguments after description
+            if len(arguments) > 0:
+                commands_output += f": {command}"
+                for argumen in arguments:
+                    name = (
+                        f'<{argumen["name"]}>'
+                        if argumen["required"]
+                        else f'[{argumen["name"]}]'
+                    )
+                    commands_output += f" {name}"
+            commands_output += "\n"
+
+        internal_commands = [
+            {
+                "name": "help",
+                "description": "used to display information about all commands: help",
+            },
+            {
+                "name": "exit or close",
+                "description": "used to close the program, data will be saved: exit",
+            },
+        ]
+
+        for command in internal_commands:
+            commands_output += f'{command["name"]:<25}  - {command["description"]}\n'
+
+        print(commands_output)
+
+        print("Types of argumets:")
+        for k, v in ARGUMENT_TYPES.items():
+            print(f"{k:<25} - {v}")
+
+        if len(all_arguments) > 0:
+            arguments_output = ""
+            for argument in all_arguments.values():
+                name = argument["name"]
+                if argument["unique"]:
+                    name += " (unique)"
+                arguments_output += f"{name:<25}"
+
+                if argument["rule"]:
+                    arguments_output += f' - {argument["rule"]}'
+                else:
+                    arguments_output += " - no specific rules"
+                arguments_output += "\n"
+
+            print("\nList of arguments:")
+            print(arguments_output)
 
     def __animate(self, data, delay=0.04):
         if not ("--silent" in sys.argv or "-s" in sys.argv):
@@ -195,28 +256,24 @@ class Bot:
                 print(row)
                 time.sleep(delay)
 
-    def show_static_help(self):
-        print(HELP_INFO)
-
     def listen(self):
         commands = self.__commands
 
         self.__animate(logo)
-        print(
-            "\nWelcome to the Baby Yoda Bot! Here are some magic commands you can use....\n"
-        )
-        self.show_static_help()
+        print(TEXT["WELCOME"])
+        Bot.help()
 
         while True:
             try:
-                command = request_input("Enter command: ", commands)
+                command = request_input("Enter a command: ", commands)
 
                 if not command:
                     continue
 
-                cmd, args = parse_input(command)
+                cmd = parse_input(command)
 
                 if command in EXIT_COMMANDS:
+                    # if is_yes("Do you really whant to exit?"):
                     self.__animate(phrase, 0.1)
                     print(
                         "Goodbye! I hope I was useful. Thank you for using me! See you soon.\n"
@@ -225,7 +282,7 @@ class Bot:
                     break
 
                 if command == self.__INTERNAL_COMMANDS["help"]:
-                    self.show_static_help()
+                    Bot.help()
                     continue
 
                 if command == self.__INTERNAL_COMMANDS["save"]:
@@ -251,7 +308,7 @@ class Bot:
 
                     continue
 
-                self.__exec(cmd, args)
+                self.__exec(cmd)
             except ValidationValueException as err:
                 print(err)
             except KeyboardInterrupt:
