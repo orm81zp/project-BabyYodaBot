@@ -1,3 +1,4 @@
+"""Module providing a function to search and display contacts."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.commands.commands import (
     CMD_SEARCH_CONTACT,
@@ -11,6 +12,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_SEARCH_CONTACT])
 @Bot.questions([{"name": ARG_SEARCH, "required": True, "type": str}])
 def search_contact(ctx: Context, args):
+    """Calls to search and display contacts"""
     search_value = args[0]
     ctx.address_book.search(search_value)
 

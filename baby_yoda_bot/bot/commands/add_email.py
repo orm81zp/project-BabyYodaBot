@@ -1,3 +1,4 @@
+"""Module providing a function to add an email."""
 from baby_yoda_bot.models import Email, Context
 from baby_yoda_bot.utils import print_added
 from baby_yoda_bot.commands.commands import (
@@ -18,6 +19,7 @@ from ..bot import Bot
     ]
 )
 def add_email(ctx: Context, args):
+    """Calls to a add an email"""
     name, email = args
     contact = ctx.address_book.find_one(str(name))
 
@@ -28,5 +30,6 @@ def add_email(ctx: Context, args):
         if added:
             print_added(f'Contact "{str(name)}"')
             print_added("Email")
+
 
 __all__ = ["add_email"]

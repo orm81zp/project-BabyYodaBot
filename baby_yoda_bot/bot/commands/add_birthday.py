@@ -1,3 +1,4 @@
+"""Module providing a function to add a birthday."""
 from baby_yoda_bot.models import Birthday, Context
 from baby_yoda_bot.utils import print_added
 from baby_yoda_bot.commands.commands import (
@@ -18,6 +19,7 @@ from ..bot import Bot
     ]
 )
 def add_birthday(ctx: Context, args):
+    """Calls to a add a birthday"""
     name, birthday = args
     contact = ctx.address_book.find_one(str(name))
 

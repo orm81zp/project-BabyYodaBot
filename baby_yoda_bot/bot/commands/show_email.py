@@ -1,3 +1,4 @@
+"""Module providing a function to display an email."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
@@ -12,6 +13,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_SHOW_EMAIL])
 @Bot.questions([{"name": ARG_NAME, "required": True, "type": str}])
 def show_email(ctx: Context, args):
+    """Calls to display an email"""
     name = args[0]
     contact = ctx.address_book.find_one(str(name))
 

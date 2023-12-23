@@ -1,3 +1,4 @@
+"""Module providing a function to  show birthdays."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.commands.commands import (
     CMD_BIRTHDAYS,
@@ -19,6 +20,7 @@ from ..bot import Bot
     ]
 )
 def birthdays(ctx: Context, args):
+    """Calls to display birthdays"""
     birthday_range = args[0]
     ctx.address_book.birthdays(birthday_range)
 

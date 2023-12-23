@@ -1,3 +1,4 @@
+"""Module providing a function to change a phone number."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
@@ -20,6 +21,7 @@ from ..bot import Bot
     ]
 )
 def change_phone(ctx: Context, args):
+    """Calls to change a phone number"""
     name, old_phone, new_phone = args
     contact = ctx.address_book.find_one(str(name))
 

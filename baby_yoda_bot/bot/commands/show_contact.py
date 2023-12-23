@@ -1,3 +1,4 @@
+"""Module providing a function to display a contact."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.commands.commands import (
     CMD_SHOW_CONTACT,
@@ -11,6 +12,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_SHOW_CONTACT])
 @Bot.questions([{"name": ARG_NAME, "required": True, "type": str}])
 def show_contact(ctx: Context, args):
+    """Calls to display a contact"""
     name = str(args[0])
     ctx.address_book.show_contact(name)
 
