@@ -49,7 +49,7 @@ class AddressBook(UserDict):
         return res
 
     def search(self, search_value):
-        print("search...")
+        print("searching...")
         results = []
         formatted_search = search_value.lower()
         contacts = self.data.values()
@@ -136,10 +136,10 @@ class AddressBook(UserDict):
         return names
 
     def show_all(self):
-        if len(self.data) == 0:
-            print("Address Book is empty")
-        else:
+        if len(self.data) > 0:
             StyledPrint(self.data, entity="contacts").print()
+        else:
+            print("Address Book is empty")
 
     def birthdays(self, birthday_range):
         use_date = False

@@ -1,4 +1,5 @@
 # --------CONTACTS-----------
+
 from .all_contacts import *
 from .add_contact import *
 from .add_phone import *
@@ -20,6 +21,7 @@ from .change_phone import *
 from .remove_phone import *
 
 # --------NOTES----------------
+
 from .add_note import *
 from .show_note import *
 from .all_notes import *
@@ -33,3 +35,6 @@ from .search_by_tag import *
 from .add_tag import *
 from .remove_tag import *
 from .all_tags import *
+
+from .show_help import *
+from .save import *

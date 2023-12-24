@@ -10,9 +10,8 @@ from baby_yoda_bot.utils import request_input, parse_input
 from baby_yoda_bot.exceptions.exceptions import ValidationValueException
 from baby_yoda_bot.commands.commands import (
     EXIT_COMMANDS,
-    ARGUMENT_TYPES,
-    VALIDATION_RULES,
     ARG_NAME,
+    ARG_OLD_PHONE,
 )
 from ..assets import logo, phrase
 
@@ -21,17 +20,11 @@ class Bot:
     __COMMANDS_HANDLERS = {}
     __COMMANDS_METADATA__ = defaultdict(dict)
 
-    __INTERNAL_COMMANDS = {
-        "help": "help",
-        "save": "save",
-    }
-
-    __WIZARD_CLOSE_COMMAND = "#exit"
+    __WIZARD_CLOSE_COMMAND = "-exit"
 
     @property
     def __commands(self):
         commands = list(Bot.__COMMANDS_HANDLERS.keys())
-        commands.extend(self.__INTERNAL_COMMANDS.values())
         commands.extend(EXIT_COMMANDS)
 
         return commands
@@ -102,9 +95,9 @@ class Bot:
         if "questions" in metadata:
             validated_args = []
             console.print(
-                f":mage: I'm collecting your data...\n(Say {self.__WIZARD_CLOSE_COMMAND} to stop)"
+                f":mage: I'm collecting your data...\nSay {self.__WIZARD_CLOSE_COMMAND} to stop!"
             )
-
+            history = {}
             for rule in metadata["questions"]:
                 is_optional = not rule["required"] if "required" in rule else False
                 is_unique = "unique" in rule and rule["unique"]
@@ -125,6 +118,11 @@ class Bot:
                     compeltions = []
                     if rule["name"] == ARG_NAME:
                         compeltions = self.context.address_book.get_names()
+                    elif rule["name"] == ARG_OLD_PHONE and "name" in history:
+                        contact = self.context.address_book.find_one(history["name"])
+                        if contact:
+                            compeltions = contact.get_list_of_phones()
+
                     value = request_input(
                         f'Enter {rule["name"].capitalize()}{hint}: ', compeltions
                     )
@@ -138,6 +136,9 @@ class Bot:
                         break
 
                     value = value.strip()
+
+                    if rule["name"] == ARG_NAME:
+                        history["name"] = value
 
                     if is_unique:
                         record = self.context.address_book.find_one(value)
@@ -164,90 +165,6 @@ class Bot:
 
         return executor(*executor_args)
 
-    @staticmethod
-    def help():
-        commands_output = ""
-        all_arguments = {}
-        for commands_metadata in Bot.__COMMANDS_METADATA__.values():
-            description = "no description"
-            command = ""
-            arguments = []
-            for type_of_data, data in commands_metadata.items():
-                if type_of_data == "description":
-                    description = data
-                elif type_of_data == "command":
-                    command = data
-                elif type_of_data == "questions":
-                    for argument in data:
-                        required = "required" in argument and argument["required"]
-                        unique = "unique" in argument and argument["unique"]
-                        rule = ""
-
-                        if argument["name"] in VALIDATION_RULES:
-                            rule = VALIDATION_RULES[argument["name"]]
-
-                        command_arguments = {
-                            "name": argument["name"],
-                            "required": required,
-                            "unique": unique,
-                            "rule": rule,
-                        }
-                        arguments.append(command_arguments)
-                        if argument["name"] not in all_arguments:
-                            all_arguments[argument["name"]] = command_arguments
-
-            # add a command with description
-            commands_output += f"{command:<25}  - {description}"
-
-            # add a command arguments after description
-            if len(arguments) > 0:
-                commands_output += f": {command}"
-                for argumen in arguments:
-                    name = (
-                        f'<{argumen["name"]}>'
-                        if argumen["required"]
-                        else f'[{argumen["name"]}]'
-                    )
-                    commands_output += f" {name}"
-            commands_output += "\n"
-
-        internal_commands = [
-            {
-                "name": "help",
-                "description": "used to display information about all commands: help",
-            },
-            {
-                "name": "exit or close",
-                "description": "used to close the program, data will be saved: exit",
-            },
-        ]
-
-        for command in internal_commands:
-            commands_output += f'{command["name"]:<25}  - {command["description"]}\n'
-
-        print(commands_output)
-
-        print("Types of argumets:")
-        for k, v in ARGUMENT_TYPES.items():
-            print(f"{k:<25} - {v}")
-
-        if len(all_arguments) > 0:
-            arguments_output = ""
-            for argument in all_arguments.values():
-                name = argument["name"]
-                if argument["unique"]:
-                    name += " (unique)"
-                arguments_output += f"{name:<25}"
-
-                if argument["rule"]:
-                    arguments_output += f' - {argument["rule"]}'
-                else:
-                    arguments_output += " - no specific rules"
-                arguments_output += "\n"
-
-            print("\nList of arguments:")
-            print(arguments_output)
-
     def __animate(self, data, delay=0.04):
         if not ("--silent" in sys.argv or "-s" in sys.argv):
             rows = data.split("\n")
@@ -261,7 +178,7 @@ class Bot:
 
         self.__animate(logo)
         print(TEXT["WELCOME"])
-        Bot.help()
+        self.__exec("help")
 
         while True:
             try:
@@ -280,16 +197,6 @@ class Bot:
                     )
 
                     break
-
-                if command == self.__INTERNAL_COMMANDS["help"]:
-                    Bot.help()
-                    continue
-
-                if command == self.__INTERNAL_COMMANDS["save"]:
-                    self.context.address_book.save_to_file()
-                    self.context.notes.save_to_file()
-                    print("Saved!")
-                    continue
 
                 if cmd not in Bot.__COMMANDS_HANDLERS:
                     close_matches = difflib.get_close_matches(

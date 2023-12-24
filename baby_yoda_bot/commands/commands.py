@@ -31,6 +31,7 @@ CMD_ALL_TAGS = "all tags"
 CMD_HELP = "help"
 CMD_CLOSE = "close"
 CMD_EXIT = "exit"
+CMD_SAVE = "save"
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
 ARG_NOTE_ID = "note id"
@@ -94,6 +95,8 @@ COMMAND_DESCRIPTION = {
     CMD_SEARCH_BY_TAG: "used to display notes by a tag",
     CMD_REMOVE_TAG: "used to remove a tag(s)",
     CMD_ALL_TAGS: "used to display all tags",
+    CMD_HELP: "used to display help information",
+    CMD_SAVE: "used to save data",
 }
 
 ARGUMENT_TYPES = {

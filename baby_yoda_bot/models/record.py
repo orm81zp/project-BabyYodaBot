@@ -69,6 +69,12 @@ class Record:
                 return phone
         return None
 
+    def get_list_of_phones(self):
+        phones = []
+        for phone in self.phones:
+            phones.append(str(phone))
+        return phones
+
     def get_phones(self, placeholder=" - "):
         phone_numbers = placeholder
         if len(self.phones) > 0:
