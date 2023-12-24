@@ -61,16 +61,6 @@ class Bot:
         return decorator
 
     @staticmethod
-    def rules(rules):
-        def decorator(func):
-            inner, key = Bot.__make_inner(func)
-            Bot.__COMMANDS_METADATA__[key]["rules"] = rules
-
-            return inner
-
-        return decorator
-
-    @staticmethod
     def __make_inner(func):
         inner = func
         name = func.__name__
