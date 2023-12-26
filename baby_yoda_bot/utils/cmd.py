@@ -1,3 +1,4 @@
+"""Module providing functions to work with user input data."""
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 

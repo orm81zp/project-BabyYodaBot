@@ -4,17 +4,36 @@ from rich.table import Table
 
 
 class PrintObject:
+    """Default class used as a parent to implement print method."""
+
     def __init__(self, model):
         self.model = model
 
     def show(self, value):
+        """
+        Checks if a value is not None and returns it as str or a placeholder instead.
+
+        Parameters:
+            value (Field | None): value
+
+        Returns atr.
+        """
         return str(value) if value else " - "
 
     def print(self):
+        """
+        Calls to print a model.
+
+        No Parameters:
+
+        Returns None.
+        """
         print(self.model)
 
 
 class PrintNote(PrintObject):
+    """Class to display Note using rich table."""
+
     options = {"header_style": "bright_yellow", "min_width": 105}
 
     def __init__(self, model, options):
@@ -40,6 +59,8 @@ class PrintNote(PrintObject):
 
 
 class PrintNotes(PrintObject):
+    """Class to display Notes using rich table."""
+
     options = {"header_style": "bright_red", "min_width": 105}
 
     def __init__(self, model, options):
@@ -63,6 +84,8 @@ class PrintNotes(PrintObject):
 
 
 class PrintRecord(PrintObject):
+    """Class to display Record using rich table."""
+
     options = {"header_style": "bright_green", "min_width": 105}
 
     def __init__(self, model, options):
@@ -94,6 +117,8 @@ class PrintRecord(PrintObject):
 
 
 class PrintRecords(PrintObject):
+    """Class to display Records using rich table."""
+
     options = {"header_style": "bright_green", "min_width": 105}
 
     def __init__(self, model, options):
@@ -125,6 +150,8 @@ class PrintRecords(PrintObject):
 
 
 class StyledPrint:
+    """Class to handle assign correct classes for displaying."""
+
     def __init__(self, model, entity=None, **options):
         self.options = options
         self.model = model
@@ -133,6 +160,7 @@ class StyledPrint:
         self.setup()
 
     def setup(self):
+        """Assigns correct classes for printier attribute."""
         if self.entity == "contact":
             self.printer = PrintRecord(self.model, self.options)
         elif self.entity == "contacts":
@@ -143,6 +171,7 @@ class StyledPrint:
             self.printer = PrintNotes(self.model, self.options)
 
     def print(self):
+        """Calls print method."""
         if self.printer:
             self.printer.print()
         else:

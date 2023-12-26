@@ -1,3 +1,4 @@
+"""Module providing the main Bot class."""
 import time
 import sys
 import inspect
@@ -6,7 +7,10 @@ import difflib
 from collections import defaultdict
 from baby_yoda_bot.models.context import Context
 from baby_yoda_bot.utils import request_input, parse_input
-from baby_yoda_bot.exceptions.exceptions import ValidationValueException
+from baby_yoda_bot.exceptions.exceptions import (
+    ValidationValueException,
+    UnexpectedException,
+)
 from baby_yoda_bot.commands.commands import EXIT_COMMANDS
 from ..constants import HELP_INFO
 from ..assets import logo, phrase
@@ -259,7 +263,7 @@ class Bot:
                 self.context.address_book.save_to_file()
                 self.context.notes.save_to_file()
                 break
-            except Exception as err:
+            except UnexpectedException as err:
                 print("Oops! Something went wrong!")
                 print(err)
 

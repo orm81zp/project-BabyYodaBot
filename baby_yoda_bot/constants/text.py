@@ -1,3 +1,4 @@
+"""Module providing constants."""
 TEXT = {"WELCOME": 'Welcome to Baby Yoda Bot!\nType "help" to see all commands!\n'}
 
 HELP_INFO = """

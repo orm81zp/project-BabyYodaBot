@@ -1,4 +1,9 @@
+"""Module providing decorators."""
+
+
 def confirm_prompt(message="Please confirm"):
+    """Asks a confirmation before calling a function."""
+
     def handler(func):
         def inner(*args, **kwargs):
             user_input = input(f"{message} (y/no) ")
@@ -12,6 +17,11 @@ def confirm_prompt(message="Please confirm"):
 
 
 def input_error(error):
+    """
+    Catches exceptions that may occur during the execution of the function
+    and displays an error message.
+    """
+
     def error_handler(func):
         def inner(*args, **kwargs):
             try:
