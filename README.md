@@ -66,52 +66,57 @@ Can be restarted without losing data. All data (contacts, notes) are stored on t
 Type `help` to see all commands. The example of the output is below:
 
 ```
-add-contact               - used to add a new contact: add-contact
-all-contacts              - used to display all contacts: all-contacts
-search-contact            - used to search contacts (case-insensitive): search-contact
-show-contact              - used to display a contact: show-contact
-remove-contact            - used to remove a contact: remove-contact
-add-birthday              - used to add a birthday: add-birthday
-show-birthday             - used to display a birthday: show-birthday
-remove-birthday           - used to remove a birthday: remove-birthday
-add-phone                 - used to add a phone: add-phone
-add-address               - used to add an address: add-address
-show-address              - used to display an address: show-address
-add-email                 - used to add an email: add-email
-show-email                - used to display an email: show-email
-remove-address            - used to remove an address: remove-address
-remove-email              - used to remove an email: remove-email
-show-phone                - used to display a phone: show-phone
-change-phone              - used to change a phone: change-phone
-remove-phone              - used to remove a phone: remove-phone
-birthdays                 - used to display birthdays in coming days (7 by default) or by a date (DD.MM): birthdays
-add-note                  - used to add a note: add-note
-show-note                 - used to display a note: show-note
-all-notes                 - used to display all notes: all-notes
-change-note               - used to change a note: change-note
-remove-note               - used to remove a note: remove-note
-search-note               - used to search notes by content (case-insensitive): search-note
-search-by-tag             - used to display all notes found by a tag (case-insensitive, strict match): search-by-tag
-add-tag                   - used to add a tag: add-tag
-remove-tag                - used to remove a tag (strict match): remove-tag
-all-tags                  - used to display all tags with associated notes: all-tags
-save                      - used to save data: save
-help                      - used to display information about all commands: help
-close | exit              - used to close the program, data will be saved: close
+all contacts               - used to display all contacts
+add contact                - used to add a new contact: add contact <name> [phone] [birthday] [email]
+add phone                  - used to add a phone: add phone <name> <phone>
+add birthday               - used to add a birthday: add birthday <name> <birthday>
+show contact               - used to display a contact: show contact <name>
+show birthday              - used to display a birthday: show birthday <name>
+search contact             - used to search contacts (case-insensitive): search contact <search value>
+remove birthday            - used to remove a birthday: remove birthday <name>
+remove contact             - used to remove a contact: remove contact <name>
+birthdays                  - used to display birthdays in coming days (7 by default): birthdays <birthday range>
+add address                - used to add an address: add address <name> <address>
+show address               - used to display an address: show address <name>
+remove address             - used to remove an address: remove address <name>
+add email                  - used to add an email: add email <name> <email>
+show email                 - used to display an email: show email <name>
+remove email               - used to remove an email: remove email <name>
+show phone                 - used to display a phone: show phone <name>
+change phone               - used to change a phone: change phone <name> <old phone> <new phone>
+remove phone               - used to remove a phone: remove phone <name> <phone>
+add note                   - used to add a note: add note <content> [tags]
+show note                  - used to display a note: show note <note id>
+all notes                  - used to display all notes
+change note                - used to change a note: change note <note id> <content> [tags]
+remove note                - used to remove a note: remove note <note id>
+search note                - used to search notes by content: search note <search value>
+search by tag              - used to display notes by a tag: search by tag <tag>
+add tag                    - used to add a tag(s): add tag <note id> <tags>
+remove tag                 - used to remove a tag(s): remove tag <note id> <tags>
+all tags                   - used to display all tags
+help                       - used to display help information
+save                       - used to save data
+exit or close              - used to close the program, data will be saved: exit
 
-Validation rules:
-name                      - from 1 to 30 characters. Example: Max, John Doe, Erika from the gym
-phone                     - can begin with + and consist of 12 digits. Example: +380630000001
-old phone                 - same as for <phone>
-new phone                 - same as for <phone>
-address                   - from 5 to 100 characters. Example: USA Brooklyn, state Michigan, 3854 Central Avenue
-email                     - a valid email address. Example: maxi21@gmail.com
-Note Id                   - a sequence number, starts from 1
-tag                       - from 1 to 15 word characters, no spaces, can be a list separeted by space. Example: shopping buy food
-text                      - from 10 to 500 characters
-birthday                  - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
-birthday range            - a number of days or a date (DD.MM). Example: 14, 01.12
-search                    - case-insensitive world characters. Example: Hello World
+Types of argumets:
+<required>                - required argument
+[optional]                - optional argument
+
+List of arguments:
+name (unique)             - equivalent to "a-zA-Z0-9_.-", no spaces. Example: Max, J.Brain, Tom-1
+phone                     - can start with + and consist of 12 digits. Example: +380630000001
+birthday                  - a valid date, equivalent to "DD.MM.YYYY", future's date not accepted. Example: 24.06.2001
+email                     - a valid email address. Example: max101@gmail.com
+search value              - case-insensitive characters. Example: hello world
+birthday range            - days range (7 by default) or a date (DD.MM). Example: 14, 15.02
+address                   - from 5 to 100 characters. Example: USA, 3944 D Street
+old phone                 - same as for phone
+new phone                 - same as for phone
+content                   - from 10 to 500 characters
+tags                      - from 1 to 15 word characters separated by comma
+note id                   - serial number of the note
+tag                       - from 1 to 15 word characters
 ```
 
 ### Some examples of the use of commands
@@ -120,69 +125,75 @@ search                    - case-insensitive world characters. Example: Hello Wo
 
 Used to display all commands: `help`.
 
-### add-phone
+### add phone
 
-Used to add a phone: `add-phone`.
+Used to add a phone: `add phone`.
 
 ```
-Enter name: Maxima
-Enter phone: +380660000001
-Contact "Maxima" added!
+Enter a command: add phone
+🧙 Answer a few questions to continue.
+Tell me --exit to stop!
+Enter Name: Maxima
+Enter Phone: +380663332211
 Phone number added!
 ```
 
-### change-phone
+### change phone
 
-used to change a phone: `change-phone`.
+used to change a phone: `change phone`.
 
 ```
-Enter command: change-phone
-(Press Control + C to exit from menu)
+Enter command: change phone
+🧙 I need more information to continue.
+Tell me --exit to stop!
 Enter name: Maxima
 Enter old phone: +380660000001
 Enter new phone: +380663330001
 Phone number updated!
 ```
 
-### add-birthday
+### add birthday
 
-Used to add a birthday: `add-birthday`. Will be replaced if already exists.
+Used to add a birthday: `add birthday`. Will be replaced if already exists.
 
 ```
-Enter command: add-birthday
-(Press Control + C to exit from menu)
+Enter command: add birthday
+🧙 I need more information to continue.
+Tell me --exit to stop!
 Enter name: Maxima
 Enter birthday: 12.12.2001
 Birthday added!
 ```
 
-### add-email
+### add email
 
-Used to add an email: `add-email`. Will be replaced if already exists.
+Used to add an email: `add email`. Will be replaced if already exists.
 
 ```
-Enter command: add-email
-(Press Control + C to exit from menu)
+Enter command: add email
+🧙 Answer a few questions to continue.
+Tell me --exit to stop!
 Enter name: Maxima
 Enter email: max21@gmail.com
 Email added!
 ```
 
-### add-address
+### add address
 
-Used to add an address: `add-address`. Will be replaced if already exists.
+Used to add an address: `add address`. Will be replaced if already exists.
 
 ```
 Enter command: add-address
-(Press Control + C to exit from menu)
+🧙 Answer a few questions to continue.
+Tell me --exit to stop!
 Enter name: Maxima
 Enter address: Ukraine, Lviv
 Address added!
 ```
 
-### all-contacts
+### all contacts
 
-Used to display all contacts: `all-contacts`.
+Used to display all contacts: `all contacts`.
 
 ```
 Enter command: all-contacts
@@ -196,15 +207,16 @@ Enter command: all-contacts
 └───────────────────────┴────────────────────┴────────────────┴──────────────────────┴──────────────────┘
 ```
 
-### remove-contact
+### remove contact
 
-Used to remove a contact: `remove-contact`.
+Used to remove a contact: `remove contact`.
 You need to confirm with "yes" or "y".
 
 ```
-Enter command: remove-contact
-(Press Control + C to exit from menu)
-Enter name: Maxima
+Enter a command: remove contact
+🧙 I need more information to continue.
+Tell me --exit to stop!
+Enter Name: Maxima
 Contact Maxima will be removed, continue? (y/no) y
 Contact deleted!
 ```
@@ -240,26 +252,27 @@ Enter days range (7 by default) or a date (DD.MM): 10.10
 └───────────────────┴──────────────────────────────────────────────────────────┘
 ```
 
-### add-note
+### add note
 
-Used to add a note: `add-note`.
+Used to add a note: `add note`.
 
 ```
-Enter command: add-note
-(Press Control + C to exit from menu)
+Enter a command: add note
+🧙 I need more information to continue.
+Tell me --exit to stop!
 Enter content: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
 printer took a galley of type and scrambled it to make a type specimen book.
-Enter tags, separated only by commas or spaces (optional): lorem dummy
+Enter Tags (optional): lorem, dummy
 Note added!
 ```
 
-### all-notes
+### all notes
 
-Used to display all notes: `all-notes`
+Used to display all notes: `all notes`
 
 ```
-Enter command: all-notes
+Enter command: all notes
 
                                                   ⚔ All Notes
 ┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
@@ -277,6 +290,6 @@ Enter command: all-notes
 use `close` or `exit` to close the program. The current data will be saved.
 
 ```
-Enter command: exit
-Goodbye! See you later...
+Enter a command: exit
+Goodbye! See you soon...
 ```
