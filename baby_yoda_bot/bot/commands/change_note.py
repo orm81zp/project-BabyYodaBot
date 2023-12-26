@@ -1,3 +1,4 @@
+"""Module providing a function to change a note."""
 from baby_yoda_bot.models import Context, Content, Note
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
@@ -18,6 +19,7 @@ from ..bot import Bot
     ]
 )
 def change_note(ctx: Context, args):
+    """Calls to change a note"""
     uuid, content, tags = args
     note = ctx.notes.find_one(str(uuid))
 

@@ -1,3 +1,4 @@
+"""Module providing a function to add a note."""
 from baby_yoda_bot.models import Note, Context, Content
 from baby_yoda_bot.commands.commands import (
     CMD_ADD_NOTE,
@@ -20,6 +21,7 @@ from ..bot import Bot
     ]
 )
 def add_note(ctx: Context, args):
+    """Calls to a add a note"""
     content, tags = args
     tags = ctx.notes.parse_tags(tags)
     uuid = ctx.notes.generateId()

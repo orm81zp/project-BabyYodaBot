@@ -1,3 +1,4 @@
+"""Module providing a function to remove a tag or tags."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import COMMAND_DESCRIPTION, CMD_REMOVE_TAG
@@ -13,6 +14,7 @@ from ..bot import Bot
     ]
 )
 def remove_tag(ctx: Context, args):
+    """Calls to remove a tag"""
     uuid, tags = args
     note = ctx.notes.find_one(str(uuid))
 

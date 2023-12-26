@@ -1,3 +1,4 @@
+"""Module providing a function to remove a phone number."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
@@ -18,6 +19,7 @@ from ..bot import Bot
     ]
 )
 def remove_phone(ctx: Context, args):
+    """Calls to remove a phone"""
     name, phone = args
     contact = ctx.address_book.find_one(name)
 

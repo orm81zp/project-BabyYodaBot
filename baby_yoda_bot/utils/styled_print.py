@@ -1,3 +1,4 @@
+"""Module providing functions for printing models in tables."""
 from rich.console import Console
 from rich.table import Table
 

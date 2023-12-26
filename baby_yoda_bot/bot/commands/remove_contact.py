@@ -1,3 +1,4 @@
+"""Module providing a function to remove a contact."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.commands.commands import (
     CMD_REMOVE_CONTACT,
@@ -11,6 +12,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_REMOVE_CONTACT])
 @Bot.questions([{"name": ARG_NAME, "required": True, "type": str}])
 def remove_contact(ctx: Context, args):
+    """Calls to remove a contact"""
     name = args[0]
     ctx.address_book.remove(str(name))
 

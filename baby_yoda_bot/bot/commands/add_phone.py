@@ -1,3 +1,4 @@
+"""Module providing a function to add a phone number."""
 from baby_yoda_bot.models import Context, Phone
 from baby_yoda_bot.utils import print_added
 from baby_yoda_bot.commands.commands import (
@@ -18,6 +19,7 @@ from ..bot import Bot
     ]
 )
 def add_phone(ctx: Context, args):
+    """Calls to a add a phone number"""
     name, phone = args
     contact = ctx.address_book.find_one(str(name))
 
