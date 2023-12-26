@@ -1,3 +1,2 @@
 rich==13.7.0
 prompt_toolkit==3.0.43
-keyboard==0.13.5
