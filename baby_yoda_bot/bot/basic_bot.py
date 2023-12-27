@@ -22,6 +22,8 @@ class BasicBot:
 
     @property
     def commands(self):
+        """Getter, returns all commands collected by a command decorator."""
+
         commands = list(BasicBot.__COMMANDS_HANDLERS.keys())
         commands.extend(EXIT_COMMANDS)
 
@@ -29,6 +31,8 @@ class BasicBot:
 
     @staticmethod
     def command(name):
+        """Decorator, used to collect all commands."""
+
         def decorator(func):
             inner, key = BasicBot.__make_inner(func)
             BasicBot.__COMMANDS_HANDLERS[name] = func
@@ -40,20 +44,22 @@ class BasicBot:
 
     @staticmethod
     def questions(args):
+        """Decorator, used to collect all fields / arguments for a command."""
+
         def decorator(func):
             inner, key = BasicBot.__make_inner(func)
             BasicBot.__COMMANDS_METADATA__[key]["questions"] = args
-
             return inner
 
         return decorator
 
     @staticmethod
     def description(description):
+        """Decorator, used to collect all command descriptions."""
+
         def decorator(func):
             inner, key = BasicBot.__make_inner(func)
             BasicBot.__COMMANDS_METADATA__[key]["description"] = description
-
             return inner
 
         return decorator
@@ -74,33 +80,44 @@ class BasicBot:
         self.context = Context()
 
     def save(self):
+        """Calls contact book and notes methods to save the current state of data."""
         self.context.address_book.save_to_file()
         self.context.notes.save_to_file()
 
-    def request_user_input(self):
-        return request_input("Enter a command: ", self.commands)
+    def get_command(self):
+        """Gets data from the user, parses it to find the command, and returns it."""
+        user_input = request_input("Enter a command: ", self.commands)
+        command = parse_input(user_input)
+        return command
 
-    def parse_user_input(self, command):
-        return parse_input(command)
+    def ask_command(self):
+        """Prints a random message asking for a command."""
+        phrases = [
+            'Please, say something... Type "help" to see a hint.',
+            'Sorry, I don\'t understand you! Say something! Type "help" to see a hint.',
+            'I need more information, I can\'t guess. Type "help" to see a hint.',
+            'You must be joking, you didn\'t say anything. Type "help" to see a hint.',
+        ]
+        print(choice(phrases))
 
     def command_not_found(self, cmd):
+        """Checks if a command exists and prints a close suggestion if not."""
         if cmd not in self.__COMMANDS_HANDLERS:
-            commands = self.commands
-            close_matches = difflib.get_close_matches(cmd, commands, n=1, cutoff=0.6)
+            matches = difflib.get_close_matches(cmd, self.commands, n=1, cutoff=0.6)
 
-            if close_matches:
-                suggestion = close_matches[0]
+            if matches:
                 print(
-                    f'"{cmd}" is not a command. The most similar one is "{suggestion}".'
+                    f'"{cmd}" is not a command. The most similar one is "{matches[0]}".'
                 )
             else:
                 print(f'"{cmd}" is not a command. Type "help" to see a hint.')
-
             return True
 
-        return False
-
     def exec(self, command):
+        """Gets the command arguments, if necessary, and calls the command function with them."""
+        if self.command_not_found(command):
+            return
+
         executor_args = []
         executor = BasicBot.__COMMANDS_HANDLERS[command]
         metadata_key = executor.__bot_cmd__
@@ -146,19 +163,17 @@ class BasicBot:
                         if contact:
                             compeltions = contact.get_list_of_phones()
 
-                    value = request_input(
-                        f'Enter {rule["name"].capitalize()}{hint}: ', compeltions
-                    )
-
-                    if value.strip() == self.__WIZARD_CLOSE_COMMAND:
-                        print("\n")
-                        return
+                    value = request_input(f'Enter {rule["name"]}{hint}: ', compeltions)
 
                     if not value and is_optional:
                         value = None
                         break
 
                     value = value.strip()
+
+                    if value == self.__WIZARD_CLOSE_COMMAND:
+                        print()
+                        return
 
                     if rule["name"] == ARG_NAME:
                         history["name"] = value
@@ -189,6 +204,7 @@ class BasicBot:
         return executor(*executor_args)
 
     def animate(self, data, delay=0.04):
+        """Prints a row of data line by line with a delay."""
         if not ("--silent" in sys.argv or "-s" in sys.argv):
             rows = data.split("\n")
 
@@ -197,7 +213,8 @@ class BasicBot:
                 time.sleep(delay)
 
     def listen(self):
-        print("listen method must be implemented")
+        """Entry point for starting a Bot process."""
+        print("listen method must be implemented by a children class")
 
 
 __all__ = ["BasicBot"]

@@ -1,12 +1,8 @@
-from random import choice
 from baby_yoda_bot.exceptions.exceptions import (
     ValidationValueException,
     UnexpectedException,
 )
-from baby_yoda_bot.commands.commands import (
-    EXIT_COMMANDS,
-    CMD_HELP,
-)
+from baby_yoda_bot.commands.commands import EXIT_COMMANDS, CMD_HELP
 from baby_yoda_bot.constants import TEXT
 from ..assets import logo, phrase
 from .basic_bot import BasicBot
@@ -18,35 +14,25 @@ class Bot(BasicBot):
         print(TEXT["WELCOME"])
         self.exec(CMD_HELP)
 
-    def enter_command(self):
-        phrases = [
-            'Please, say something... Type "help" to see a hint.',
-            'Sorry, I don\'t understand you! Say something! Type "help" to see a hint.',
-            'I need more information, I can\'t guess. Type "help" to see a hint.',
-            'You must be joking, you didn\'t say anything. Type "help" to see a hint.',
-        ]
-        print(choice(phrases))
+    def goodbye(self):
+        self.animate(phrase, 0.1)
+        print("Goodbye! See you soon...\n")
 
     def listen(self):
         self.welcome()
 
         while True:
             try:
-                user_input = self.request_user_input()
-                command = self.parse_user_input(user_input)
+                command = self.get_command()
 
                 if command:
                     if command in EXIT_COMMANDS:
-                        self.animate(phrase, 0.1)
-                        print("Goodbye! See you soon...\n")
+                        self.goodbye()
                         break
-
-                    if self.command_not_found(command):
-                        continue
 
                     self.exec(command)
                 else:
-                    self.enter_command()
+                    self.ask_command()
             except ValidationValueException as err:
                 print(err)
             except KeyboardInterrupt:

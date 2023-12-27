@@ -2,7 +2,7 @@ from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 
 
-def request_input(message=">>>", compeltions=[]):
+def request_input(message=">>>", compeltions=None):
     """
     Function to request user's input by cmd line.
 
@@ -13,7 +13,7 @@ def request_input(message=">>>", compeltions=[]):
     Returns:
         user input string
     """
-    if len(compeltions) > 0:
+    if compeltions:
         return prompt(
             message,
             completer=WordCompleter(compeltions, ignore_case=True, sentence=True),
