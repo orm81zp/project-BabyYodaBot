@@ -4,6 +4,7 @@ from baby_yoda_bot.commands.commands import (
     CMD_BIRTHDAYS,
     COMMAND_DESCRIPTION,
     ARG_BIRTHDAY_RANGE,
+    VALIDATION_RULES,
 )
 from ..bot import Bot
 
@@ -16,6 +17,8 @@ from ..bot import Bot
             "name": ARG_BIRTHDAY_RANGE,
             "required": True,
             "type": str,
+            "pattern": r"^(\d+|\d{2}\.\d{2})$",
+            "pattern_error": VALIDATION_RULES[ARG_BIRTHDAY_RANGE],
         }
     ]
 )

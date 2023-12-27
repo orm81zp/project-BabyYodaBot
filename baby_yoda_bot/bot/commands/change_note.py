@@ -1,5 +1,5 @@
 """Module providing a function to change a note."""
-from baby_yoda_bot.models import Context, Content, Note
+from baby_yoda_bot.models import Context, Content, Note, Tag
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
     CMD_CHANGE_NOTE,
@@ -17,16 +17,16 @@ from ..bot import Bot
     [
         {"name": ARG_NOTE_ID, "required": True, "type": str},
         {"name": ARG_CONTENT, "required": True, "type": Content},
-        {"name": ARG_TAGS, "optional": True, "type": str},
+        {"name": ARG_TAGS, "optional": True, "type": Tag, "separated_list": True},
     ]
 )
 def change_note(ctx: Context, args):
     """Calls to change a note"""
     uuid, content, tags = args
-    note = ctx.notes.find_one(str(uuid))
+    uuid = str(uuid)
+    note = ctx.notes.find_one(uuid)
 
     if note:
-        tags = ctx.notes.parse_tags(tags)
         updated_note = Note(uuid, content=content, tags=tags)
         ctx.notes.save(updated_note)
     else:

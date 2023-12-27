@@ -49,7 +49,7 @@ ARG_SEARCH = "search value"
 ARG_BIRTHDAY_RANGE = "birthday range"
 
 VALIDATION_RULES = {
-    ARG_NAME: 'equivalent to "a-zA-Z0-9_.-", no spaces. Example: Max, J.Brain, Tom-1',
+    ARG_NAME: "from 1 to 30 characters. Example: Max, John Doe, Tom 1",
     ARG_PHONE: "can start with + and consist of 12 digits. Example: +380630000001",
     ARG_OLD_PHONE: f"same as for {ARG_PHONE}",
     ARG_NEW_PHONE: f"same as for {ARG_PHONE}",

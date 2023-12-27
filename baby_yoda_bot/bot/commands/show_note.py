@@ -14,7 +14,7 @@ from ..bot import Bot
 def show_note(ctx: Context, args):
     """Calls to display a note"""
     uuid = args[0]
-    ctx.notes.show_note(uuid)
+    ctx.notes.show_note(str(uuid))
 
 
 __all__ = ["show_note"]

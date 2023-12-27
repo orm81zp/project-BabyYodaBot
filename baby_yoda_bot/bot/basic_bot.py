@@ -1,4 +1,5 @@
 import time
+import re
 import sys
 import inspect
 import difflib
@@ -12,6 +13,7 @@ from baby_yoda_bot.commands.commands import (
     EXIT_COMMANDS,
     ARG_NAME,
     ARG_OLD_PHONE,
+    ARG_PHONE,
 )
 
 
@@ -137,18 +139,21 @@ class BasicBot:
             console.print(
                 f":mage: {phrase}\nTell me [bold]{self.__WIZARD_CLOSE_COMMAND}[/] to stop!"
             )
-            history = {}
+            history = {"name": ""}
             for rule in metadata["questions"]:
                 is_optional = not rule["required"] if "required" in rule else False
                 is_unique = "unique" in rule and rule["unique"]
+                is_separated_list = "separated_list" in rule and rule["separated_list"]
+                is_pattern = (
+                    "pattern" in rule and rule["pattern"] and "pattern_error" in rule
+                )
 
                 requirements = []
 
-                if is_optional:
-                    requirements.append("optional")
-
                 if is_unique:
                     requirements.append("unique")
+
+                name = f'[{rule["name"]}]' if is_optional else f'<{rule["name"]}>'
 
                 while True:
                     hint = (
@@ -158,18 +163,17 @@ class BasicBot:
                     compeltions = []
                     if rule["name"] == ARG_NAME:
                         compeltions = self.context.address_book.get_names()
-                    elif rule["name"] == ARG_OLD_PHONE and "name" in history:
+                    elif rule["name"] in [ARG_OLD_PHONE, ARG_PHONE] and history["name"]:
                         contact = self.context.address_book.find_one(history["name"])
                         if contact:
                             compeltions = contact.get_list_of_phones()
 
-                    value = request_input(f'Enter {rule["name"]}{hint}: ', compeltions)
+                    value = request_input(f"Enter {name}{hint}: ", compeltions)
+                    value = value.strip()
 
                     if not value and is_optional:
                         value = None
                         break
-
-                    value = value.strip()
 
                     if value == self.__WIZARD_CLOSE_COMMAND:
                         print()
@@ -185,9 +189,24 @@ class BasicBot:
                             print(f"{rule['name']} '{value}' must be unique")
                             continue
 
+                    if is_pattern:
+                        if value and not re.match(rule["pattern"], value):
+                            console.print(
+                                f'[red]Validation failed: {rule["pattern_error"]}[/]'
+                            )
+                            continue
+
                     if "type" in rule:
                         try:
-                            value = rule["type"](value)
+                            if is_separated_list:
+                                values = (
+                                    value.split(",")
+                                    if "," in value
+                                    else value.split(" ")
+                                )
+                                value = map((lambda x: rule["type"](x.strip())), values)
+                            else:
+                                value = rule["type"](value)
                             break
                         except ValidationValueException as e:
                             console.print(f"[red]Validation failed: {e}[/]")

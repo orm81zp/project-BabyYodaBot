@@ -1,5 +1,5 @@
 """Module providing a function to add an address."""
-from baby_yoda_bot.models import Address, Context
+from baby_yoda_bot.models import Address, Context, Name
 from baby_yoda_bot.utils import print_added
 from baby_yoda_bot.commands.commands import (
     CMD_ADD_ADDRESS,
@@ -14,21 +14,22 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_ADD_ADDRESS])
 @Bot.questions(
     [
-        {"name": ARG_NAME, "required": True, "type": str},
+        {"name": ARG_NAME, "required": True, "type": Name},
         {"name": ARG_ADDRESS, "required": True, "type": Address},
     ]
 )
 def add_address(ctx: Context, args):
     """Calls to a add an address"""
     name, address = args
-    contact = ctx.address_book.find_one(str(name))
+    name = str(name)
+    contact = ctx.address_book.find_one(name)
 
     if contact:
         contact.add_address(address)
     else:
-        added = ctx.address_book.add_contact(name=str(name), address=address)
+        added = ctx.address_book.add_contact(name=name, address=address)
         if added:
-            print_added(f'Contact "{str(name)}"')
+            print_added(f'Contact "{name}"')
             print_added("Address")
 
 

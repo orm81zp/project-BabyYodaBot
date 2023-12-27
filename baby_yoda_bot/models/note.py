@@ -1,6 +1,5 @@
 import time
 from .content import Content
-from .tag import Tag
 from ..utils import (
     print_updated,
     print_not_found,
@@ -19,18 +18,16 @@ class Note:
 
         if tags and len(tags) > 0:
             for tag in tags:
-                self.tags.add(Tag(tag))
+                self.tags.add(tag)
 
     # ----------- Tags------------------------------------------------
     def add_tag(self, tags):
         if tags and len(tags) > 0:
             for tag in tags:
-                self.tags.add(Tag(tag))
+                self.tags.add(tag)
 
-            if len(tags) == 1:
-                print_added("Tag")
-            else:
-                print_added("Tags")
+            text = "Tag" if len(tags) == 1 else "Tags"
+            print_added(text)
 
     def get_tags(self):
         return (
@@ -43,7 +40,8 @@ class Note:
     def remove_tag(self, tags):
         if tags and len(tags) > 0:
             count_before = len(self.tags)
-            self.tags = set(list(filter((lambda x: str(x) not in tags), self.tags)))
+            tags = list(map((lambda tag: str(tag)), tags))
+            self.tags = set(list(filter((lambda tag: str(tag) not in tags), self.tags)))
 
             text = "Tag" if len(tags) == 1 else "Tags"
             if count_before > len(self.tags):

@@ -173,6 +173,10 @@ class AddressBook(UserDict):
 
         get_birthdays(contacts, days_range, use_range=not use_date, use_work_days=False)
 
+    def __setitem__(self, key, item) -> None:
+        print("key: ", key, "item: ", item)
+        return super().__setitem__(key, item)
+
     def save_to_file(self):
         try:
             with open(self.filename, "wb") as file:
