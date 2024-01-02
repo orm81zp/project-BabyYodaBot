@@ -1,26 +1,28 @@
+from abc import ABC, abstractmethod
 from rich.console import Console
 from rich.table import Table
 
 
-class PrintObject:
+class PrintObject(ABC):
     def __init__(self, model):
         self.model = model
 
     def show(self, value):
         return str(value) if value else " - "
 
+    @abstractmethod
     def print(self):
-        print(self.model)
+        pass
 
 
-class PrintNote(PrintObject):
-    options = {"header_style": "bright_yellow", "min_width": 105}
+class NoteTable(PrintObject):
+    options = {"header_style": "bright_red", "min_width": 105}
 
-    def __init__(self, model, options):
+    def __init__(self, model, **options):
         super().__init__(model)
         self.options.update(options)
         self.options["title"] = (
-            options.get("title") or f":crossed_swords: {str(self.model.uuid)}'s Note"
+            options.get("title") or f":crossed_swords: {str(self.model.uuid)}'s note"
         )
 
     def print(self):
@@ -38,37 +40,46 @@ class PrintNote(PrintObject):
         print()
 
 
-class PrintNotes(PrintObject):
+class NotesTable(PrintObject):
     options = {"header_style": "bright_red", "min_width": 105}
 
-    def __init__(self, model, options):
+    def __init__(self, model, **options):
         super().__init__(model)
         self.options.update(options)
-        self.options["title"] = options.get("title") or ":crossed_swords: All Notes"
+        self.options["title"] = options.get("title") or ":crossed_swords: All notes"
 
     def print(self):
         print()
         table = Table(**self.options)
         table.add_column("Id", min_width=10)
         table.add_column("Content", max_width=80)
+        table.add_column("Created")
+        table.add_column("Modified")
         table.add_column("Tags")
 
         notes = self.model.values() if isinstance(self.model, dict) else self.model
 
         for note in notes:
-            table.add_row(str(note.uuid), self.show(note.content), note.get_tags())
+            table.add_row(
+                str(note.uuid),
+                self.show(note.content),
+                note.date_creation,
+                self.show(note.date_modification),
+                note.get_tags(),
+            )
         Console().print(table)
         print()
 
 
-class PrintRecord(PrintObject):
+class ContactTable(PrintObject):
     options = {"header_style": "bright_green", "min_width": 105}
 
-    def __init__(self, model, options):
+    def __init__(self, model, **options):
         super().__init__(model)
         self.options.update(options)
         self.options["title"] = (
-            options.get("title") or f"⚔️ {str(self.model.name)}'s Record"
+            options.get("title")
+            or f":crossed_swords: {str(self.model.name)}'s contact details"
         )
 
     def print(self):
@@ -92,13 +103,13 @@ class PrintRecord(PrintObject):
         print()
 
 
-class PrintRecords(PrintObject):
+class ContactsTable(PrintObject):
     options = {"header_style": "bright_green", "min_width": 105}
 
-    def __init__(self, model, options):
+    def __init__(self, model, **options):
         super().__init__(model)
         self.options.update(options)
-        self.options["title"] = options.get("title") or ":crossed_swords: All Contacts"
+        self.options["title"] = options.get("title") or ":crossed_swords: All сontacts"
 
     def print(self):
         print()
@@ -124,28 +135,13 @@ class PrintRecords(PrintObject):
 
 
 class StyledPrint:
-    def __init__(self, model, entity=None, **options):
-        self.options = options
-        self.model = model
-        self.entity = entity
-        self.printer = None
-        self.setup()
+    printer: PrintObject
 
-    def setup(self):
-        if self.entity == "contact":
-            self.printer = PrintRecord(self.model, self.options)
-        elif self.entity == "contacts":
-            self.printer = PrintRecords(self.model, self.options)
-        elif self.entity == "note":
-            self.printer = PrintNote(self.model, self.options)
-        elif self.entity == "notes":
-            self.printer = PrintNotes(self.model, self.options)
+    def __init__(self, printer):
+        self.printer = printer
 
     def print(self):
-        if self.printer:
-            self.printer.print()
-        else:
-            print("Nothing to display")
+        self.printer.print()
 
 
-__all__ = ["StyledPrint"]
+__all__ = ["StyledPrint", "NoteTable", "NotesTable", "ContactTable", "ContactsTable"]

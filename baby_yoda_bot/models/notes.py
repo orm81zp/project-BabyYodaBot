@@ -1,12 +1,11 @@
 import pickle
 from collections import UserDict
 from ..utils import (
-    StyledPrint,
     print_not_found,
     print_added,
-    print_updated,
     print_deleted,
 )
+from ..utils.styled_print import StyledPrint, NoteTable, NotesTable
 from .note import Note
 
 
@@ -47,6 +46,19 @@ class Notes(UserDict):
                     notes.append(note)
                     continue
 
+                # searching in created
+                if note.date_creation.find(search_formatted) > -1:
+                    notes.append(note)
+                    continue
+
+                # searching in modified
+                if (
+                    note.date_modification
+                    and note.date_modification.find(search_formatted) > -1
+                ):
+                    notes.append(note)
+                    continue
+
                 # searching by tags if by content not found
                 for tag in note.tags:
                     if str(tag).find(search_formatted) > -1:
@@ -55,7 +67,7 @@ class Notes(UserDict):
 
             if len(notes) > 0:
                 title = f'Search Result for "{search_value}"'
-                StyledPrint(notes, entity="notes", title=title).print()
+                StyledPrint(NotesTable(notes, title=title)).print()
             else:
                 print("Nothing to display.")
         else:
@@ -63,13 +75,8 @@ class Notes(UserDict):
 
     def save(self, note: Note):
         uuid = str(note.uuid)
-        existed_note = self.find_one(uuid)
-        if existed_note:
-            self.data[uuid] = note
-            print_updated(f"Note #{uuid}")
-        else:
-            self.data[uuid] = note
-            print_added("Note")
+        self.data[uuid] = note
+        print_added("Note")
 
     def find_one(self, uuid):
         if uuid in self.data:
@@ -79,7 +86,7 @@ class Notes(UserDict):
     def show_note(self, uuid):
         note = self.find_one(uuid)
         if note:
-            StyledPrint(note, entity="note").print()
+            StyledPrint(NoteTable(note)).print()
         else:
             print_not_found(f"Note #{uuid}")
 
@@ -102,7 +109,7 @@ class Notes(UserDict):
         except (OSError, IOError) as e:
             pass
 
-    def search_by_tag(self, tag):
+    def search_by_tag(self, tag: str):
         notes = []
         for note in self.data.values():
             tags = [str(t).lower() for t in note.tags]
@@ -110,14 +117,14 @@ class Notes(UserDict):
                 notes.append(note)
 
         if len(notes) > 0:
-            title = f"Search Result by #{tag} tag"
-            StyledPrint(notes, entity="notes", title=title).print()
+            title = f'Search Result by tag "{tag}"'
+            StyledPrint(NotesTable(notes, title=title)).print()
         else:
             print("Nothing to display.")
 
     def show_all(self):
         if len(self.data) > 0:
-            StyledPrint(self.data, entity="notes").print()
+            StyledPrint(NotesTable(self.data)).print()
         else:
             print("Nothing to display.")
 

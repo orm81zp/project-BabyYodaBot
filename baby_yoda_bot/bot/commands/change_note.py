@@ -1,9 +1,12 @@
-from baby_yoda_bot.models import Context, Content, Note
+"""Module providing a function to change a note."""
+from baby_yoda_bot.models import Context, Content, Note, Tag
 from baby_yoda_bot.utils import print_not_found
 from baby_yoda_bot.commands.commands import (
     CMD_CHANGE_NOTE,
     COMMAND_DESCRIPTION,
     ARG_CONTENT,
+    ARG_NOTE_ID,
+    ARG_TAGS,
 )
 from ..bot import Bot
 
@@ -12,19 +15,19 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_CHANGE_NOTE])
 @Bot.questions(
     [
-        {"name": "Note Id", "required": True, "type": str},
+        {"name": ARG_NOTE_ID, "required": True, "type": str},
         {"name": ARG_CONTENT, "required": True, "type": Content},
-        {"name": "a tag or comma separated tags", "optional": True, "type": str},
+        {"name": ARG_TAGS, "optional": True, "type": Tag, "separated_list": True},
     ]
 )
 def change_note(ctx: Context, args):
+    """Calls to change a note"""
     uuid, content, tags = args
-    note = ctx.notes.find_one(str(uuid))
+    uuid = str(uuid)
+    note = ctx.notes.find_one(uuid)
 
     if note:
-        tags = ctx.notes.parse_tags(tags)
-        updated_note = Note(uuid, content=content, tags=tags)
-        ctx.notes.save(updated_note)
+        note.update(content, tags)
     else:
         print_not_found(f"Note #{uuid}")
 

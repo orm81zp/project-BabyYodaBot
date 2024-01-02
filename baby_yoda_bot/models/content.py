@@ -13,9 +13,7 @@ class Content(Field):
         if len(data) > 10 and len(data) <= 500:
             self.__value = data.strip()
         else:
-            raise ValidationValueException(
-                f"Content failed validation. {VALIDATION_RULES[ARG_CONTENT]}"
-            )
+            raise ValidationValueException(VALIDATION_RULES[ARG_CONTENT])
 
     def __str__(self):
         return str(self.__value)

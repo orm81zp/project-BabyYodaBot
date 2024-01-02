@@ -2,7 +2,6 @@ from .phone import Phone
 from datetime import datetime
 from .address import Address
 from ..utils import (
-    StyledPrint,
     is_yes,
     print_diff,
     print_updated,
@@ -11,6 +10,7 @@ from ..utils import (
     print_deleted,
     print_exists,
 )
+from ..utils.styled_print import StyledPrint, ContactTable
 
 
 class Record:
@@ -68,6 +68,12 @@ class Record:
             if str(phone) == search_phone:
                 return phone
         return None
+
+    def get_list_of_phones(self):
+        phones = []
+        for phone in self.phones:
+            phones.append(str(phone))
+        return phones
 
     def get_phones(self, placeholder=" - "):
         phone_numbers = placeholder
@@ -139,7 +145,7 @@ class Record:
         return None
 
     def show(self):
-        StyledPrint(self, entity="contact").print()
+        StyledPrint(ContactTable(self)).print()
 
     def __str__(self):
         phone_numbers = ", ".join(str(phone) for phone in self.phones)

@@ -1,3 +1,4 @@
+"""Module providing a function to add a new contact."""
 from baby_yoda_bot.models import Name, Phone, Birthday, Email, Context
 from baby_yoda_bot.utils import print_added
 from baby_yoda_bot.commands.commands import (
@@ -5,6 +6,7 @@ from baby_yoda_bot.commands.commands import (
     ARG_NAME,
     ARG_BIRTHDAY,
     ARG_PHONE,
+    ARG_EMAIL,
     COMMAND_DESCRIPTION,
 )
 from ..bot import Bot
@@ -18,13 +20,14 @@ from ..bot import Bot
         {"name": ARG_PHONE, "required": False, "type": Phone},
         {"name": ARG_BIRTHDAY, "required": False, "type": Birthday},
         {
-            "name": "email",
+            "name": ARG_EMAIL,
             "required": False,
             "type": Email,
         },
     ]
 )
 def add_contact(ctx: Context, args):
+    """Calls to a add a new contact"""
     name, phone, birthday, email = args
     added = ctx.address_book.add_contact(
         name, phone=phone, birthday=birthday, email=email

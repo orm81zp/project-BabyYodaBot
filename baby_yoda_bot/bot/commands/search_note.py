@@ -1,3 +1,4 @@
+"""Module providing a function to search and display notes."""
 from baby_yoda_bot.models import Context
 from baby_yoda_bot.commands.commands import (
     CMD_SEARCH_NOTE,
@@ -11,6 +12,7 @@ from ..bot import Bot
 @Bot.description(COMMAND_DESCRIPTION[CMD_SEARCH_NOTE])
 @Bot.questions([{"name": ARG_SEARCH, "required": True, "type": str}])
 def search_note(ctx: Context, args):
+    """Calls to search and display notes"""
     search_value = args[0]
     ctx.notes.search(search_value)
 
