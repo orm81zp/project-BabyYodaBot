@@ -204,7 +204,9 @@ class BasicBot:
                                     if "," in value
                                     else value.split(" ")
                                 )
-                                value = map((lambda x: rule["type"](x.strip())), values)
+                                value = list(
+                                    map((lambda x: rule["type"](x.strip())), values)
+                                )
                             else:
                                 value = rule["type"](value)
                             break

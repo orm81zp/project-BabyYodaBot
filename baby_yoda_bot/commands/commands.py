@@ -55,7 +55,7 @@ VALIDATION_RULES = {
     ARG_NEW_PHONE: f"same as for {ARG_PHONE}",
     ARG_ADDRESS: "from 5 to 100 characters. Example: USA, 3944 D Street",
     ARG_EMAIL: "a valid email address. Example: max101@gmail.com",
-    ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", future\'s date not accepted. Example: 24.06.2001',
+    ARG_BIRTHDAY: 'a date, equivalent to "DD.MM.YYYY", future\'s date not accepted. Example: 24.06.2001',
     ARG_SEARCH: "case-insensitive characters. Example: hello world",
     ARG_BIRTHDAY_RANGE: "days range (7 by default) or a date (DD.MM). Example: 14, 15.02",
     ARG_TAG: "from 1 to 15 word characters",

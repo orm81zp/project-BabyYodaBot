@@ -15,7 +15,7 @@ from ..bot import Bot
     [
         {
             "name": ARG_BIRTHDAY_RANGE,
-            "required": True,
+            "required": False,
             "type": str,
             "pattern": r"^(\d+|\d{2}\.\d{2})$",
             "pattern_error": VALIDATION_RULES[ARG_BIRTHDAY_RANGE],

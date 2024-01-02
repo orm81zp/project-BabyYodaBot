@@ -2,13 +2,13 @@ import pickle
 from collections import UserDict
 from .record import Record
 from ..utils import (
-    StyledPrint,
     is_yes,
     print_not_found,
     print_deleted,
     print_exists,
     get_birthdays,
 )
+from ..utils.styled_print import StyledPrint, ContactsTable, ContactTable
 
 
 class AddressBook(UserDict):
@@ -90,7 +90,7 @@ class AddressBook(UserDict):
 
             if len(results) > 0:
                 title = f'Search Result for "{search_value}"'
-                StyledPrint(results, entity="contacts", title=title).print()
+                StyledPrint(ContactsTable(results, title=title)).print()
             else:
                 print("No results were found")
 
@@ -123,7 +123,7 @@ class AddressBook(UserDict):
     def show_contact(self, name):
         contact = self.find_one(name)
         if contact:
-            StyledPrint(contact, entity="contact").print()
+            StyledPrint(ContactTable(contact)).print()
         else:
             print_not_found("Contact")
 
@@ -137,7 +137,7 @@ class AddressBook(UserDict):
 
     def show_all(self):
         if len(self.data) > 0:
-            StyledPrint(self.data, entity="contacts").print()
+            StyledPrint(ContactsTable(self.data)).print()
         else:
             print("Address Book is empty")
 

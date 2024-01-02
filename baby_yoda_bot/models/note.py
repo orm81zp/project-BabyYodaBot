@@ -13,19 +13,21 @@ class Note:
         self.uuid = uuid
         self.content = content
         self.tags = set()
-        self.date_creation = time.strftime("%Y-%m-%d %H:%M:%S")
+        self.date_creation = time.strftime("%d.%m.%Y %H:%M:%S")
         self.date_modification = None
+        self.__add_tags(tags)
 
+    def __add_tags(self, tags):
         if tags and len(tags) > 0:
             for tag in tags:
                 self.tags.add(tag)
+            return True
+        return False
 
     # ----------- Tags------------------------------------------------
     def add_tag(self, tags):
-        if tags and len(tags) > 0:
-            for tag in tags:
-                self.tags.add(tag)
-
+        result = self.__add_tags(tags)
+        if result:
             text = "Tag" if len(tags) == 1 else "Tags"
             print_added(text)
 
@@ -49,20 +51,12 @@ class Note:
             else:
                 print_not_found(text)
 
-    # # ----------- Content------------------------------------------------
-    def add_content(self, content):
-        if self.content:
-            self.content = content
-            print_updated("Content")
-
-    def show_content(self):
-        print(str(self.content))
-
-    def remove_content(self):
-        self.content = None
-
-    def change_content(self, content):
-        self.content = Content(content)
+    def update(self, content, tags):
+        self.content = content
+        self.date_modification = time.strftime("%Y-%m-%d %H:%M:%S")
+        self.tags = set()
+        self.__add_tags(tags)
+        print_updated(f"Note #{self.uuid}")
 
     def __str__(self):
         return f"#{str(self.uuid)}, {str(self.content)}\nTags: {self.get_tags()}"

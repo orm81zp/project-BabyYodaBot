@@ -27,8 +27,7 @@ def change_note(ctx: Context, args):
     note = ctx.notes.find_one(uuid)
 
     if note:
-        updated_note = Note(uuid, content=content, tags=tags)
-        ctx.notes.save(updated_note)
+        note.update(content, tags)
     else:
         print_not_found(f"Note #{uuid}")
 

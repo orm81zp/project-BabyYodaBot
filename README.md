@@ -75,7 +75,7 @@ show birthday              - used to display a birthday: show birthday <name>
 search contact             - used to search contacts (case-insensitive): search contact <search value>
 remove birthday            - used to remove a birthday: remove birthday <name>
 remove contact             - used to remove a contact: remove contact <name>
-birthdays                  - used to display birthdays in coming days (7 by default): birthdays <birthday range>
+birthdays                  - used to display birthdays in coming days (7 by default): birthdays [birthday range]
 add address                - used to add an address: add address <name> <address>
 show address               - used to display an address: show address <name>
 remove address             - used to remove an address: remove address <name>
@@ -104,9 +104,9 @@ Types of argumets:
 [optional]                - optional argument
 
 List of arguments:
-name (unique)             - equivalent to "a-zA-Z0-9_.-", no spaces. Example: Max, J.Brain, Tom-1
+name (unique)             - from 1 to 30 characters. Example: Max, John Doe, Tom 1
 phone                     - can start with + and consist of 12 digits. Example: +380630000001
-birthday                  - a valid date, equivalent to "DD.MM.YYYY", future's date not accepted. Example: 24.06.2001
+birthday                  - a date, equivalent to "DD.MM.YYYY", future's date not accepted. Example: 24.06.2001
 email                     - a valid email address. Example: max101@gmail.com
 search value              - case-insensitive characters. Example: hello world
 birthday range            - days range (7 by default) or a date (DD.MM). Example: 14, 15.02
@@ -183,7 +183,7 @@ Email added!
 Used to add an address: `add address`. Will be replaced if already exists.
 
 ```
-Enter command: add-address
+Enter command: add address
 🧙 Answer a few questions to continue.
 Tell me --exit to stop!
 Enter name: Maxima
@@ -196,9 +196,9 @@ Address added!
 Used to display all contacts: `all contacts`.
 
 ```
-Enter command: all-contacts
+Enter command: all contacts
 
-                                             ⚔ All Contacts
+                                             ⚔ All contacts
 ┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
 ┃ Name                  ┃ Phone              ┃ Birthday       ┃ Email                ┃ Address          ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
@@ -274,7 +274,7 @@ Used to display all notes: `all notes`
 ```
 Enter command: all notes
 
-                                                  ⚔ All Notes
+                                                  ⚔ All notes
 ┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 ┃ Id         ┃ Content                                                                          ┃ Tags         ┃
 ┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
